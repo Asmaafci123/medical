@@ -126,7 +126,7 @@ class _MyMedicalRequestsScreenState
                               //   _cubit.searchInPendingRequests();
                               // },
                               decoration: InputDecoration(
-                                hintText: AppStrings.searchByUserNumber.tr(),
+                                hintText: "Search by Request Id and medical entity",
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 12.h, horizontal: 11.w),
@@ -937,7 +937,7 @@ class _MyMedicalRequestsScreenState
                                       height: 5.h,
                                     ),
                                     Text(
-                                        "You request these medical requests : ",
+                                        "Your medical requests : ",
                                         style: TextStyle(
                                           color: AppColors.greyDark,
                                           fontSize: 14.sp,
@@ -994,7 +994,7 @@ class _MyMedicalRequestsScreenState
                                           height: 5.h,
                                         ),
                                         Text(
-                                            "You request these medical requests : ",
+                                            "Medical requests for ${_cubit.filteredMedicalRequest[0].employeeName}: ",
                                             style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontSize: 14.sp,
@@ -1046,7 +1046,7 @@ class _MyMedicalRequestsScreenState
                                       height: 5.h,
                                     ),
                                     Text(
-                                        "You request these medical requests : ",
+                                        "Your medical requests : ",
                                         style: TextStyle(
                                           color: AppColors.greyDark,
                                           fontSize: 14.sp,
@@ -1102,6 +1102,17 @@ class _MyMedicalRequestsScreenState
                                         SizedBox(
                                           height: 5.h,
                                         ),
+                                        Text(
+                                            "Medical requests for ${_cubit.searchedResult[0].employeeName}: ",
+                                            style: TextStyle(
+                                              color: AppColors.greyDark,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w200,
+                                              fontFamily: "Certa Sans",
+                                            )),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
                                         Expanded(
                                           child: ListView.separated(
                                               itemCount:
@@ -1149,7 +1160,7 @@ class _MyMedicalRequestsScreenState
                                           height: 5.h,
                                         ),
                                         Text(
-                                            "You request these medical requests : ",
+                                            "Your medical requests : ",
                                             style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontSize: 14.sp,
