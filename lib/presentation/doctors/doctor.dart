@@ -1,0 +1,193 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/constants/app_strings.dart';
+import 'package:more4u/data/models/details-of-medical-model.dart';
+import '../../core/themes/app_colors.dart';
+import '../../custom_icons.dart';
+import '../home/widgets/app_bar.dart';
+import '../more4u_home/cubits/more4u_home_cubit.dart';
+import '../our_paretners/our_partners_screen.dart';
+import '../widgets/card-of-medical-subCategory.dart';
+import '../widgets/drawer_widget.dart';
+
+class Doctors extends StatefulWidget {
+  final List<DetailsOfMedicalModel> details;
+  final String title;
+  const Doctors({Key? key,required this.details,required this.title}) : super(key: key);
+
+  @override
+  State<Doctors> createState() => _DoctorsState();
+}
+
+class _DoctorsState extends State<Doctors> {
+  // @override
+  // void dispose() {
+  //   HomeCubit.get(context).clearSearchController();
+  //   super.dispose();
+  // }
+  @override
+  void initState()
+  {
+    More4uHomeCubit.get(context).clearSearchController();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<More4uHomeCubit,More4uHomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    return Scaffold(
+        //appBar: myAppBarMedicalIos(),
+        drawer: const DrawerWidget(),
+        body: SafeArea(
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.h),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    //  const MyAppBar(),
+                      HomeAppBar(
+                        title: widget.title,
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>OurPartnersScreen()),
+                                  (route) => false);
+                        },
+                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(right: 10.w),
+                      //   child: AutoSizeText(
+                      //     widget.title,
+                      //     maxLines: 1,
+                      //     style: TextStyle(
+                      //         fontSize: 24.sp,
+                      //         fontFamily: 'Joti',
+                      //         color: AppColors.redColor,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        offset: Offset(0, 4),
+                                        color: Colors.black26)
+                                  ]),
+                              child: TextField(
+                                style: TextStyle(fontSize: 14.sp,  fontFamily: "Certa Sans",),
+                                controller:
+                                More4uHomeCubit.get(context).searchMedicalController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  hintText: "Search by name",
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 12.h, horizontal: 11.w),
+                                  fillColor: Colors.white,
+                                  filled: true,
+
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.whiteGreyColor),
+                                    borderRadius: BorderRadius.circular(15.r),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.whiteGreyColor),
+                                    borderRadius: BorderRadius.circular(15.r),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(15.r),
+                            onTap: () {
+                           //   _cubit.searchInPendingRequests();
+                            },
+                            child: Ink(
+                              width: 35.w,
+                              height: 34.w,
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFe8f2ff),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26, blurRadius: 10)
+                                  ],
+                                  borderRadius: BorderRadius.circular(15.r),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      stops: [
+                                        0.0,
+                                        0.7,
+                                        1
+                                      ],
+                                      //  tileMode: TileMode.repeated,
+                                      colors: [
+                                        Color(0xFF00a7ff),
+                                        Color(0xFF2a64ff),
+                                        Color(0xFF1980ff),
+                                      ])),
+                              child: Center(
+                                  child: Icon(
+                                    // Icons.filter_list_alt,
+                                    CustomIcons.search__1_,
+                                    size: 17.r,
+                                    // color: Color(0xFF2c93e7),
+                                    color: AppColors.whiteColor,
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      More4uHomeCubit.get(context).searchMedicalController.text.isEmpty?
+                      widget.details.isNotEmpty?Expanded(
+                          child: ListView.builder(
+                              itemBuilder: (context,index)=>WidgetOfSubCategory(obj: widget.details[index],),
+                            itemCount: widget.details.length,
+                          ),
+                      ):Expanded(
+                        child: Center(
+                          child: Text(AppStrings.thereIsNoData.tr()),
+                        ),
+                      ):
+                      More4uHomeCubit.get(context).resultList.isNotEmpty?Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (context,index)=>WidgetOfSubCategory(obj:More4uHomeCubit.get(context).resultList[index],),
+                          itemCount:  More4uHomeCubit.get(context).resultList.length,
+                        ),
+                      ):Expanded(
+                        child: Center(
+                          child: Text(AppStrings.thereIsNoData.tr()),
+                        ),
+                      )
+                    ])
+
+            )
+        )
+    );
+  },
+);
+  }
+}
