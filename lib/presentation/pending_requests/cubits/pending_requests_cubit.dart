@@ -63,6 +63,9 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
           pendingRequestsResponse.requestsCount.checkups;
       sickLeavePendingRequestCount =
           pendingRequestsResponse.requestsCount.sickleave;
+      print("111111111111111111111");
+      print(checkUpsPendingRequests);
+      print("111111111111111111111");
       emit(GetPendingRequestsSuccessState());
     });
   }

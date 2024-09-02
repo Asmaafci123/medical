@@ -28,6 +28,7 @@ class PendingRequestsScreen extends StatefulWidget {
 
 class _PendingRequestsScreenState extends State<PendingRequestsScreen>
     with TickerProviderStateMixin {
+  late TabController _tabController;
   @override
   void initState()
   {
@@ -35,10 +36,26 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await PendingRequestsCubit.get(context).getPendingRequests();
     });
+    _tabController = TabController(length: 3, vsync: this);
+    int tabControllerIndex=0;
+    _tabController.addListener(() {
+      if(_tabController.index==0)
+        {
+          tabControllerIndex=1;
+        }
+      else if(_tabController.index==1)
+        {
+          tabControllerIndex=2;
+        }
+      else
+        {
+          tabControllerIndex=3;
+        }
+      PendingRequestsCubit.get(context).changeRequestTypeID(tabControllerIndex.toString());
+    });
   }
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 3, vsync: this);
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
         if(state is ChangeRequestTypeSuccessState)
@@ -203,6 +220,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(4.w, 8.h, 4.w,8.h),
                         child: TabBar(
+                          physics: ScrollPhysics(),
                             controller: _tabController,
                             unselectedLabelColor: AppColors.greyColor,
                             labelColor:AppColors.whiteColor ,
@@ -352,7 +370,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                   ),
                   Expanded(
                     child: TabBarView(
-                        physics:const ScrollPhysics(),
+                        physics: ScrollPhysics(),
                         controller: _tabController,
                         children: [
                          state is ClearSearchResultSuccessState?
