@@ -352,7 +352,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                   ),
                   Expanded(
                     child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics:ScrollPhysics(),
                         controller: _tabController,
                         children: [
                          state is ClearSearchResultSuccessState?
