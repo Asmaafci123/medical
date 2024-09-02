@@ -35,7 +35,7 @@ class RequestCard extends StatelessWidget {
             height: 160.h,
           ),
           Positioned(
-            top: 16.h,
+            top: 12.h,
             child: Card(
               elevation: 5,
               shape:
@@ -196,18 +196,18 @@ class RequestCard extends StatelessWidget {
           //     backgroundImage:
           //     NetworkImage(request.employeeImageUrl)),
           Positioned(
-            left: 15.w,
+            left: 10.w,
             top: 0,
             child: Card(
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.r)),
+                    borderRadius: BorderRadius.circular(15.r)),
                 shadowColor: Color(0xFF446CFF),
                 child: Container(
-                  height: 100.h,
-                  width: 80.w,
+                  height: 120.h,
+                  width: 90.w,
                   decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image.network(
