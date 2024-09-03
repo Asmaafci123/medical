@@ -110,7 +110,10 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
 
 
   List<String>filteredSearchList=[];
+  Set<String>filteredSearchSet={};
   filter()async {
+    filteredSearchList=[];
+    filteredSearchSet={};
     var filterMedical= FilteredMedicalRequestsSearch(
         selectedRequestType:selectedRequestType==0?"": selectedRequestType.toString(),
         selectedRequestStatus:selectedRequestStatus==0?"": selectedRequestStatus.toString(),
@@ -124,46 +127,47 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
     );
 
     if(selectedRequestType==1) {
-      filteredSearchList.add("Medications");
+      filteredSearchSet.add("Medications");
     }
     else if(selectedRequestType==2) {
-      filteredSearchList.add("CheckUps");
+      filteredSearchSet.add("CheckUps");
     }
     else if(selectedRequestType==3) {
-      filteredSearchList.add("SickLeave");
+      filteredSearchSet.add("SickLeave");
     }
 
 
     if(selectedRequestStatus==1) {
-      filteredSearchList.add("Pending");
+      filteredSearchSet.add("Pending");
     }
     else if(selectedRequestStatus==3) {
-      filteredSearchList.add("Approved");
+      filteredSearchSet.add("Approved");
     }
     else if(selectedRequestStatus==4) {
-      filteredSearchList.add("Rejected");
+      filteredSearchSet.add("Rejected");
     }
 
     if(requestIdFiltrationController.text.isNotEmpty)
    {
-     filteredSearchList.add(requestIdFiltrationController.text.toString());
+     filteredSearchSet.add(requestIdFiltrationController.text.toString());
    }
     if(userNumberSearch.text.isNotEmpty)
     {
-      filteredSearchList.add(userNumberSearch.text.toString());
+      filteredSearchSet.add(userNumberSearch.text.toString());
     }
     if(selectedRelative!=null)
     {
-      filteredSearchList.add(selectedRelative!.relativeId.toString());
+      filteredSearchSet.add(selectedRelative!.relativeId.toString());
     }
     if(fromText.text.isNotEmpty)
     {
-      filteredSearchList.add(fromText.text.toString());
+      filteredSearchSet.add(fromText.text.toString());
     }
     if(toText.text.isNotEmpty)
     {
-      filteredSearchList.add(toText.text.toString());
+      filteredSearchSet.add(toText.text.toString());
     }
+    filteredSearchList=filteredSearchSet.toList();
     await getFilteredMedicalRequests(filter:filterMedical);
   }
 
