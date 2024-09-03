@@ -114,7 +114,6 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
         subCat=List<CategoryModel>.from(response.subCategory!);
         detailsOfMedical=List<DetailsOfMedicalModel>.from(response.medicalDetails!);
         recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
-        print(recentlySearchOurPartners);
         emit(GetMedicalSuccessState());
       });
   }
@@ -141,6 +140,15 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
         details.add(category);
       }
     }
+    if(details.isEmpty)
+      {
+        for(var category in detailsOfMedical)
+        {
+          if(searchCategory==category.categoryName) {
+            details.add(category);
+          }
+        }
+      }
     return details;
   }
   List<DetailsOfMedicalModel> resultList=[];

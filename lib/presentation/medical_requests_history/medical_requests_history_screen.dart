@@ -126,7 +126,7 @@ class _MyMedicalRequestsScreenState
                               //   _cubit.searchInPendingRequests();
                               // },
                               decoration: InputDecoration(
-                                hintText: "Search by Request Id and medical entity",
+                                hintText: "Search by Request Id and Entity",
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 12.h, horizontal: 11.w),
@@ -866,6 +866,15 @@ class _MyMedicalRequestsScreenState
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Divider(
+                      thickness: 0.4,
+                      endIndent: 80.w,
+                      indent:80.w,
+
                     ),
                     SizedBox(
                       height: 10.h,

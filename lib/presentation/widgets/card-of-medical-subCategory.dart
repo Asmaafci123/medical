@@ -284,82 +284,109 @@ class WidgetOfSubCategory extends StatelessWidget {
               );
             }).whenComplete(() => true);
       },
-      child: SizedBox(
-        width: double.infinity,
-        height: 90.h,
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-          elevation: 3,
-          shadowColor: Colors.grey,
-          child: Padding(
-            padding: EdgeInsets.all(8.0.h),
-            child: Row(
-              children: [
-                Image.network(
-                  obj.medicalDetailsImage!,
-                  width: 50.w,
-                  errorBuilder: (context, error, stackTrace) =>
-                      Image.asset(
-                          "assets/images/alzahra_hospital.jpg"),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: AutoSizeText(
-                    maxLines: 4,
-                    obj.medicalDetailsName!,
-                    style:TextStyle(fontSize: 16.sp,  fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                // Padding(
-                //   padding:EdgeInsets.fromLTRB(5.w, 0, 5.w, 0),
-                //   child: Container(
-                //     width: 22.w,
-                //     height: 22.w,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(15.r),
-                //       color: AppColors.mainColor,
-                //     ),
-                //     child: Icon(Icons.arrow_downward_rounded,
-                //       fill: 1
-                //       ,color:Colors.white,size: 16.sp,),
-                //   ),
-                // ),
-                CircleAvatar(
-                  radius: 12.r,
-                  backgroundColor:
-                  Colors.transparent,
-                  child: Container(
-                      decoration:
-                      BoxDecoration(
-                        shape:
-                        BoxShape.circle,
-                        gradient:
-                        LinearGradient(
-                          colors: [
-                            Color(0xFF446CFF),
-                            Color(0xFF1E9AFF),
-                          ],
+      child: Stack(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: 100.h,
+          ),
+          Positioned(
+            top: 10.h,
+            child: SizedBox(
+              width:330.w,
+              height: 90.h,
+              child: Card(
+                shape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                elevation: 3,
+                shadowColor: Colors.grey,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(120.w, 0,10.w, 0),
+                  child: Row(
+                    children: [
+                      // SizedBox(
+                      //   width: 80.w,
+                      // ),
+                      Expanded(
+                        child: AutoSizeText(
+                          maxLines: 4,
+                          obj.medicalDetailsName!,
+                          style:TextStyle(fontSize: 16.sp,  fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
                         ),
                       ),
-                      child: Center(
-                          child: Icon(
-                            Icons
-                                .arrow_forward_ios_outlined,
-                            size: 14.sp,
-                            color: AppColors
-                                .whiteColor,
-                          ))),
-                )
-              ],
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      // Padding(
+                      //   padding:EdgeInsets.fromLTRB(5.w, 0, 5.w, 0),
+                      //   child: Container(
+                      //     width: 22.w,
+                      //     height: 22.w,
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(15.r),
+                      //       color: AppColors.mainColor,
+                      //     ),
+                      //     child: Icon(Icons.arrow_downward_rounded,
+                      //       fill: 1
+                      //       ,color:Colors.white,size: 16.sp,),
+                      //   ),
+                      // ),
+                      CircleAvatar(
+                        radius: 12.r,
+                        backgroundColor:
+                        Colors.transparent,
+                        child: Container(
+                            decoration:
+                            BoxDecoration(
+                              shape:
+                              BoxShape.circle,
+                              gradient:
+                              LinearGradient(
+                                colors: [
+                                  Color(0xFF446CFF),
+                                  Color(0xFF1E9AFF),
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                                child: Icon(
+                                  Icons
+                                      .arrow_forward_ios_outlined,
+                                  size: 14.sp,
+                                  color: AppColors
+                                      .whiteColor,
+                                ))),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
+          Positioned(
+            left: 10.w,
+            child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r)),
+                shadowColor: Color(0xFF446CFF),
+                child: Container(
+                  height: 80.h,
+                  width: 90.w,
+                  decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.network(
+                        obj.medicalDetailsImage!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.asset(
+                              "assets/images/alzahra_hospital.jpg"),
+                    ),
+                  ),
+                )),)
+        ],
       ),
     );
   }

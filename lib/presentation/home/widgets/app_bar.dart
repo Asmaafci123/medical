@@ -33,13 +33,20 @@ class HomeAppBar extends StatelessWidget {
         ),
         Spacer(),
         title!=null?
-        Text(
-          title!,
-          style: TextStyle(
-              color: AppColors.blackColor,
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w200,
-            fontFamily: "Certa Sans",),
+        FittedBox(
+          child: SizedBox(
+            width: 220.w,
+            child: Text(
+              title!,
+              style: TextStyle(
+                  color: AppColors.blackColor,
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w200,
+                fontFamily: "Certa Sans",),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ):const SizedBox(),
         Spacer(),
         title!=null?
