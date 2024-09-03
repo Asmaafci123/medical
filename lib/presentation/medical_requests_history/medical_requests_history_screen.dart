@@ -880,53 +880,82 @@ class _MyMedicalRequestsScreenState
                       height: 10.h,
                     ),
                     _cubit.filteredSearchList.isNotEmpty
-                        ? Row(
-                            children: [
-                              Wrap(
-                                children: List<Widget>.generate(
-                                  MyMedicalRequestsCubit.get(context)
-                                      .filteredSearchList
-                                      .length,
-                                  (int idx) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(right: 5.w),
-                                      child: ChoiceChip(
-                                        //  selectedColor: AppColors.redColor,
-                                        // backgroundColor: AppColors.greyColor,
-                                        label: Text(
-                                            MyMedicalRequestsCubit.get(context)
-                                                .filteredSearchList[idx]),
-                                        selected: false,
-                                        disabledColor: AppColors.greyText,
-                                        // onSelected: (bool selected) {
-                                        //   setState(() {
-                                        //     MyMedicalRequestsCubit.get(context)
-                                        //         .searchInMedical(
-                                        //         MyMedicalRequestsCubit.get(context)
-                                        //             .recentlySearched[idx]);
-                                        //   });
-                                        // }
-                                      ),
-                                    );
-                                  },
-                                ).toList(),
-                              ),
-                              Spacer(),
-                              TextButton(
-                                  onPressed: () {
-                                    _cubit.clearFilteredList();
-                                  },
-                                  child: Text(
-                                    "Clear All",
-                                    style: TextStyle(
-                                      color: AppColors.redColor,
-                                      fontFamily: "Certa Sans",
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w200,
+                        ? Column(
+                          children: [
+                            Card(
+                              elevation: 0.5,
+                      shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.r)
+                      ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(16.w, 0.h, 16.w,10.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                            "Recently filters",
+                                            style: TextStyle(
+                                              color: AppColors.blackColor,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.w200,
+                                              fontFamily: "Certa Sans",
+                                            )),
+                                        Spacer(),
+                                        TextButton(
+                                            onPressed: () {
+                                              _cubit.clearFilteredList();
+                                            },
+                                            child: Text(
+                                              "Clear all",
+                                              style: TextStyle(
+                                                color: AppColors.redColor,
+                                                fontFamily: "Certa Sans",
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w200,
+                                              ),
+                                            ))
+                                      ],
                                     ),
-                                  ))
-                            ],
-                          )
+                                    Wrap(
+                                      children: List<Widget>.generate(
+                                        MyMedicalRequestsCubit.get(context)
+                                            .filteredSearchList
+                                            .length,
+                                            (int idx) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(right: 5.w),
+                                            child: ChoiceChip(
+                                              //  selectedColor: AppColors.redColor,
+                                              // backgroundColor: AppColors.greyColor,
+                                              label: Text(
+                                                  MyMedicalRequestsCubit.get(context)
+                                                      .filteredSearchList[idx]),
+                                              selected: false,
+                                              disabledColor: AppColors.greyText,
+                                              // onSelected: (bool selected) {
+                                              //   setState(() {
+                                              //     MyMedicalRequestsCubit.get(context)
+                                              //         .searchInMedical(
+                                              //         MyMedicalRequestsCubit.get(context)
+                                              //             .recentlySearched[idx]);
+                                              //   });
+                                              // }
+                                            ),
+                                          );
+                                        },
+                                      ).toList(),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                          ],
+                        )
                         : SizedBox(),
                     state is ClearFilteredHistoryListSuccessState
                         ? _cubit.myMedicalRequests.isNotEmpty
@@ -935,7 +964,7 @@ class _MyMedicalRequestsScreenState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "result(${_cubit.myMedicalRequests.length})",
+                                        "Result(${_cubit.myMedicalRequests.length})",
                                         style: TextStyle(
                                           color: AppColors.greyDark,
                                           fontSize: 18.sp,
@@ -943,7 +972,7 @@ class _MyMedicalRequestsScreenState
                                           fontFamily: "Certa Sans",
                                         )),
                                     SizedBox(
-                                      height: 5.h,
+                                      height: 10.h,
                                     ),
                                     Text(
                                         "Your medical requests : ",
@@ -992,7 +1021,7 @@ class _MyMedicalRequestsScreenState
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            "result(${_cubit.filteredMedicalRequest.length})",
+                                            "Result(${_cubit.filteredMedicalRequest.length})",
                                             style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontSize: 18.sp,
@@ -1000,7 +1029,7 @@ class _MyMedicalRequestsScreenState
                                               fontFamily: "Certa Sans",
                                             )),
                                         SizedBox(
-                                          height: 5.h,
+                                          height: 10.h,
                                         ),
                                         Text(
                                             "Medical requests for ${_cubit.filteredMedicalRequest[0].employeeName}: ",
@@ -1044,7 +1073,7 @@ class _MyMedicalRequestsScreenState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "result(${_cubit.myMedicalRequests.length})",
+                                        "Result(${_cubit.myMedicalRequests.length})",
                                         style: TextStyle(
                                           color: AppColors.greyDark,
                                           fontSize: 18.sp,
@@ -1052,7 +1081,7 @@ class _MyMedicalRequestsScreenState
                                           fontFamily: "Certa Sans",
                                         )),
                                     SizedBox(
-                                      height: 5.h,
+                                      height: 10.h,
                                     ),
                                     Text(
                                         "Your medical requests : ",
@@ -1101,7 +1130,7 @@ class _MyMedicalRequestsScreenState
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            "result(${_cubit.searchedResult.length})",
+                                            "Result(${_cubit.searchedResult.length})",
                                             style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontSize: 18.sp,
@@ -1109,7 +1138,7 @@ class _MyMedicalRequestsScreenState
                                               fontFamily: "Certa Sans",
                                             )),
                                         SizedBox(
-                                          height: 5.h,
+                                          height: 10.h,
                                         ),
                                         Text(
                                             "Medical requests for ${_cubit.searchedResult[0].employeeName}: ",
@@ -1158,7 +1187,7 @@ class _MyMedicalRequestsScreenState
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            "result(${_cubit.myMedicalRequests.length})",
+                                            "Result(${_cubit.myMedicalRequests.length})",
                                             style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontSize: 18.sp,
@@ -1166,7 +1195,7 @@ class _MyMedicalRequestsScreenState
                                               fontFamily: "Certa Sans",
                                             )),
                                         SizedBox(
-                                          height: 5.h,
+                                          height: 10.h,
                                         ),
                                         Text(
                                             "Your medical requests : ",
@@ -1177,7 +1206,7 @@ class _MyMedicalRequestsScreenState
                                               fontFamily: "Certa Sans",
                                             )),
                                         SizedBox(
-                                          height: 5.h,
+                                          height: 10.h,
                                         ),
                                         Expanded(
                                           child: ListView.separated(

@@ -152,20 +152,21 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
     return details;
   }
   List<DetailsOfMedicalModel> resultList=[];
-  // searchInMedical(List<DetailsOfMedicalModel> medicalList,String input)
-  // {
-  //   resultList=[];
-  //   for(var element in medicalList)
-  //   {
-  //     String text1=element.medicalDetailsName!.toLowerCase();
-  //     String text2=input.toLowerCase();
-  //     if(text1.isNotEmpty && text1.contains(text2))
-  //       {
-  //         resultList.add(element);
-  //       }
-  //   }
-  //   emit(SearchInMedicalSuccessState());
-  // }
+  List<DetailsOfMedicalModel>resultSearchInMedicalDetails=[];
+  searchInMedicalDetails(List<DetailsOfMedicalModel> medicalList,String input)
+  {
+    resultSearchInMedicalDetails=[];
+    for(var element in medicalList)
+    {
+      String text1=element.medicalDetailsName!.toLowerCase();
+      String text2=input.toLowerCase();
+      if(text1.isNotEmpty && text1.contains(text2))
+        {
+          resultSearchInMedicalDetails.add(element);
+        }
+    }
+    emit(SearchInMedicalSuccessState());
+  }
 
   TextEditingController searchMedicalController = TextEditingController();
   TextEditingController searchMedicalController1 = TextEditingController();
@@ -175,7 +176,7 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
   {
     resultList=[];
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
-    recentlySearchOurPartners!.add(input);
+    recentlySearchOurPartners?.add(input);
     for(var element in detailsOfMedical)
     {
       String text1=element.medicalDetailsName!.toLowerCase();

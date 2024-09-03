@@ -120,7 +120,7 @@ class _DoctorsState extends State<Doctors> {
                           InkWell(
                             borderRadius: BorderRadius.circular(15.r),
                             onTap: () {
-                           //   _cubit.searchInPendingRequests();
+                              More4uHomeCubit.get(context).searchInMedicalDetails( widget.details,More4uHomeCubit.get(context).searchMedicalController.text);
                             },
                             child: Ink(
                               width: 35.w,
@@ -172,10 +172,10 @@ class _DoctorsState extends State<Doctors> {
                           child: Text(AppStrings.thereIsNoData.tr()),
                         ),
                       ):
-                      More4uHomeCubit.get(context).resultList.isNotEmpty?Expanded(
+                      More4uHomeCubit.get(context).resultSearchInMedicalDetails.isNotEmpty?Expanded(
                         child: ListView.builder(
-                          itemBuilder: (context,index)=>WidgetOfSubCategory(obj:More4uHomeCubit.get(context).resultList[index],),
-                          itemCount:  More4uHomeCubit.get(context).resultList.length,
+                          itemBuilder: (context,index)=>WidgetOfSubCategory(obj:More4uHomeCubit.get(context).resultSearchInMedicalDetails[index],),
+                          itemCount:  More4uHomeCubit.get(context).resultSearchInMedicalDetails.length,
                         ),
                       ):Expanded(
                         child: Center(
