@@ -21,6 +21,7 @@ import '../../core/themes/app_colors.dart';
 import '../home/cubits/home_cubit.dart';
 import '../home/cubits/home_states.dart';
 import '../home/home_screen.dart';
+import '../medical_benefits/medical_benefits_screen.dart';
 import '../medical_requests_history/medical_requests_history_screen.dart';
 
 import '../more4u_home/more4u_home_screen.dart';
@@ -396,14 +397,14 @@ class DrawerWidget extends StatelessWidget {
                                     More4uHomeScreen.routeName) {
                                   final completer = Completer();
                                   final result = await Navigator.pushNamed(
-                                      context, MyGiftsScreen.routeName)
+                                      context, MedicalBenefitsScreen.routeName)
                                       .whenComplete(() {
                                     _cubit.getCurrentUser();
                                   });
                                   completer.complete(result);
                                 } else {
                                   final result = await Navigator.pushReplacementNamed(
-                                      context, MyGiftsScreen.routeName,
+                                      context,  MedicalBenefitsScreen.routeName,
                                       result: completer.future);
                                   completer.complete(result);
                                 }
