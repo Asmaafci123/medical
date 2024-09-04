@@ -164,7 +164,8 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                         ),
                         recentlySearchOurPartners!=null?
                         Wrap(
-                          children: List<Widget>.generate(
+                          children:recentlySearchOurPartners!.length<=5?
+                          List<Widget>.generate(
                             recentlySearchOurPartners!
                                 .length,
                             (int idx) {
@@ -178,6 +179,24 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                                         More4uHomeCubit.get(context)
                                             .searchInMedical(
                                             recentlySearchOurPartners![idx]);
+                                      });
+                                    }),
+                              );
+                            },
+                          ).toList():
+                          List<Widget>.generate(
+                            5,
+                                (int idx) {
+                              return Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: ChoiceChip(
+                                    label: Text( recentlySearchOurPartners![recentlySearchOurPartners!.length-(5-idx)]),
+                                    selected: false,
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        More4uHomeCubit.get(context)
+                                            .searchInMedical(
+                                            recentlySearchOurPartners![recentlySearchOurPartners!.length-(5-idx)]);
                                       });
                                     }),
                               );
