@@ -28,9 +28,9 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<void>cashSearchedListOurPartners(List<String> searchedPartners)async
+  Future<void>cashSearchedListOurPartners(List<String>? searchedPartners)async
   {
-    await sharedPreferences.setStringList('searchedPartners', searchedPartners);
+    await sharedPreferences.setStringList('searchedPartners', searchedPartners??[]);
   }
 
 

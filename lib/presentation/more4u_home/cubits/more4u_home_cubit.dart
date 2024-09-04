@@ -186,7 +186,7 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
         resultList.add(element);
       }
     }
-    await localDataSource.cashSearchedListOurPartners( recentlySearchOurPartners!);
+    await localDataSource.cashSearchedListOurPartners( recentlySearchOurPartners??[]);
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
     emit(SearchInMedicalSuccessState());
   }
