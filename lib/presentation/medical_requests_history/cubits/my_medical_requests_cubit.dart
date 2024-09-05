@@ -115,8 +115,8 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
     filteredSearchList=[];
     filteredSearchSet={};
     var filterMedical= FilteredMedicalRequestsSearch(
-        selectedRequestType:selectedRequestType==0?"": selectedRequestType.toString(),
-        selectedRequestStatus:selectedRequestStatus==0?"": selectedRequestStatus.toString(),
+        selectedRequestType:selectedRequestType<=0?"": selectedRequestType.toString(),
+        selectedRequestStatus:selectedRequestStatus<=0?"": selectedRequestStatus.toString(),
         requestId:requestIdFiltrationController.text ,
         userNumberSearch: userNumberSearch.text,
         relativeId: selectedRelative?.relativeId.toString()??"",
@@ -184,6 +184,9 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
       emit(GetFilteredMedicalRequestsErrorState(failure.message));
     }, (filteredMedicalRequestsResponse) {
       filteredMedicalRequest=filteredMedicalRequestsResponse.requests;
+      print("********************");
+      print(filteredMedicalRequest);
+      print("********************");
       emit(GetFilteredMedicalRequestsSuccessState());
     });
   }

@@ -51,7 +51,9 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
           loadingAlertDialog(context);
         }
         if (state is GetEmployeeRelativesSuccessState) {
-          Navigator.pop(context);
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
         }
         if (state is GetEmployeeRelativesErrorState) {
           showMessageDialog(
