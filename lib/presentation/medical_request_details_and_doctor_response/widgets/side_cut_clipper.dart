@@ -6,9 +6,9 @@ class SideCutClipper extends CustomClipper<Path> {
   /// Play with scals to get more clear versions
   @override
   Path getClip(Size size) {
-    double xFactor = 31, yFactor = 30;
+    double xFactor = 31, yFactor = 33;
     double height = size.height;
-    double startY = (height - height / 2) - yFactor;
+    double startY = (height - 80) - yFactor;
     double xVal = size.width;
     double yVal = 0;
     final path = Path();

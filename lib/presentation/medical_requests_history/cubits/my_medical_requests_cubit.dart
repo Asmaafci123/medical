@@ -30,7 +30,7 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
       emit(GetMyMedicalRequestsErrorState(failure.message));
     }, (myMedicalRequestsResponse) {
       myMedicalRequestsBeforeReverse=myMedicalRequestsResponse.requests..sort((a,b) => a.requestDate.compareTo(b.requestDate));
-    myMedicalRequests= myMedicalRequestsBeforeReverse.reversed.toList();
+      myMedicalRequests= myMedicalRequestsBeforeReverse.reversed.toList();
     //  myMedicalRequests=[];
       emit( GetMyMedicalRequestsSuccessState());
     });
@@ -184,9 +184,6 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
       emit(GetFilteredMedicalRequestsErrorState(failure.message));
     }, (filteredMedicalRequestsResponse) {
       filteredMedicalRequest=filteredMedicalRequestsResponse.requests;
-      print("********************");
-      print(filteredMedicalRequest);
-      print("********************");
       emit(GetFilteredMedicalRequestsSuccessState());
     });
   }

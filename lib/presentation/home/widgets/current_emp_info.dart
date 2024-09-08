@@ -215,12 +215,12 @@ class CurrentEmployeeInfo extends StatelessWidget {
         ),
         Positioned(
             right: 25.w,
-            bottom: 0.h,
+            bottom: 15.h,
             child: CircularPercentIndicator(
               radius: 30.0.r,
               lineWidth: 6.0.w,
               percent:0.75* 0.9,
-              startAngle: 290,
+              startAngle: 300,
               arcType: ArcType.FULL,
               circularStrokeCap: CircularStrokeCap.round,
               center: Stack(

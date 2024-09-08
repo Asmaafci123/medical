@@ -284,7 +284,140 @@ class WidgetOfSubCategory extends StatelessWidget {
               );
             }).whenComplete(() => true);
       },
-      child: Stack(
+      child: SizedBox(
+        width:330.w,
+        height: 120.h,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+          elevation: 5,
+          shadowColor: Colors.grey,
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 6.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Container(
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      borderRadius:  BorderRadius.circular(8.0),
+                    ),
+                    child: Image.network(
+                      obj.medicalDetailsImage!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.asset(
+                              "assets/images/alzahra_hospital.jpg"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 15.w,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        maxLines: 4,
+                        obj.medicalDetailsName!,
+                        style:TextStyle(
+                            fontSize: 18.sp,
+                            fontFamily: "Certa Sans",
+                            fontWeight: FontWeight.w200,
+                          color: AppColors.mainColor
+                        ),
+                      ),
+                      SizedBox(
+                       height: 8.h,
+                      ),
+                      divideData(
+                          obj.medicalDetailsAddress ??
+                              '')[0].isNotEmpty?
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: AppColors.greyDark,
+                            size: 12.sp,
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Expanded(
+                            child: AutoSizeText(
+                              maxLines: 4,
+                              divideData(
+                                  obj.medicalDetailsAddress ??
+                                      '')[0]??"",
+                              style:TextStyle(
+                                  fontSize: 14.sp,  fontFamily: "Certa Sans",fontWeight: FontWeight.w100,
+                                color: AppColors.greyDark,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ):SizedBox(),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(4.r),
+                              border: Border.all(
+                                color: AppColors.greyDark,
+                                width: 0.3.w
+                              )
+                            ),
+                            child: Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+                              child: Row(
+                                children: [
+                                  Text("View",style: TextStyle(
+                                    color: AppColors.blackColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w100,
+                                    fontFamily: "Certa Sans",
+                                  ),),
+                                  Icon(
+                                    Icons.arrow_forward_ios_outlined,
+                                    color: AppColors.blackColor,
+                                    size: 12.sp,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<String> divideData(String input) {
+    List<String> phones = input.split('&');
+    return phones;
+  }
+}
+
+
+
+/*
+Stack(
         children: [
           SizedBox(
             width: double.infinity,
@@ -387,12 +520,5 @@ class WidgetOfSubCategory extends StatelessWidget {
                   ),
                 )),)
         ],
-      ),
-    );
-  }
-
-  List<String> divideData(String input) {
-    List<String> phones = input.split('&');
-    return phones;
-  }
-}
+      )
+ */

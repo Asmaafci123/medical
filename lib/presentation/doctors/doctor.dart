@@ -78,38 +78,29 @@ class _DoctorsState extends State<Doctors> {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 10,
-                                        offset: Offset(0, 4),
-                                        color: Colors.black26)
-                                  ]),
-                              child: TextField(
-                                style: TextStyle(fontSize: 14.sp,  fontFamily: "Certa Sans",),
-                                controller:
-                                More4uHomeCubit.get(context).searchMedicalController,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  hintText: "Search by name",
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.h, horizontal: 11.w),
-                                  fillColor: Colors.white,
-                                  filled: true,
-
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.whiteGreyColor),
-                                    borderRadius: BorderRadius.circular(15.r),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.whiteGreyColor),
-                                    borderRadius: BorderRadius.circular(15.r),
-                                  ),
+                            child: TextField(
+                              style: TextStyle(fontSize: 14.sp,  fontFamily: "Certa Sans",),
+                              controller:
+                              More4uHomeCubit.get(context).searchMedicalController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                hintText: "Search by name",
+                                hintStyle: TextStyle(fontSize: 14.sp,  fontFamily: "Certa Sans",),
+                                labelStyle: TextStyle(fontSize: 14.sp,  fontFamily: "Certa Sans",),
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 14.h, horizontal: 11.w),
+                                fillColor: Colors.white,
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.whiteGreyColor),
+                                  borderRadius: BorderRadius.circular(15.r),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.whiteGreyColor),
+                                  borderRadius: BorderRadius.circular(15.r),
                                 ),
                               ),
                             ),
@@ -123,8 +114,8 @@ class _DoctorsState extends State<Doctors> {
                               More4uHomeCubit.get(context).searchInMedicalDetails( widget.details,More4uHomeCubit.get(context).searchMedicalController.text);
                             },
                             child: Ink(
-                              width: 35.w,
-                              height: 34.w,
+                              width: 36.w,
+                              height: 38.w,
                               decoration: BoxDecoration(
                                   color: Color(0xFFe8f2ff),
                                   boxShadow: [
