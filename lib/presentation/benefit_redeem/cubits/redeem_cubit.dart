@@ -248,4 +248,12 @@ class RedeemCubit extends Cubit<RedeemState> {
     }
     return true;
   }
+  bool validateOnChipsKey(int chipsKeyLength)
+  {
+    if(chipsKeyLength>participantsIds.length)
+    {
+      return false;
+    }
+    return true;
+  }
 }

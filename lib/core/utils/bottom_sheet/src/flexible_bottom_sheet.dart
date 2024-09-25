@@ -240,7 +240,7 @@ class _FlexibleBottomSheetState extends State<FlexibleBottomSheet> {
             child: Scaffold(
               backgroundColor: widget.bottomSheetColor ??
                   Theme.of(context).bottomSheetTheme.backgroundColor ??
-                  Theme.of(context).backgroundColor,
+                  Theme.of(context).colorScheme.surface,
               body: _Content(
                 builder: widget.builder,
                 decoration: widget.decoration,

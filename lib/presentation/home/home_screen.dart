@@ -17,7 +17,9 @@ import '../../injection_container.dart';
 import '../more4u_home/more4u_home_screen.dart';
 import '../pending_requests/pending_requests_screen.dart';
 import '../widgets/drawer_widget.dart';
+import '../widgets/helpers.dart';
 import '../widgets/utils/loading_dialog.dart';
+import '../widgets/utils/message_dialog.dart';
 import 'cubits/home_cubit.dart';
 import 'cubits/home_states.dart';
 
@@ -56,6 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
         listener: (context, state) {
           if (state is GetCurrentUserLoadingState) {
             loadingAlertDialog(context);
+          }
+          if (state is GetCurrentUserErrorState) {
+            //  Navigator.pop(context);
+            showMessageDialog(
+                context: context,
+                message: state.message,
+                isSucceeded: false,
+                onPressedOk: () {
+                  logOut(context);
+                });
           }
         },
         builder: (context, state) {

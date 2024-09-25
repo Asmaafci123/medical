@@ -57,6 +57,7 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
     });
   }
 
+  final _chipKey = GlobalKey<ChipsInputState>();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RedeemCubit, RedeemState>(
@@ -175,7 +176,8 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                                   CustomIcons.users_alt,
                                   size: 25.r,
                                 ),
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15.r)),
                                 labelText: AppStrings.sportType.tr(),
                                 labelStyle: TextStyle(
                                   fontSize: 14.sp,
@@ -201,6 +203,7 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                               padding:
                                   EdgeInsets.fromLTRB(0, 0, 0, _keyboardSize),
                               child: ChipsInput<Participant>(
+                                key: _chipKey,
                                 enabled: _cubit.enableParticipantsField,
                                 textStyle: TextStyle(
                                   fontSize: 12.sp,
@@ -318,6 +321,21 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                                 },
                               ),
                             ),
+                            _cubit.validateOnChipsKey(_chipKey.currentState
+                                        ?.currentTextEditingValue.text.length ??
+                                    0)
+                                ? SizedBox()
+                                : Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 10.h, left: 10.w),
+                                    child: Text(
+                                      "please select from suggestions List ",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontFamily: "Certa Sans",
+                                          color: AppColors.redColor),
+                                    ),
+                                  ),
                             SizedBox(
                               height: 20.h,
                             ),
@@ -506,14 +524,24 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                           ),
                           Center(
                               child: GestureDetector(
-                            onTap:()
-                                {
-                                  if ((_formKey.currentState!.validate() &
-                                                  _cubit.validateParticipants() &
-                                                  _cubit.validateDocuments())) {
-                                                _cubit.redeemCard();
-                                              }
-                                },
+                            onTap: () {
+                              if ((_formKey.currentState!.validate() &
+                                  _cubit.validateParticipants() &
+                                  _cubit.validateDocuments())) {
+                                if (_chipKey.currentState!
+                                        .currentTextEditingValue.text.length >
+                                    _cubit.participantsIds.length) {
+                                  _cubit.validateOnChipsKey(_chipKey
+                                      .currentState!
+                                      .currentTextEditingValue
+                                      .text
+                                      .length);
+                                } else {
+                                  _cubit.redeemCard();
+                                  //   print("success");
+                                }
+                              }
+                            },
                             child: Center(
                               child: Container(
                                   width: 187.w,
@@ -549,8 +577,7 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                                     ),
                                   ))),
                             ),
-                          )
-                              ),
+                          )),
                         ],
                       ),
                     ),

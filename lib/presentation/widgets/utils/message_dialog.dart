@@ -77,7 +77,7 @@ showMessageDialog({
                                     onPressedOk?.call();
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    primary: isSucceeded
+                                    backgroundColor: isSucceeded
                                         ? Colors.green
                                         : Colors.red,
                                   ),

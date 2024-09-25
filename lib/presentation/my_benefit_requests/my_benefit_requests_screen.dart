@@ -289,7 +289,7 @@ class _MyBenefitRequestsScreenState extends State<MyBenefitRequestsScreen> {
                                     width: 30.w,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: AppColors.redColor,
+                                          backgroundColor: AppColors.redColor,
                                           padding: EdgeInsets.zero),
                                       child: Center(
                                           child: Icon(

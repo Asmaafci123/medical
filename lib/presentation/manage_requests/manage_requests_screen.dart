@@ -891,7 +891,7 @@ class _ManageRequestsScreenState extends State<ManageRequestsScreen>
                                       height: 40.h,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: AppColors.redColor,
+                                          backgroundColor: AppColors.redColor,
                                         ),
                                         onPressed: () => acceptOrReject(
                                             false, request.requestWorkflowId!),
@@ -912,7 +912,7 @@ class _ManageRequestsScreenState extends State<ManageRequestsScreen>
                                       height: 40.h,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: AppColors.mainColor,
+                                          backgroundColor: AppColors.mainColor,
                                         ),
                                         onPressed: () => acceptOrReject(
                                             true, request.requestWorkflowId!),
@@ -1664,7 +1664,7 @@ class _ManageRequestsScreenState extends State<ManageRequestsScreen>
                                         width: 130.w,
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            primary: AppColors.redColor,
+                                            backgroundColor: AppColors.redColor,
                                           ),
                                           onPressed: () => acceptOrReject(false,
                                               request.requestWorkflowId!),
@@ -1965,8 +1965,8 @@ class _ManageRequestsScreenState extends State<ManageRequestsScreen>
                                             ? AppColors.mainColor
                                             : AppColors.redColor,
                                       ),
-                                      primary: Colors.white,
-                                      onPrimary: isAccepted
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: isAccepted
                                           ? AppColors.mainColor
                                           : AppColors.redColor,
                                     ),
@@ -2014,10 +2014,10 @@ class _ManageRequestsScreenState extends State<ManageRequestsScreen>
                                           ? AppColors.mainColor
                                           : AppColors.redColor,
                                     ),
-                                    primary: isAccepted
+                                    backgroundColor: isAccepted
                                         ? AppColors.mainColor
                                         : AppColors.redColor,
-                                    onPrimary: Colors.white,
+                                    foregroundColor: Colors.white,
                                   ),
                                   child: Text(
                                     isAccepted
