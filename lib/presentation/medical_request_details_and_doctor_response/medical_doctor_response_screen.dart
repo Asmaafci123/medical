@@ -52,7 +52,9 @@ class _MedicalDoctorResponseScreenState
     _tabController = TabController(length: 2, vsync: this);
   PendingRequestsCubit.get(context).clearCurrentRequestData();
   }
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _chipKey1 = GlobalKey<ChipsInputState>();
+  final _chipKey2 = GlobalKey<ChipsInputState>();
   @override
   Widget build(BuildContext context) {
 
@@ -544,505 +546,540 @@ class _MedicalDoctorResponseScreenState
                                   ),
                                   SingleChildScrollView(
                                     physics: ScrollPhysics(),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Medical Entity",
-                                          style: TextStyle(
-                                              color: AppColors.blackColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18.sp,
-                                              fontFamily: "Certa Sans"),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              0, 20.h, 0, 20.h),
-                                          child:
-                                              ChipsInput<DetailsOfMedical>(
-                                            maxChips: 1,
-                                            // enabled: true,
-                                                initialValue: _cubit.selectedMedicalEntity != null ? [_cubit.selectedMedicalEntity!] : [],
-                                            textStyle: TextStyle(
-                                              fontSize: 12.sp,
-                                              height: 1,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.mainColor,
-                                            ),
-                                            enabled:
-                                                _cubit.selectedMedicalEntity !=
-                                                        null
-                                                    ? false
-                                                    : true,
-                                            allowChipEditing: true,
-                                            decoration: InputDecoration(
-                                              isDense: true,
-                                              suffixIconConstraints:
-                                                  BoxConstraints(
-                                                      maxHeight: 10.h,
-                                                      minWidth: 50.w),
-                                              contentPadding: EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 0.0,
+                                    child: Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Medical Entity",
+                                            style: TextStyle(
+                                                color: AppColors.blackColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.sp,
+                                                fontFamily: "Certa Sans"),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 20.h, 0, 20.h),
+                                            child:
+                                                ChipsInput<DetailsOfMedical>(
+                                                  key: _chipKey1,
+                                              maxChips: 1,
+                                              // enabled: true,
+                                                  initialValue: _cubit.selectedMedicalEntity != null ? [_cubit.selectedMedicalEntity!] : [],
+                                              textStyle: TextStyle(
+                                                fontSize: 12.sp,
+                                                height: 1,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.mainColor,
                                               ),
-                                              prefixIcon: Icon(
-                                                CustomIcons.home__2_,
-                                                size: 20.r,
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    15.0.r),
-                                              ),
-                                              labelText: "Medical Entity",
-                                              labelStyle: TextStyle(
-                                                  fontSize: 14.sp),
-                                              hintText:
-                                                  "Enter Medical Entity",
-                                              hintStyle: TextStyle(
-                                                  color: const Color(
-                                                      0xffc1c1c1),
-                                                  fontSize: 12.sp),
-                                              errorStyle: TextStyle(
-                                                  fontSize: 12.sp),
-                                              //  errorText: _cubit.lowParticipantError,
-                                              floatingLabelBehavior:
-                                                  FloatingLabelBehavior
-                                                      .always,
-                                            ),
-                                            findSuggestions:
-                                                (String query) {
-                                              if (query.length > 1) {
-                                                var lowercaseQuery =
-                                                    query.toLowerCase();
-                                                return _cubit
-                                                    .medicalEntities!
-                                                    .where((profile) {
-                                                  return profile
-                                                          .medicalDetailsName!
-                                                          .toLowerCase()
-                                                          .contains(query
-                                                              .toLowerCase()) ||
-                                                      profile
-                                                          .medicalDetailsName
-                                                          .toString()
-                                                          .toLowerCase()
-                                                          .contains(query
-                                                              .toLowerCase());
-                                                }).toList(growable: false)
-                                                  ..sort((a, b) => a
-                                                      .medicalDetailsName!
-                                                      .toLowerCase()
-                                                      .indexOf(
-                                                          lowercaseQuery)
-                                                      .compareTo(b
-                                                          .medicalDetailsName!
-                                                          .toLowerCase()
-                                                          .indexOf(
-                                                              lowercaseQuery)));
-                                              } else {
-                                                return const <DetailsOfMedical>[];
-                                              }
-                                            },
-                                            // onChanged: _cubit.participantsOnChange,
-                                            onChanged:
-                                                (List<DetailsOfMedical>
-                                                    value) {
-                                              _cubit.changeMedicalEntity(
-                                                  value[0]);
-                                            },
-                                            chipBuilder:
-                                                (context, state, profile) {
-                                              return InputChip(
-                                                onDeleted: () {
-                                                  state.deleteChip(profile);
-                                                  _cubit
-                                                      .changeMedicalEntity(
-                                                          null);
-                                                },
-                                                padding: EdgeInsets.zero,
-                                                deleteIconColor:
-                                                    AppColors.mainColor,
-                                                labelStyle: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    color: AppColors
-                                                        .mainColor),
-                                                shape:
-                                                    RoundedRectangleBorder(
+                                              enabled:
+                                                  _cubit.selectedMedicalEntity !=
+                                                          null
+                                                      ? false
+                                                      : true,
+                                              allowChipEditing: true,
+                                              decoration: InputDecoration(
+                                                isDense: true,
+                                                suffixIconConstraints:
+                                                    BoxConstraints(
+                                                        maxHeight: 10.h,
+                                                        minWidth: 50.w),
+                                                contentPadding: EdgeInsets.symmetric(
+                                                  vertical: 10.0,
+                                                  horizontal: 0.0,
+                                                ),
+                                                prefixIcon: Icon(
+                                                  CustomIcons.home__2_,
+                                                  size: 20.r,
+                                                ),
+                                                border: OutlineInputBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          15.r),
-                                                  side: BorderSide(
-                                                      color: Color(
-                                                          0xFFC1C1C1)),
+                                                  BorderRadius.circular(
+                                                      15.0.r),
                                                 ),
-                                                backgroundColor:
-                                                    Color(0xFFE7E7E7),
-                                                key: ObjectKey(profile),
-                                                label: Text(
-                                                  profile.medicalDetailsName ??
-                                                      "",
-                                                  style: TextStyle(
-                                                      fontSize: 12.sp),
-                                                ),
-                                                // onDeleted: () {
-                                                //   _cubit.participantOnRemove(profile);
-                                                //   state.forceDeleteChip(profile);
-                                                // },
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                              );
-                                            },
-                                            suggestionBuilder:
-                                                (context, state, profile) {
-                                              return ListTile(
-                                                key: ObjectKey(profile),
-                                                leading: CircleAvatar(
-                                                  backgroundImage: AssetImage(
-                                                      'assets/images/profile_avatar_placeholder.png'),
-                                                ),
-                                                title: Text(
+                                                labelText: "Medical Entity",
+                                                labelStyle: TextStyle(
+                                                    fontSize: 14.sp),
+                                                hintText:
+                                                    "Enter Medical Entity",
+                                                hintStyle: TextStyle(
+                                                    color: const Color(
+                                                        0xffc1c1c1),
+                                                    fontSize: 12.sp),
+                                                errorStyle: TextStyle(
+                                                    fontSize: 12.sp),
+                                                //  errorText: _cubit.lowParticipantError,
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior
+                                                        .always,
+                                              ),
+                                              findSuggestions:
+                                                  (String query) {
+                                                if (query.length > 1) {
+                                                  var lowercaseQuery =
+                                                      query.toLowerCase();
+                                                  return _cubit
+                                                      .medicalEntities!
+                                                      .where((profile) {
+                                                    return profile
+                                                            .medicalDetailsName!
+                                                            .toLowerCase()
+                                                            .contains(query
+                                                                .toLowerCase()) ||
+                                                        profile
+                                                            .medicalDetailsName
+                                                            .toString()
+                                                            .toLowerCase()
+                                                            .contains(query
+                                                                .toLowerCase());
+                                                  }).toList(growable: false)
+                                                    ..sort((a, b) => a
+                                                        .medicalDetailsName!
+                                                        .toLowerCase()
+                                                        .indexOf(
+                                                            lowercaseQuery)
+                                                        .compareTo(b
+                                                            .medicalDetailsName!
+                                                            .toLowerCase()
+                                                            .indexOf(
+                                                                lowercaseQuery)));
+                                                } else {
+                                                  return const <DetailsOfMedical>[];
+                                                }
+                                              },
+                                              // onChanged: _cubit.participantsOnChange,
+                                              onChanged:
+                                                  (List<DetailsOfMedical>
+                                                      value) {
+                                                _cubit.changeMedicalEntity(
+                                                    value[0]);
+                                              },
+                                              chipBuilder:
+                                                  (context, state, profile) {
+                                                return InputChip(
+                                                  onDeleted: () {
+                                                    state.deleteChip(profile);
+                                                    _cubit
+                                                        .changeMedicalEntity(
+                                                            null);
+                                                  },
+                                                  padding: EdgeInsets.zero,
+                                                  deleteIconColor:
+                                                      AppColors.mainColor,
+                                                  labelStyle: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: AppColors
+                                                          .mainColor),
+                                                  shape:
+                                                      RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.r),
+                                                    side: BorderSide(
+                                                        color: Color(
+                                                            0xFFC1C1C1)),
+                                                  ),
+                                                  backgroundColor:
+                                                      Color(0xFFE7E7E7),
+                                                  key: ObjectKey(profile),
+                                                  label: Text(
                                                     profile.medicalDetailsName ??
                                                         "",
                                                     style: TextStyle(
-                                                        fontSize: 12.sp)),
-                                                subtitle: Text(profile
-                                                    .medicalDetailsName
-                                                    .toString()),
-                                                onTap: () =>
-                                                    state.selectSuggestion(
-                                                        profile),
-                                              );
-                                            },
+                                                        fontSize: 12.sp),
+                                                  ),
+                                                  // onDeleted: () {
+                                                  //   _cubit.participantOnRemove(profile);
+                                                  //   state.forceDeleteChip(profile);
+                                                  // },
+                                                  materialTapTargetSize:
+                                                      MaterialTapTargetSize
+                                                          .shrinkWrap,
+                                                );
+                                              },
+                                              suggestionBuilder:
+                                                  (context, state, profile) {
+                                                return ListTile(
+                                                  key: ObjectKey(profile),
+                                                  leading: CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        'assets/images/profile_avatar_placeholder.png'),
+                                                  ),
+                                                  title: Text(
+                                                      profile.medicalDetailsName ??
+                                                          "",
+                                                      style: TextStyle(
+                                                          fontSize: 12.sp)),
+                                                  subtitle: Text(profile
+                                                      .medicalDetailsName
+                                                      .toString()),
+                                                  onTap: () =>
+                                                      state.selectSuggestion(
+                                                          profile),
+                                                );
+                                              },
 
+                                            ),
                                           ),
-                                        ),
-                                        _cubit.medicalItems!=null?Text(
-                                          "Medical Items",
-                                          style: TextStyle(
-                                              color: AppColors.blackColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18.sp,
-                                              fontFamily: "Certa Sans"),
-                                        ) : SizedBox(),
-                                        _cubit.medicalItems!=null
-                                            ? Padding(
-                                                padding:
-                                                    EdgeInsets.fromLTRB(
-                                                        0, 20.h, 0, 20.h),
-                                                child:
-                                                    ChipsInput<MedicalItem>(
-                                                  enabled: true,
-                                                   initialValue: _cubit.selectedMedicalItems.isNotEmpty ? _cubit.selectedMedicalItems : [],
-                                                  textStyle: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    height: 1,
-                                                    fontWeight:
-                                                        FontWeight.w400,
-                                                    color:
-                                                        AppColors.mainColor,
-                                                  ),
-                                                  // enabled: false,
-                                                  allowChipEditing: true,
-                                                  decoration:
-                                                      InputDecoration(
-                                                    isDense: true,
-                                                    suffixIconConstraints:
-                                                        BoxConstraints(
-                                                            maxHeight: 20.h,
-                                                            minWidth: 50.w),
-                                                    prefixIcon: Icon(
-                                                      CustomIcons.home__2_,
-                                                      size: 20.r,
+                                          _cubit.validateOnChipsKeyMedicalEntity(_chipKey1.currentState
+                                              ?.currentTextEditingValue.text.length ??
+                                              0)
+                                              ? SizedBox()
+                                              : Padding(
+                                            padding:
+                                            EdgeInsets.only(top: 10.h, left: 10.w,bottom: 10.h),
+                                            child: Text(
+                                              "please select from suggestions List ",
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontFamily: "Certa Sans",
+                                                  color: AppColors.redColor),
+                                            ),
+                                          ),
+                                          _cubit.medicalItems!=null?Text(
+                                            "Medical Items",
+                                            style: TextStyle(
+                                                color: AppColors.blackColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.sp,
+                                                fontFamily: "Certa Sans"),
+                                          ) : SizedBox(),
+                                          _cubit.medicalItems!=null
+                                              ? Padding(
+                                                  padding:
+                                                      EdgeInsets.fromLTRB(
+                                                          0, 20.h, 0, 20.h),
+                                                  child:
+                                                      ChipsInput<MedicalItem>(
+                                                        key: _chipKey2,
+                                                    enabled: true,
+                                                     initialValue: _cubit.selectedMedicalItems.isNotEmpty ? _cubit.selectedMedicalItems : [],
+                                                    textStyle: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      height: 1,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color:
+                                                          AppColors.mainColor,
                                                     ),
-                                                        contentPadding: EdgeInsets.symmetric(
-                                                          vertical: 10.0,
-                                                          horizontal: 0.0,
-                                                        ),
-                                                    border:
-                                                        OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                15.0.r)
-                                                        ),
-                                                    labelText:
-                                                        "Medical Items",
-                                                    labelStyle: TextStyle(
-                                                        fontSize: 14.sp),
-                                                    hintText:
-                                                        "Enter Medical Items",
-                                                    hintStyle: TextStyle(
-                                                        color: const Color(
-                                                            0xffc1c1c1),
-                                                        fontSize: 12.sp),
-                                                    errorStyle: TextStyle(
-                                                        fontSize: 12.sp),
-                                                    //  errorText: _cubit.lowParticipantError,
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .always,
-                                                  ),
-                                                  findSuggestions:
-                                                      (String query) {
-                                                    if (query.length > 1) {
-                                                      var lowercaseQuery =
-                                                          query
-                                                              .toLowerCase();
-                                                      return _cubit
-                                                          .medicalItems!
-                                                          .where((profile) {
-                                                        return profile
-                                                                .itemName!
-                                                                .toLowerCase()
-                                                                .contains(query
-                                                                    .toLowerCase()) ||
-                                                            profile.itemName
-                                                                .toString()
-                                                                .toLowerCase()
-                                                                .contains(query
-                                                                    .toLowerCase());
-                                                      }).toList(
-                                                              growable:
-                                                                  false)
-                                                        ..sort((a, b) => a
-                                                            .itemName!
-                                                            .toLowerCase()
-                                                            .indexOf(
-                                                                lowercaseQuery)
-                                                            .compareTo(b
-                                                                .itemName!
-                                                                .toLowerCase()
-                                                                .indexOf(
-                                                                    lowercaseQuery)));
-                                                    } else {
-                                                      return const <MedicalItemModel>[];
-                                                    }
-                                                  },
-                                                  // onChanged: _cubit.participantsOnChange,
-                                                  onChanged:
-                                                      (List<MedicalItem>
-                                                          value) {
-                                                    _cubit
-                                                        .changeMedicalItems(
-                                                            value);
-                                                  },
-                                                  chipBuilder: (context,
-                                                      state, profile) {
-                                                    return InputChip(
-                                                      padding:
-                                                          EdgeInsets.zero,
-                                                      deleteIconColor:
-                                                          AppColors
-                                                              .mainColor,
+                                                    // enabled: false,
+                                                    allowChipEditing: true,
+                                                    decoration:
+                                                        InputDecoration(
+                                                      isDense: true,
+                                                      suffixIconConstraints:
+                                                          BoxConstraints(
+                                                              maxHeight: 20.h,
+                                                              minWidth: 50.w),
+                                                      prefixIcon: Icon(
+                                                        CustomIcons.home__2_,
+                                                        size: 20.r,
+                                                      ),
+                                                          contentPadding: EdgeInsets.symmetric(
+                                                            vertical: 10.0,
+                                                            horizontal: 0.0,
+                                                          ),
+                                                      border:
+                                                          OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  15.0.r)
+                                                          ),
+                                                      labelText:
+                                                          "Medical Items",
                                                       labelStyle: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                              FontWeight
-                                                                  .normal,
-                                                          color: AppColors
-                                                              .mainColor),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    8),
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xFFC1C1C1)),
-                                                      ),
-                                                      backgroundColor:
-                                                          Color(0xFFE7E7E7),
-                                                      key: ObjectKey(
-                                                          profile),
-                                                      label: Text(
-                                                        profile.itemName ??
-                                                            "",
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                12.sp),
-                                                      ),
-                                                      onDeleted: () {
-                                                        state.deleteChip(
-                                                            profile);
-                                                        //  _cubit.changeMedicalEntity(null);
-                                                      },
-                                                      materialTapTargetSize:
-                                                          MaterialTapTargetSize
-                                                              .shrinkWrap,
-                                                    );
-                                                  },
-                                                  suggestionBuilder:
-                                                      (context, state,
-                                                          profile) {
-                                                    return ListTile(
-                                                      key: ObjectKey(
-                                                          profile),
-                                                      leading: CircleAvatar(
-                                                        backgroundImage:
-                                                            AssetImage(
-                                                                'assets/images/profile_avatar_placeholder.png'),
-                                                      ),
-                                                      title: Text(
+                                                          fontSize: 14.sp),
+                                                      hintText:
+                                                          "Enter Medical Items",
+                                                      hintStyle: TextStyle(
+                                                          color: const Color(
+                                                              0xffc1c1c1),
+                                                          fontSize: 12.sp),
+                                                      errorStyle: TextStyle(
+                                                          fontSize: 12.sp),
+                                                      //  errorText: _cubit.lowParticipantError,
+                                                      floatingLabelBehavior:
+                                                          FloatingLabelBehavior
+                                                              .always,
+                                                    ),
+                                                    findSuggestions:
+                                                        (String query) {
+                                                      if (query.length > 1) {
+                                                        var lowercaseQuery =
+                                                            query
+                                                                .toLowerCase();
+                                                        return _cubit
+                                                            .medicalItems!
+                                                            .where((profile) {
+                                                          return profile
+                                                                  .itemName!
+                                                                  .toLowerCase()
+                                                                  .contains(query
+                                                                      .toLowerCase()) ||
+                                                              profile.itemName
+                                                                  .toString()
+                                                                  .toLowerCase()
+                                                                  .contains(query
+                                                                      .toLowerCase());
+                                                        }).toList(
+                                                                growable:
+                                                                    false)
+                                                          ..sort((a, b) => a
+                                                              .itemName!
+                                                              .toLowerCase()
+                                                              .indexOf(
+                                                                  lowercaseQuery)
+                                                              .compareTo(b
+                                                                  .itemName!
+                                                                  .toLowerCase()
+                                                                  .indexOf(
+                                                                      lowercaseQuery)));
+                                                      } else {
+                                                        return const <MedicalItemModel>[];
+                                                      }
+                                                    },
+                                                    // onChanged: _cubit.participantsOnChange,
+                                                    onChanged:
+                                                        (List<MedicalItem>
+                                                            value) {
+                                                      _cubit
+                                                          .changeMedicalItems(
+                                                              value);
+                                                    },
+                                                    chipBuilder: (context,
+                                                        state, profile) {
+                                                      return InputChip(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        deleteIconColor:
+                                                            AppColors
+                                                                .mainColor,
+                                                        labelStyle: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: AppColors
+                                                                .mainColor),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8),
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xFFC1C1C1)),
+                                                        ),
+                                                        backgroundColor:
+                                                            Color(0xFFE7E7E7),
+                                                        key: ObjectKey(
+                                                            profile),
+                                                        label: Text(
                                                           profile.itemName ??
                                                               "",
                                                           style: TextStyle(
                                                               fontSize:
-                                                                  12.sp)),
-                                                      subtitle: Text(profile
-                                                          .itemName
-                                                          .toString()),
-                                                      onTap: () => state
-                                                          .selectSuggestion(
-                                                              profile),
-                                                    );
-                                                  },
-                                                ),
-                                              )
-                                            : SizedBox(),
-                                        _cubit.selectedMedicalItems
-                                                .isNotEmpty
-                                            ? Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Items(${ _cubit
-                                                      .selectedMedicalItems
-                                                      .length})",
-                                                  style: TextStyle(
-                                                      color: AppColors.blackColor,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: 18.sp,
-                                                      fontFamily: "Certa Sans"),
-                                                ),
-                                                SizedBox(
-                                                  height: 5.h,
-                                                ),
-                                                Column(
-                                                    children: List.generate(
-                                                        _cubit
-                                                            .selectedMedicalItems
-                                                            .length,
-                                                        (index) => Card(
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15.r),
-                                                              ),
-                                                              child: Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                      color: Color(0xFFf8f4f0),
+                                                                  12.sp),
+                                                        ),
+                                                        onDeleted: () {
+                                                          state.deleteChip(
+                                                              profile);
+                                                          //  _cubit.changeMedicalEntity(null);
+                                                        },
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize
+                                                                .shrinkWrap,
+                                                      );
+                                                    },
+                                                    suggestionBuilder:
+                                                        (context, state,
+                                                            profile) {
+                                                      return ListTile(
+                                                        key: ObjectKey(
+                                                            profile),
+                                                        leading: CircleAvatar(
+                                                          backgroundImage:
+                                                              AssetImage(
+                                                                  'assets/images/profile_avatar_placeholder.png'),
+                                                        ),
+                                                        title: Text(
+                                                            profile.itemName ??
+                                                                "",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    12.sp)),
+                                                        subtitle: Text(profile
+                                                            .itemName
+                                                            .toString()),
+                                                        onTap: () => state
+                                                            .selectSuggestion(
+                                                                profile),
+                                                      );
+                                                    },
+                                                  ),
+                                                )
+                                              : SizedBox(),
+                                          _cubit.validateOnChipsKeyMedicalItems(_chipKey2.currentState
+                                              ?.currentTextEditingValue.text.length ??
+                                              0)
+                                              ? SizedBox()
+                                              : Padding(
+                                            padding:
+                                            EdgeInsets.only(top: 10.h, left: 10.w),
+                                            child: Text(
+                                              "please select from suggestions List ",
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontFamily: "Certa Sans",
+                                                  color: AppColors.redColor),
+                                            ),
+                                          ),
+                                          _cubit.selectedMedicalItems
+                                                  .isNotEmpty
+                                              ? Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Items(${ _cubit
+                                                        .selectedMedicalItems
+                                                        .length})",
+                                                    style: TextStyle(
+                                                        color: AppColors.blackColor,
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 18.sp,
+                                                        fontFamily: "Certa Sans"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                  Column(
+                                                      children: List.generate(
+                                                          _cubit
+                                                              .selectedMedicalItems
+                                                              .length,
+                                                          (index) => Card(
+                                                                shape:
+                                                                    RoundedRectangleBorder(
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               15.r),
                                                                 ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: IntrinsicHeight(
-                                                                    child: Row(
-                                                                      children: [
-                                                                        IconButton(
-                                                                            padding: EdgeInsets.only(
-                                                                                bottom: 10
-                                                                                    .h),
-                                                                            onPressed:
-                                                                                () {
-                                                                              _cubit.minusMedicalItemQuantity(index);
-                                                                            },
-                                                                            icon:
-                                                                            Icon(
-                                                                              Icons.minimize_outlined,
-                                                                              color:
-                                                                              AppColors.whiteBlueColor,
-                                                                              size: 20.r,
-                                                                            )),
-                                                                        VerticalDivider(
-                                                                          indent: 5.h,
-                                                                          endIndent: 5.h,
-                                                                          color: AppColors.greyColor,
-                                                                          thickness:0.2,
-                                                                        ),
-                                                                        Spacer(),
-                                                                        Column(
-                                                                          children: [
-                                                                            Text(
-                                                                              _cubit.selectedMedicalItems[index].itemName ??
-                                                                                  "",
-                                                                              style: TextStyle(
-                                                                                  color:
-                                                                                      AppColors.whiteBlueColor,
-                                                                                  fontSize: 18.sp,
-                                                                                  fontWeight: FontWeight.w600),
-                                                                            ),
-                                                                            Row(
-                                                                              children: [
-                                                                                Text(
-                                                                                  _cubit.selectedMedicalItems[index].itemQuantity ??
-                                                                                      "0",
-                                                                                  style: TextStyle(
-                                                                                      color:
-                                                                                      AppColors.greyDark,
-                                                                                      fontSize: 16.sp,
-                                                                                      fontWeight: FontWeight.w600),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 5.w,
-                                                                                ),
-                                                                                Text(
-                                                                                  "${_cubit.selectedMedicalItems[index].itemType??
-                                                                                      "0"}s",
-                                                                                  style: TextStyle(
-                                                                                      color:
-                                                                                      AppColors.greyDark,
-                                                                                      fontSize: 16.sp,
-                                                                                      fontWeight: FontWeight.w600),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                        Spacer(),
-                                                                        VerticalDivider(
-                                                                          color: AppColors.greyColor,
-                                                                          indent: 5.h,
-                                                                          endIndent: 5.h,
-                                                                          thickness:0.2,
-                                                                        ),
-                                                                        IconButton(
-                                                                            onPressed:
-                                                                                () {
-                                                                              _cubit.addMedicalItemQuantity(index);
-                                                                            },
-                                                                            icon:
-                                                                                Icon(
-                                                                              Icons.add,
-                                                                              color:
-                                                                                  AppColors.whiteBlueColor,
-                                                                            ))
-                                                                      ],
+                                                                child: Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                        color: Color(0xFFf8f4f0),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                15.r),
+                                                                  ),
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                                .all(
+                                                                            8.0),
+                                                                    child: IntrinsicHeight(
+                                                                      child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                              padding: EdgeInsets.only(
+                                                                                  bottom: 10
+                                                                                      .h),
+                                                                              onPressed:
+                                                                                  () {
+                                                                                _cubit.minusMedicalItemQuantity(index);
+                                                                              },
+                                                                              icon:
+                                                                              Icon(
+                                                                                Icons.minimize_outlined,
+                                                                                color:
+                                                                                AppColors.whiteBlueColor,
+                                                                                size: 20.r,
+                                                                              )),
+                                                                          VerticalDivider(
+                                                                            indent: 5.h,
+                                                                            endIndent: 5.h,
+                                                                            color: AppColors.greyColor,
+                                                                            thickness:0.2,
+                                                                          ),
+                                                                          Spacer(),
+                                                                          Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                _cubit.selectedMedicalItems[index].itemName ??
+                                                                                    "",
+                                                                                style: TextStyle(
+                                                                                    color:
+                                                                                        AppColors.whiteBlueColor,
+                                                                                    fontSize: 18.sp,
+                                                                                    fontWeight: FontWeight.w600),
+                                                                              ),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Text(
+                                                                                    _cubit.selectedMedicalItems[index].itemQuantity ??
+                                                                                        "0",
+                                                                                    style: TextStyle(
+                                                                                        color:
+                                                                                        AppColors.greyDark,
+                                                                                        fontSize: 16.sp,
+                                                                                        fontWeight: FontWeight.w600),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 5.w,
+                                                                                  ),
+                                                                                  Text(
+                                                                                    "${_cubit.selectedMedicalItems[index].itemType??
+                                                                                        "0"}s",
+                                                                                    style: TextStyle(
+                                                                                        color:
+                                                                                        AppColors.greyDark,
+                                                                                        fontSize: 16.sp,
+                                                                                        fontWeight: FontWeight.w600),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          Spacer(),
+                                                                          VerticalDivider(
+                                                                            color: AppColors.greyColor,
+                                                                            indent: 5.h,
+                                                                            endIndent: 5.h,
+                                                                            thickness:0.2,
+                                                                          ),
+                                                                          IconButton(
+                                                                              onPressed:
+                                                                                  () {
+                                                                                _cubit.addMedicalItemQuantity(index);
+                                                                              },
+                                                                              icon:
+                                                                                  Icon(
+                                                                                Icons.add,
+                                                                                color:
+                                                                                    AppColors.whiteBlueColor,
+                                                                              ))
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            )),
-                                                  ),
-                                              ],
-                                            )
-                                            : SizedBox(),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                      ],
+                                                              )),
+                                                    ),
+                                                ],
+                                              )
+                                              : SizedBox(),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ]),
@@ -1055,11 +1092,17 @@ class _MedicalDoctorResponseScreenState
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                    await showDialog<void>(
-                                        context: context,
-                                        builder: (context) => ReasonAndComment(
-                                              status: "3",
-                                            ));
+
+                                    if(_cubit.selectedMedicalEntity!=null && _chipKey2.currentState
+                                        ?.currentTextEditingValue.text.length==_cubit.selectedMedicalItems.length
+                                    )
+                                      {
+                                        await showDialog<void>(
+                                            context: context,
+                                            builder: (context) => ReasonAndComment(
+                                                  status: "3",
+                                                ));
+                                      }
                                   },
                                   child: Container(
                                     height: 40.h,
