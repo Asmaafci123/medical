@@ -79,6 +79,10 @@ class SelectMedicalDetails extends StatelessWidget {
         RequestMedicationCubit.get(context).selectPharmacy(newValue!):
         RequestMedicationCubit.get(context).selectDetailsOfMedical(newValue!);
       },
+      validator: (DetailsOfMedical? value) {
+        if (value==null) return AppStrings.required.tr();
+        return null;
+      },
       //selectedItem: medicalCategories[0],
     );
   }

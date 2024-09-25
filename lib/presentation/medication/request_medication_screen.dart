@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:more4u/presentation/medication/widgets/select_family_insurance.d
 import 'package:more4u/presentation/medication/widgets/select_medical_category.dart';
 import 'package:more4u/presentation/medication/widgets/select_medical_entity.dart';
 import 'package:toast/toast.dart';
+import '../../core/constants/app_strings.dart';
 import '../../core/themes/app_colors.dart';
 import '../../custom_icons.dart';
 import '../../domain/entities/category.dart';
@@ -483,6 +485,10 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                     },
                                     selectedItem: RequestMedicationCubit.get(context)
                                         .selectedSubCategory,
+                                    validator: (Category? value) {
+                                      if (value==null) return AppStrings.required.tr();
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(
                                     height: 15.h,
@@ -571,6 +577,10 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                     },
                                     selectedItem: RequestMedicationCubit.get(context)
                                         .selectedDetailsOfMedical,
+                                validator: (DetailsOfMedical? value) {
+                                  if (value==null) return AppStrings.required.tr();
+                                  return null;
+                                },
                                   )
                                   : SizedBox(),
                               SizedBox(

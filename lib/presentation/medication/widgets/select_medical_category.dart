@@ -102,7 +102,11 @@ class SelectMedicalCategory extends StatelessWidget {
         ),
       ),
       onChanged:onChangeMedicalCategory,
-     selectedItem: selectedCategory
+     selectedItem: selectedCategory,
+      validator: (Category? value) {
+        if (value==null) return AppStrings.required.tr();
+        return null;
+      },
     );
   }
 }
