@@ -8,7 +8,8 @@ class MedicalItemModel extends MedicalItem {
       required String? itemQuantity,
       required String? itemDateFrom,
       required String? itemDateTo,
-      required String? itemImage})
+      required String? itemImage,
+      required String? itemDose})
       : super(
             itemId: itemId,
             itemName: itemName,
@@ -16,7 +17,8 @@ class MedicalItemModel extends MedicalItem {
             itemQuantity: itemQuantity,
             itemDateFrom: itemDateFrom,
             itemDateTo: itemDateTo,
-            itemImage: itemImage);
+            itemImage: itemImage,
+      itemDose:itemDose);
   factory MedicalItemModel.fromJson(Map<String, dynamic> json) {
     return MedicalItemModel(
         itemId: json['itemId'],
@@ -25,6 +27,7 @@ class MedicalItemModel extends MedicalItem {
         itemQuantity: json['itemQuantity'],
         itemDateFrom: json['itemDateFrom'],
         itemDateTo: json['itemDateTo'],
-        itemImage: json['itemImage']);
+        itemImage: json['itemImage'],
+        itemDose:json['itemDose']);
   }
 }

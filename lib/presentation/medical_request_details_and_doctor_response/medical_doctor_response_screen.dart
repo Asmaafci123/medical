@@ -428,6 +428,50 @@ class _MedicalDoctorResponseScreenState
                                                   SizedBox(
                                                     width: 100.w,
                                                     child: Text(
+                                                      "Medical Purpose",
+                                                      style: TextStyle(
+                                                          color:
+                                                          AppColors.greyColor,
+                                                          fontSize: 14.sp,
+                                                          fontFamily: "Certa Sans",
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      _cubit
+                                                          .medicalRequestDetails
+                                                          ?.medicalRequest
+                                                          ?.medicalPurpose ??
+                                                          "",
+                                                      style: TextStyle(
+                                                          color:
+                                                          AppColors.mainColor,
+                                                          fontSize: 16.sp,
+                                                          fontFamily: "Certa Sans",
+                                                          fontWeight:
+                                                          FontWeight.w600,
+                                                          overflow: TextOverflow.ellipsis),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Container(
+                                                color: AppColors.greyColor,
+                                                height: 0.1.h,
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 100.w,
+                                                    child: Text(
                                                       "Comment",
                                                       style: TextStyle(
                                                           color:
@@ -1092,17 +1136,17 @@ class _MedicalDoctorResponseScreenState
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-
-                                    if(_cubit.selectedMedicalEntity!=null && _chipKey2.currentState
-                                        ?.currentTextEditingValue.text.length==_cubit.selectedMedicalItems.length
-                                    )
-                                      {
-                                        await showDialog<void>(
-                                            context: context,
-                                            builder: (context) => ReasonAndComment(
-                                                  status: "3",
-                                                ));
-                                      }
+                                     if(_cubit.selectedMedicalEntity!=null
+                                         && _chipKey2.currentState
+                                             ?.currentTextEditingValue.text.length==_cubit.selectedMedicalItems.length
+                                     )
+                                     {
+                                       await showDialog<void>(
+                                           context: context,
+                                           builder: (context) => ReasonAndComment(
+                                             status: "3",
+                                           ));
+                                     }
                                   },
                                   child: Container(
                                     height: 40.h,

@@ -8,16 +8,17 @@ class MedicalItem extends Equatable {
   final String? itemDateFrom;
   final String? itemDateTo;
   final String? itemImage;
+  final String? itemDose;
 
-  const MedicalItem({
-    required this.itemId,
-    required this.itemName,
-    required this.itemType,
-    required this.itemQuantity,
-    required this.itemDateFrom,
-    required this.itemDateTo,
-    required this.itemImage
-  });
+  const MedicalItem(
+      {required this.itemId,
+      required this.itemName,
+      required this.itemType,
+      required this.itemQuantity,
+      required this.itemDateFrom,
+      required this.itemDateTo,
+      required this.itemImage,
+      required this.itemDose});
 
   @override
   List<Object?> get props => [
@@ -27,6 +28,7 @@ class MedicalItem extends Equatable {
         itemQuantity,
         itemDateFrom,
         itemDateTo,
-    itemImage
+        itemImage,
+        itemDose
       ];
 }

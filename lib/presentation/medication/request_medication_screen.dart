@@ -49,6 +49,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
     ToastContext().init(context);
     return BlocConsumer<RequestMedicationCubit, RequestMedicationState>(
       listener: (context, state) {
+
         if (state is GetEmployeeRelativesLoadingState) {
           loadingAlertDialog(context);
         }
@@ -60,11 +61,10 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
         if (state is GetEmployeeRelativesErrorState) {
           showMessageDialog(
               context: context,
-              isSucceeded: true,
-              message:"Employee Id ${_cubit.currentEmployee?.cemexId??""} is not exit .",
-              onPressedOk: () {
-                Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
-              });
+              isSucceeded: false,
+              message:state.message,
+              onPressedOk:() => Navigator.pop(context)
+              );
         }
         if (state is SendMedicationRequestLoadingState) {
           loadingAlertDialog(context);

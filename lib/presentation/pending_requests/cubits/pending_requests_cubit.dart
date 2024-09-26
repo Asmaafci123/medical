@@ -125,7 +125,8 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
         itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity??"0")+1).toString(),
         itemDateFrom: selectedMedicalItems[index].itemDateFrom,
         itemDateTo: selectedMedicalItems[index].itemDateTo,
-      itemImage: selectedMedicalItems[index].itemImage
+      itemImage: selectedMedicalItems[index].itemImage,
+      itemDose: selectedMedicalItems[index].itemDose
     );
     selectedMedicalItems[index]=newMedicalItem;
     emit(AddMedicalItemQuantitySuccessState());
@@ -139,7 +140,8 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
         itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity??"0")-1).toString(),
         itemDateFrom: selectedMedicalItems[index].itemDateFrom,
         itemDateTo: selectedMedicalItems[index].itemDateTo,
-        itemImage: selectedMedicalItems[index].itemImage
+        itemImage: selectedMedicalItems[index].itemImage,
+      itemDose: selectedMedicalItems[index].itemDose
     );
     selectedMedicalItems[index]=newMedicalItem;
     emit(MinusMedicalItemQuantitySuccessState());
