@@ -29,6 +29,7 @@ class User extends Equatable {
   final bool? isMedicalAdmin;
   final bool? isDoctor;
   final bool? hasMedicalService;
+  final bool? hasMore4uService;
   final String? country;
  final List<Relative>?relatives;
 
@@ -61,7 +62,8 @@ class User extends Equatable {
       this.hasMedicalService,
       this.isDoctor,
       this.isMedicalAdmin,
-        this.relatives
+        this.relatives,
+        this.hasMore4uService
       });
 
   @override
@@ -94,6 +96,7 @@ class User extends Equatable {
         hasMedicalService,
         isDoctor,
         isMedicalAdmin,
-    relatives
+    relatives,
+    hasMore4uService
       ];
 }

@@ -181,6 +181,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                                     .getEmployeeRelatives(
                                         userNumber.toString(), "medication");
                               } else {
+
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(

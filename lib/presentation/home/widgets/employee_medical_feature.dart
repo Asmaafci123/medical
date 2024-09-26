@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/themes/app_colors.dart';
+import 'package:toast/toast.dart';
 
+import '../../../core/constants/constants.dart';
 import '../../medical_benefits/medical_benefits_screen.dart';
 import '../../more4u_home/more4u_home_screen.dart';
 import '../../our_paretners/our_partners_screen.dart';
@@ -15,6 +18,7 @@ class EmployeeMedicalFeature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return CarouselSlider(
         items: [
           MedicalFeature(
@@ -22,16 +26,23 @@ class EmployeeMedicalFeature extends StatelessWidget {
               title:"More4u",
               description:  "Mange all Medical Requests",
               onTap:() {
-                Navigator.of(context).pushNamed(
-                    More4uHomeScreen.routeName);
+                userData?.hasMore4uService == true? Navigator.of(context).pushNamed(
+                    More4uHomeScreen.routeName):
+                Toast.show("You don't have more4u service",
+                    backgroundColor: AppColors.redColor,
+                    duration: Toast.lengthLong, gravity: Toast.top);
+
               }),
           MedicalFeature(
               imagePath: "assets/images/medical-report.png",
               title:"Medical",
               description: "Create New Medical Request",
               onTap:() {
-                Navigator.of(context).pushNamed(
-                    MedicalBenefitsScreen.routeName);
+                userData?.hasMedicalService == true? Navigator.of(context).pushNamed(
+                    MedicalBenefitsScreen.routeName):
+                Toast.show("You don't have medical service",
+                    backgroundColor: AppColors.redColor,
+                    duration: Toast.lengthLong, gravity: Toast.top);
               }),
           MedicalFeature(
               imagePath: "assets/images/support.png",

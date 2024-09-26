@@ -13,6 +13,7 @@ import 'package:more4u/presentation/home/widgets/employee_medical_feature.dart';
 import 'package:more4u/presentation/home/widgets/medical_feature.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:toast/toast.dart';
 import '../../injection_container.dart';
 import '../more4u_home/more4u_home_screen.dart';
 import '../pending_requests/pending_requests_screen.dart';
@@ -69,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   logOut(context);
                 });
           }
+
         },
         builder: (context, state) {
           return Scaffold(
@@ -201,8 +203,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               userData?.isMedicalAdmin == true)?
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(More4uHomeScreen.routeName);
+                              userData?.hasMedicalService == true? Navigator.of(context)
+                                  .pushNamed(More4uHomeScreen.routeName):
+                              Toast.show("You don't have medical service",
+                                  backgroundColor: AppColors.redColor,
+                                  duration: Toast.lengthLong, gravity: Toast.top);
                             },
                             child: Card(
                               elevation: 5,
@@ -325,7 +330,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           GestureDetector(
                             onTap: ()
                             {
-// show popup
+                              Toast.show("There is no Privileges Yet",
+                                  backgroundColor: AppColors.redColor,
+                                  duration: Toast.lengthLong, gravity: Toast.top);
                             },
                             child: Card(
                               elevation: 5,

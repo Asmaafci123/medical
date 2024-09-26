@@ -15,6 +15,7 @@ import 'package:more4u/presentation/my_benefits/my_benefits_screen.dart';
 import 'package:more4u/presentation/profile/profile_screen.dart';
 import 'package:more4u/presentation/terms_and_conditions/terms_and_conditions.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'package:toast/toast.dart';
 
 import '../../core/constants/constants.dart';
 import '../../core/themes/app_colors.dart';
@@ -38,6 +39,7 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _cubit = HomeCubit.get(context);
+    ToastContext().init(context);
     final completer = Completer();
     return SafeArea(
       child: SizedBox(
@@ -52,7 +54,7 @@ class DrawerWidget extends StatelessWidget {
               child: Container(
                 color: Colors.white.withOpacity(0.8),
                 padding:
-                EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+                    EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
                 child: ListView(
                   children: [
                     Row(
@@ -61,7 +63,8 @@ class DrawerWidget extends StatelessWidget {
                         const Spacer(flex: 3),
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.mainColor, width: 2),
+                            border: Border.all(
+                                color: AppColors.mainColor, width: 2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           height: 130.h,
@@ -80,7 +83,9 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Spacer(flex: 2,),
+                        const Spacer(
+                          flex: 2,
+                        ),
                         Container(
                           height: 35.h,
                           width: 35.h,
@@ -109,7 +114,8 @@ class DrawerWidget extends StatelessWidget {
                       child: Stack(
                         alignment: Alignment.topCenter,
                         children: [
-                          Image.asset('assets/images/banner1.png', height: 66.h),
+                          Image.asset('assets/images/banner1.png',
+                              height: 66.h),
                           Container(
                             alignment: Alignment.center,
                             width: 170.w,
@@ -129,41 +135,39 @@ class DrawerWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    buildListTile(
-                      context,
-                      title: 'Home'.tr(),
-                      leading: CustomIcons.home__2_,
-                      onTap: () {
-                        Navigator.pop(context);
-                       Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
-                      },
-                      isMedical: true
-                    ),
+                    buildListTile(context,
+                        title: 'Home'.tr(),
+                        leading: CustomIcons.home__2_, onTap: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, HomeScreen.routeName, (route) => false);
+                    }, isMedical: true),
                     Theme(
-                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
                       child: ExpansionTile(
                         tilePadding: EdgeInsets.only(left: 12.w),
-                        title:Row(
+                        title: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             BlocBuilder<HomeCubit, HomeState>(
                               builder: (context, state) {
                                 return bg.Badge(
-                                  showBadge:pendingRequestsCountMore4u != 0,
+                                  showBadge: pendingRequestsCountMore4u != 0,
                                   ignorePointer: true,
                                   position: bg.BadgePosition.bottomEnd(),
                                   badgeColor: AppColors.redColor,
                                   padding: const EdgeInsets.all(0),
                                   badgeContent: Container(
-                                      decoration: BoxDecoration(shape: BoxShape.circle),
+                                      decoration:
+                                          BoxDecoration(shape: BoxShape.circle),
                                       height: 20.h,
                                       width: 20.w,
-                                      child:
-                                      AutoSizeText(
-                                       pendingRequestsCountMore4u ! > 99
+                                      child: AutoSizeText(
+                                        pendingRequestsCountMore4u! > 99
                                             ? '+99'
                                             : pendingRequestsCountMore4u
-                                            .toString(),
+                                                .toString(),
                                         maxLines: 1,
                                         wrapWords: false,
                                         textAlign: TextAlign.center,
@@ -172,12 +176,12 @@ class DrawerWidget extends StatelessWidget {
                                             color: Colors.white,
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.bold),
-                                      )
-                                  ),
+                                      )),
                                   child: SimpleShadow(
                                     offset: const Offset(0, 4),
                                     color: Colors.black,
-                                    child: Icon(CustomIcons.apps, color: AppColors.mainColor, size: 20.r),
+                                    child: Icon(CustomIcons.apps,
+                                        color: AppColors.mainColor, size: 20.r),
                                   ),
                                 );
                               },
@@ -186,153 +190,185 @@ class DrawerWidget extends StatelessWidget {
                               width: 15.w,
                             ),
                             Text(
-                            "More4u",
-                            style: TextStyle(
-                              fontFamily: "Certa Sans",
-                              color: AppColors.greyColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.0.sp,
+                              "More4u",
+                              style: TextStyle(
+                                fontFamily: "Certa Sans",
+                                color: AppColors.greyColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18.0.sp,
+                              ),
                             ),
-                      ),
                           ],
                         ),
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: 30.w
-                          ),
-                          child: buildListTile(
-                            context,
-                            title: 'My Requests'.tr(),
-                            leading: CustomIcons.ticket,
-                              isMedical: false,
-                            onTap: () async {
-                              Navigator.pop(context);
-                              if (ModalRoute //send argument to widget
-                                  .of(context)
-                                  ?.settings
-                                  .name ==
-                                  HomeScreen.routeName) {
-                                final completer = Completer();
-                                final result = await Navigator.pushNamed(
-                                    context, MyBenefitsScreen.routeName)
-                                    .whenComplete(() {
-                                  _cubit.getCurrentUser();
-                                });
-                                completer.complete(result);
-                              } else {
-                                final result = await Navigator.pushReplacementNamed(
-                                    context, MyBenefitsScreen.routeName,
-                                    result: completer.future);
-                                completer.complete(result);
-                              }
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 30.w
-                          ),
-                          child: buildListTile(
-                            context,
-                            title: AppStrings.myGifts.tr(),
-                            leading: CustomIcons.balloons,
-                              isMedical: false,
-                            onTap: () async {
-                              Navigator.pop(context);
-                              if (ModalRoute.of(context)?.settings.name ==
-                                  HomeScreen.routeName) {
-                                final completer = Completer();
-                                final result = await Navigator.pushNamed(
-                                    context, MyGiftsScreen.routeName)
-                                    .whenComplete(() {
-                                  _cubit.getCurrentUser();
-                                });
-                                completer.complete(result);
-                              } else {
-                                final result = await Navigator.pushReplacementNamed(
-                                    context, MyGiftsScreen.routeName,
-                                    result: completer.future);
-                                completer.complete(result);
-                              }
-                            },
-                          ),
-                        ),
-                        if (userData!.hasRoles! || userData!.hasRequests!)
+                        children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: 30.w
-                            ),
+                            padding: EdgeInsets.only(left: 30.w),
                             child: buildListTile(
                               context,
-                              title: AppStrings.manageRequests.tr(),
-                              leading: CustomIcons.business_time,
-                                isMedical:false,
+                              title: 'My Requests'.tr(),
+                              leading: CustomIcons.ticket,
+                              isMedical: false,
                               onTap: () async {
-                                Navigator.pop(context);
-                                if (ModalRoute.of(context)?.settings.name ==
-                                    HomeScreen.routeName) {
-                                  Navigator.pushNamed(
-                                      context, ManageRequestsScreen.routeName)
-                                      .whenComplete(() => _cubit.getCurrentUser());
-                                } else {
-                                  final result = await Navigator.pushReplacementNamed(
-                                      context, ManageRequestsScreen.routeName,
-                                      result: completer.future);
-                                  completer.complete(result);
+                                print(userData?.hasMore4uService);
+                                if(userData?.hasMore4uService == true)
+                                  {
+                                    Navigator.pop(context);
+                                    if (ModalRoute //send argument to widget
+                                        .of(context)
+                                        ?.settings
+                                        .name ==
+                                        HomeScreen.routeName) {
+                                      final completer = Completer();
+                                      final result = await Navigator.pushNamed(
+                                          context, MyBenefitsScreen.routeName)
+                                          .whenComplete(() {
+                                        _cubit.getCurrentUser();
+                                      });
+                                      completer.complete(result);
+                                    } else {
+                                      final result =
+                                      await Navigator.pushReplacementNamed(
+                                          context, MyBenefitsScreen.routeName,
+                                          result: completer.future);
+                                      completer.complete(result);
+                                    }
+                                  }
+                                else{
+                                   Toast.show("You don't have more4u service",
+                                      backgroundColor: AppColors.redColor,
+                                      duration: Toast.lengthLong, gravity: Toast.top);
+                                }
+
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 30.w),
+                            child: buildListTile(
+                              context,
+                              title: AppStrings.myGifts.tr(),
+                              leading: CustomIcons.balloons,
+                              isMedical: false,
+                              onTap: () async {
+                                if(userData?.hasMore4uService == true)
+                                {
+                                  Navigator.pop(context);
+                                  if (ModalRoute.of(context)?.settings.name ==
+                                      HomeScreen.routeName) {
+                                    final completer = Completer();
+                                    final result = await Navigator.pushNamed(
+                                        context, MyGiftsScreen.routeName)
+                                        .whenComplete(() {
+                                      _cubit.getCurrentUser();
+                                    });
+                                    completer.complete(result);
+                                  } else {
+                                    final result =
+                                    await Navigator.pushReplacementNamed(
+                                        context, MyGiftsScreen.routeName,
+                                        result: completer.future);
+                                    completer.complete(result);
+                                  }
+                                }
+                                else{
+                                  Toast.show("You don't have more4u service",
+                                      backgroundColor: AppColors.redColor,
+                                      duration: Toast.lengthLong, gravity: Toast.top);
                                 }
                               },
                             ),
                           ),
-                      ],),
+                          if (userData!.hasRoles! || userData!.hasRequests!)
+                            Padding(
+                              padding: EdgeInsets.only(left: 30.w),
+                              child: buildListTile(
+                                context,
+                                title: AppStrings.manageRequests.tr(),
+                                leading: CustomIcons.business_time,
+                                isMedical: false,
+                                onTap: () async {
+                                  if(userData?.hasMore4uService == true)
+                                  {
+                                    Navigator.pop(context);
+                                    if (ModalRoute.of(context)?.settings.name ==
+                                        HomeScreen.routeName) {
+                                      Navigator.pushNamed(context,
+                                          ManageRequestsScreen.routeName)
+                                          .whenComplete(
+                                              () => _cubit.getCurrentUser());
+                                    } else {
+                                      final result =
+                                      await Navigator.pushReplacementNamed(
+                                          context,
+                                          ManageRequestsScreen.routeName,
+                                          result: completer.future);
+                                      completer.complete(result);
+                                    }
+                                  }
+                                  else{
+                                    Toast.show("You don't have more4u service",
+                                        backgroundColor: AppColors.redColor,
+                                        duration: Toast.lengthLong, gravity: Toast.top);
+                                  }
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                     Theme(
-                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
                       child: ExpansionTile(
                         tilePadding: EdgeInsets.only(left: 12.w),
-                        title:Row(
+                        title: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            userData!.isDoctor==true? BlocBuilder<HomeCubit, HomeState>(
-                              builder: (context, state) {
-                                return bg.Badge(
-                                  showBadge:pendingRequestMedicalCount != 0,
-                                  ignorePointer: true,
-                                  position: bg.BadgePosition.bottomEnd(),
-                                  badgeColor: AppColors.redColor,
-                                  padding: EdgeInsets.all(0),
-                                  badgeContent: Container(
-                                      decoration: BoxDecoration(shape: BoxShape.circle),
-                                      height: 20.h,
-                                      width: 20.w,
-                                      child:
-                                      AutoSizeText(
-                                        pendingRequestMedicalCount! > 99
-                                            ? '+99'
-                                            : pendingRequestMedicalCount
-                                            .toString(),
-                                        maxLines: 1,
-                                        wrapWords: false,
-                                        textAlign: TextAlign.center,
-                                        minFontSize: 9,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                  ),
-                                  child: SimpleShadow(
+                            userData!.isDoctor == true
+                                ? BlocBuilder<HomeCubit, HomeState>(
+                                    builder: (context, state) {
+                                      return bg.Badge(
+                                        showBadge:
+                                            pendingRequestMedicalCount != 0,
+                                        ignorePointer: true,
+                                        position: bg.BadgePosition.bottomEnd(),
+                                        badgeColor: AppColors.redColor,
+                                        padding: EdgeInsets.all(0),
+                                        badgeContent: Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle),
+                                            height: 20.h,
+                                            width: 20.w,
+                                            child: AutoSizeText(
+                                              pendingRequestMedicalCount! > 99
+                                                  ? '+99'
+                                                  : pendingRequestMedicalCount
+                                                      .toString(),
+                                              maxLines: 1,
+                                              wrapWords: false,
+                                              textAlign: TextAlign.center,
+                                              minFontSize: 9,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                        child: SimpleShadow(
+                                          offset: const Offset(0, 4),
+                                          color: Colors.black,
+                                          child: Icon(CustomIcons.apps,
+                                              color: AppColors.mainColor,
+                                              size: 20.r),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : SimpleShadow(
                                     offset: const Offset(0, 4),
                                     color: Colors.black,
-                                    child: Icon(CustomIcons.apps, color: AppColors.mainColor, size: 20.r),
+                                    child: Icon(CustomIcons.apps,
+                                        color: AppColors.mainColor, size: 20.r),
                                   ),
-                                );
-                              },
-                            ): SimpleShadow(
-                              offset: const Offset(0, 4),
-                              color: Colors.black,
-                              child: Icon(CustomIcons.apps, color: AppColors.mainColor, size: 20.r),
-                            ),
                             SizedBox(
                               width: 15.w,
                             ),
@@ -348,152 +384,177 @@ class DrawerWidget extends StatelessWidget {
                           ],
                         ),
                         children: [
-                          (userData!.isMedicalAdmin==false && userData!.isDoctor==false)?
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 30.w
-                            ),
-                            child: buildListTile(
-                              context,
-                              title: 'My Requests'.tr(),
-                              leading: CustomIcons.ticket,
-                              isMedical:true,
-                              onTap: () async {
-                                Navigator.pop(context);
-                                if (ModalRoute //send argument to widget
-                                    .of(context)
-                                    ?.settings
-                                    .name ==
-                                    HomeScreen.routeName) {
-                                  final completer = Completer();
-                                  final result = await Navigator.pushNamed(
-                                      context, MedicalRequestsHistoryScreen.routeName)
-                                      .whenComplete(() {
-                                    //_cubit.getHomeData();
-                                  });
-                                  completer.complete(result);
-                                } else {
-                                  final result = await Navigator.pushReplacementNamed(
-                                      context, MedicalRequestsHistoryScreen.routeName);
-                                  completer.complete(result);
-                                }
-                              },
-                            ),
-                          ):const SizedBox(),
-                          (userData!.isMedicalAdmin==true && userData!.isDoctor==false)?
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 30.w
-                            ),
-                            child: buildListTile(
-                              context,
-                              title: "Request",
-                              leading: CustomIcons.balloons,
-                              isMedical:true,
-                              onTap: () async {
-                                Navigator.pop(context);
+                          (userData!.isMedicalAdmin == false &&
+                                  userData!.isDoctor == false)
+                              ? Padding(
+                                  padding: EdgeInsets.only(left: 30.w),
+                                  child: buildListTile(
+                                    context,
+                                    title: 'My Requests'.tr(),
+                                    leading: CustomIcons.ticket,
+                                    isMedical: true,
+                                    onTap: () async {
+                                      if (userData?.hasMedicalService == true) {
+                                        Navigator.pop(context);
+                                        if (ModalRoute //send argument to widget
+                                                    .of(context)
+                                                ?.settings
+                                                .name ==
+                                            HomeScreen.routeName) {
+                                          final completer = Completer();
+                                          final result =
+                                              await Navigator.pushNamed(
+                                                      context,
+                                                      MedicalRequestsHistoryScreen
+                                                          .routeName)
+                                                  .whenComplete(() {
+                                            //_cubit.getHomeData();
+                                          });
+                                          completer.complete(result);
+                                        } else {
+                                          final result = await Navigator
+                                              .pushReplacementNamed(
+                                                  context,
+                                                  MedicalRequestsHistoryScreen
+                                                      .routeName);
+                                          completer.complete(result);
+                                        }
+                                      } else {
+                                        Toast.show(
+                                            "You don't have medical service",
+                                            backgroundColor: AppColors.redColor,
+                                            duration: Toast.lengthLong,
+                                            gravity: Toast.top);
+                                      }
+                                    },
+                                  ),
+                                )
+                              : const SizedBox(),
+                          (userData!.isMedicalAdmin == true &&
+                                  userData!.isDoctor == false)
+                              ? Padding(
+                                  padding: EdgeInsets.only(left: 30.w),
+                                  child: buildListTile(
+                                    context,
+                                    title: "Request",
+                                    leading: CustomIcons.balloons,
+                                    isMedical: true,
+                                    onTap: () async {
+                                      Navigator.pop(context);
 
-                                if (ModalRoute.of(context)?.settings.name ==
-                                    More4uHomeScreen.routeName) {
-                                  final completer = Completer();
-                                  final result = await Navigator.pushNamed(
-                                      context, MedicalBenefitsScreen.routeName)
-                                      .whenComplete(() {
-                                    _cubit.getCurrentUser();
-                                  });
-                                  completer.complete(result);
-                                } else {
-                                  final result = await Navigator.pushReplacementNamed(
-                                      context,  MedicalBenefitsScreen.routeName,
-                                      result: completer.future);
-                                  completer.complete(result);
-                                }
-                              },
-                            ),
-                          ):const SizedBox(),
+                                      if (ModalRoute.of(context)
+                                              ?.settings
+                                              .name ==
+                                          More4uHomeScreen.routeName) {
+                                        final completer = Completer();
+                                        final result =
+                                            await Navigator.pushNamed(
+                                                    context,
+                                                    MedicalBenefitsScreen
+                                                        .routeName)
+                                                .whenComplete(() {
+                                          _cubit.getCurrentUser();
+                                        });
+                                        completer.complete(result);
+                                      } else {
+                                        final result = await Navigator
+                                            .pushReplacementNamed(context,
+                                                MedicalBenefitsScreen.routeName,
+                                                result: completer.future);
+                                        completer.complete(result);
+                                      }
+                                    },
+                                  ),
+                                )
+                              : const SizedBox(),
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: 30.w
-                            ),
+                            padding: EdgeInsets.only(left: 30.w),
                             child: buildListTile(
                               context,
                               title: 'Partnerships'.tr(),
                               leading: CustomIcons.ticket,
-                              isMedical:true,
+                              isMedical: true,
                               onTap: () async {
                                 Navigator.pop(context);
                                 if (ModalRoute //send argument to widget
-                                    .of(context)
-                                    ?.settings
-                                    .name ==
+                                            .of(context)
+                                        ?.settings
+                                        .name ==
                                     More4uHomeScreen.routeName) {
                                   final completer = Completer();
                                   final result = await Navigator.pushNamed(
-                                      context, OurPartnersScreen.routeName)
+                                          context, OurPartnersScreen.routeName)
                                       .whenComplete(() {
-                                   // _cubit.getHomeData();
+                                    // _cubit.getHomeData();
                                   });
                                   completer.complete(result);
                                 } else {
-                                  final result = await Navigator.pushReplacementNamed(
-                                      context,OurPartnersScreen.routeName,
-                                      result: completer.future);
+                                  final result =
+                                      await Navigator.pushReplacementNamed(
+                                          context, OurPartnersScreen.routeName,
+                                          result: completer.future);
                                   completer.complete(result);
                                 }
                               },
                             ),
                           ),
-                          userData!.isDoctor==true?
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 30.w
-                            ),
-                            child: buildListTile(
-                              context,
-                              title: AppStrings.manageRequests.tr(),
-                              leading: CustomIcons.business_time,
-                              isMedical:true,
-                              onTap: () async {
-                                Navigator.pop(context);
-                                if (ModalRoute.of(context)?.settings.name ==
-                                    More4uHomeScreen.routeName) {
-                                  final completer = Completer();
-                                  final result = await Navigator.pushNamed(
-                                      context, PendingRequestsScreen.routeName)
-                                      .whenComplete(() {
-                                    _cubit.getCurrentUser();
-                                  });
-                                  completer.complete(result);
-                                } else {
-                                  final result = await Navigator.pushReplacementNamed(
-                                      context, PendingRequestsScreen.routeName,
-                                      result: completer.future);
-                                  completer.complete(result);
-                                }
-                              },
-                            ),
-                          ):const SizedBox(),
-                        ],),
+                          userData!.isDoctor == true
+                              ? Padding(
+                                  padding: EdgeInsets.only(left: 30.w),
+                                  child: buildListTile(
+                                    context,
+                                    title: AppStrings.manageRequests.tr(),
+                                    leading: CustomIcons.business_time,
+                                    isMedical: true,
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      if (ModalRoute.of(context)
+                                              ?.settings
+                                              .name ==
+                                          More4uHomeScreen.routeName) {
+                                        final completer = Completer();
+                                        final result =
+                                            await Navigator.pushNamed(
+                                                    context,
+                                                    PendingRequestsScreen
+                                                        .routeName)
+                                                .whenComplete(() {
+                                          _cubit.getCurrentUser();
+                                        });
+                                        completer.complete(result);
+                                      } else {
+                                        final result = await Navigator
+                                            .pushReplacementNamed(context,
+                                                PendingRequestsScreen.routeName,
+                                                result: completer.future);
+                                        completer.complete(result);
+                                      }
+                                    },
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
                     ),
                     buildListTile(
                       context,
                       title: AppStrings.notifications.tr(),
                       leading: CustomIcons.bell,
-                      isMedical:true,
+                      isMedical: true,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            NotificationScreen.routeName,
-                            ModalRoute.withName(More4uHomeScreen.routeName))
+                                context,
+                                NotificationScreen.routeName,
+                                ModalRoute.withName(More4uHomeScreen.routeName))
                             .whenComplete(() => _cubit.getCurrentUser());
                       },
                     ),
                     buildListTile(
                       context,
-                      title:AppStrings.profile.tr(),
+                      title: AppStrings.profile.tr(),
                       leading: CustomIcons.user,
-                      isMedical:false,
+                      isMedical: false,
                       onTap: () async {
                         Navigator.pop(context);
                         if (ModalRoute.of(context)?.settings.name ==
@@ -515,44 +576,42 @@ class DrawerWidget extends StatelessWidget {
                         }
                       },
                     ),
-                    buildListTile(
-                      context,
-                      title: AppStrings.termsAndConditions.tr(),
-                        isMedical:false,
-                      leading: CustomIcons.document,
-                        onTap: () async {
-                          Navigator.pop(context);
-                          if (ModalRoute.of(context)?.settings.name ==
-                              More4uHomeScreen.routeName) {
-                            final completer = Completer();
-                            final result = await Navigator.pushNamed(
-                                context, TermsAndConditions.routeName,arguments: false)
-                                .whenComplete(() {
-                              _cubit.getCurrentUser();
-                            });
-                            completer.complete(result);
-                          } else {
-                            final result = await Navigator.pushReplacementNamed(
-                                context, TermsAndConditions.routeName,arguments: false,
-                                result: completer.future);
-                            completer.complete(result);
-                          }
-                        }
-                    ),
+                    buildListTile(context,
+                        title: AppStrings.termsAndConditions.tr(),
+                        isMedical: false,
+                        leading: CustomIcons.document, onTap: () async {
+                      Navigator.pop(context);
+                      if (ModalRoute.of(context)?.settings.name ==
+                          More4uHomeScreen.routeName) {
+                        final completer = Completer();
+                        final result = await Navigator.pushNamed(
+                                context, TermsAndConditions.routeName,
+                                arguments: false)
+                            .whenComplete(() {
+                          _cubit.getCurrentUser();
+                        });
+                        completer.complete(result);
+                      } else {
+                        final result = await Navigator.pushReplacementNamed(
+                            context, TermsAndConditions.routeName,
+                            arguments: false, result: completer.future);
+                        completer.complete(result);
+                      }
+                    }),
                     Divider(),
                     buildListTile(
                       context,
                       title: 'Logout'.tr(),
-                      isMedical:false,
+                      isMedical: false,
                       leading: CustomIcons.sign_out_alt,
                       onTap: () {
                         Navigator.pop(context);
                         logOut(context);
                       },
                     ),
-                   SizedBox(
-                     height: 50.h,
-                   ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
                     Align(
                         alignment: Alignment.bottomCenter,
                         child: PoweredByCemex()),
@@ -568,10 +627,9 @@ class DrawerWidget extends StatelessWidget {
 
   Widget buildListTile(BuildContext context,
       {required IconData leading,
-        required String title,
-        void Function()? onTap,
-        required bool isMedical
-      }) {
+      required String title,
+      void Function()? onTap,
+      required bool isMedical}) {
     return SizedBox(
       height: 50.h,
       child: Material(
@@ -584,60 +642,61 @@ class DrawerWidget extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 12.w),
           leading: title == AppStrings.manageRequests.tr()
               ? BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              return bg.Badge(
-                showBadge:isMedical?pendingRequestMedicalCount != 0:
-                pendingRequestsCountMore4u != 0,
-                ignorePointer: true,
-                position: bg.BadgePosition.bottomEnd(),
-                badgeColor: AppColors.redColor,
-                padding: EdgeInsets.all(0),
-                badgeContent: Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  height: 20.h,
-                  width: 20.w,
-                  child: isMedical?
-                  AutoSizeText(
-                   pendingRequestMedicalCount! > 99
-                        ? '+99'
-                        : pendingRequestMedicalCount
-                        .toString(),
-                    maxLines: 1,
-                    wrapWords: false,
-                    textAlign: TextAlign.center,
-                    minFontSize: 9,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold),
-                  ):
-                  AutoSizeText(
-                   pendingRequestsCountMore4u! > 99
-                        ? '+99'
-                        : pendingRequestsCountMore4u
-                        .toString(),
-                    maxLines: 1,
-                    wrapWords: false,
-                    textAlign: TextAlign.center,
-                    minFontSize: 9,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                child: SimpleShadow(
+                  builder: (context, state) {
+                    return bg.Badge(
+                      showBadge: isMedical
+                          ? pendingRequestMedicalCount != 0
+                          : pendingRequestsCountMore4u != 0,
+                      ignorePointer: true,
+                      position: bg.BadgePosition.bottomEnd(),
+                      badgeColor: AppColors.redColor,
+                      padding: EdgeInsets.all(0),
+                      badgeContent: Container(
+                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        height: 20.h,
+                        width: 20.w,
+                        child: isMedical
+                            ? AutoSizeText(
+                                pendingRequestMedicalCount! > 99
+                                    ? '+99'
+                                    : pendingRequestMedicalCount.toString(),
+                                maxLines: 1,
+                                wrapWords: false,
+                                textAlign: TextAlign.center,
+                                minFontSize: 9,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : AutoSizeText(
+                                pendingRequestsCountMore4u! > 99
+                                    ? '+99'
+                                    : pendingRequestsCountMore4u.toString(),
+                                maxLines: 1,
+                                wrapWords: false,
+                                textAlign: TextAlign.center,
+                                minFontSize: 9,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                      ),
+                      child: SimpleShadow(
+                        offset: const Offset(0, 4),
+                        color: Colors.black,
+                        child: Icon(leading,
+                            color: AppColors.mainColor, size: 20.r),
+                      ),
+                    );
+                  },
+                )
+              : SimpleShadow(
                   offset: const Offset(0, 4),
                   color: Colors.black,
                   child: Icon(leading, color: AppColors.mainColor, size: 20.r),
                 ),
-              );
-            },
-          ) : SimpleShadow(
-            offset: const Offset(0, 4),
-            color: Colors.black,
-            child: Icon(leading, color: AppColors.mainColor, size: 20.r),
-          ),
           title: Text(
             title,
             style: TextStyle(

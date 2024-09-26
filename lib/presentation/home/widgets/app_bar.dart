@@ -55,7 +55,7 @@ class HomeAppBar extends StatelessWidget {
           child: Icon(
             Icons.arrow_forward_ios_outlined,
             color: AppColors.blackColor,
-            size: 18.sp,
+            size: 22.sp,
           ),
         ):
         BlocBuilder<HomeCubit,HomeState>(

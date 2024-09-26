@@ -70,15 +70,6 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
           loadingAlertDialog(context);
         }
         if (state is SendMedicationRequestSuccessState) {
-         // Navigator.pop(context);
-         //  // Toast.show("Success Request \n Request Id is $medicationRequestId",
-         //  //     duration: Toast.lengthLong, gravity: Toast.top,backgroundColor:Colors.green);
-         // showMessageDialog(
-         //   context: context,
-         //   isSucceeded:true,
-         //   message: "Success",
-         //   onPressedOk: () => Navigator.pop(context),
-         // );
           Navigator.pop(context);
           showMessageDialog(
               context: context,
@@ -101,7 +92,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
             physics: const ScrollPhysics(),
             child: SafeArea(
                 child: Padding(
-              padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 0),
+              padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 10),
               child: Form(
                 key: _formKey,
                 child: Column(

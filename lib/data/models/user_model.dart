@@ -32,7 +32,8 @@ class UserModel extends User {
       isDoctor,
       hasMedicalService,
       country,
-          relatives
+          relatives,
+          hasMore4uService
       })
       : super(
             userName: userName,
@@ -63,7 +64,8 @@ class UserModel extends User {
             isDoctor: isDoctor,
             hasMedicalService: hasMedicalService,
             country: country,
-      relatives:relatives
+      relatives:relatives,
+      hasMore4uService:hasMore4uService
   );
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -94,6 +96,7 @@ class UserModel extends User {
        isMedicalAdmin: json['isMedicalAdmin'],
        isDoctor: json['isDoctor'],
        hasMedicalService: json['hasMedicalService'],
+        hasMore4uService: json['hasMore4uService'],
         country: json['country'],
         relatives:json['relatives']!=null?List<RelativeModel>.from(json['relatives']
             .map((x) => RelativeModel.fromJson(x))

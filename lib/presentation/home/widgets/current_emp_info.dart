@@ -161,12 +161,14 @@ class CurrentEmployeeInfo extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.r)
                     ),
-                    shadowColor: Color(0xFF446CFF),
+                    shadowColor:const Color(0xFF446CFF),
                     child: CircleAvatar(
                       radius: 30.r,
-                      backgroundImage: NetworkImage(
-                          userData?.profilePictureAPI??"",
-                      ),)
+                      backgroundImage:
+                      NetworkImage(
+                        userData?.profilePictureAPI??"",
+                      )
+                    )
                   ),
                   SizedBox(
                     width: 10.w,
@@ -230,7 +232,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        medicalCoverage??"100%",
+                        medicalCoverage??"0%",
                         style: TextStyle(
                             color: AppColors.mainColor,
                             fontSize: 12.sp,
