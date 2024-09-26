@@ -10,6 +10,7 @@ class EmployeeMedicalResponse extends  Equatable{
   final List<Category>? category;
   final List<Category>? subCategory;
   final List<DetailsOfMedical>? medicalDetails;
+  final List<String>?requestPurposes;
 
   const EmployeeMedicalResponse({
     required this.flag,
@@ -18,6 +19,7 @@ class EmployeeMedicalResponse extends  Equatable{
     required this.category,
     required this.subCategory,
     required this.medicalDetails,
+    this.requestPurposes
   });
 
   @override
@@ -27,6 +29,7 @@ class EmployeeMedicalResponse extends  Equatable{
     employeeRelativesApiModel,
     category,
     subCategory,
-    medicalDetails
+    medicalDetails,
+    requestPurposes
   ];
 }

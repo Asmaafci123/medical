@@ -14,6 +14,7 @@ class EmployeeMedicalResponseModel extends EmployeeMedicalResponse {
     required List<Category>? category,
     required List<Category>? subCategory,
     required List<DetailsOfMedical>? medicalDetails,
+    List<String>? requestPurposes,
   }) : super(
           flag: flag,
           message: message,
@@ -21,6 +22,7 @@ class EmployeeMedicalResponseModel extends EmployeeMedicalResponse {
           category: category,
           subCategory: subCategory,
           medicalDetails: medicalDetails,
+      requestPurposes:requestPurposes
         );
 
   factory EmployeeMedicalResponseModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class EmployeeMedicalResponseModel extends EmployeeMedicalResponse {
       medicalDetails: List<DetailsOfMedicalModel>.from(json['medicalDetails']
           .map((x) => DetailsOfMedicalModel.fromJson(x))
           .toList()),
+        requestPurposes:List<String>.from(json['requestPurposes'])
     );
   }
 }

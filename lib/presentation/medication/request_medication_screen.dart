@@ -574,6 +574,101 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                 },
                                   )
                                   : SizedBox(),
+                              (RequestMedicationCubit.get(context).currentEmployee !=
+                                  null &&
+                                  widget.medicationType == "checkups" &&
+                                  RequestMedicationCubit.get(context)
+                                      .resultOfSelectSubCategory
+                                      .length >
+                                      1 && RequestMedicationCubit.get(context)
+                                  .selectedCategory?.categoryName=="Hospitals")? Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      DropdownSearch<String>(
+                                popupProps:PopupProps.dialog(
+                                      showSearchBox: true,
+                                      fit: FlexFit.loose,
+                                      searchFieldProps: TextFieldProps(
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                          labelText: "Select Request Purpose",
+                                          labelStyle:TextStyle(
+                                              color: AppColors.greyDark,
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w300,
+                                              fontFamily: "Certa Sans"
+                                          ),
+                                        ),
+                                      ),
+                                ),
+                                items:RequestMedicationCubit.get(context)
+                                        .requestPurposes??[],
+                                itemAsString: (String u) => u,
+                                dropdownButtonProps: DropdownButtonProps(
+                                      icon:Icon(Icons.keyboard_arrow_down_outlined,color:Color(0xff697480),size: 16.sp,)  ,
+                                ),
+                                dropdownDecoratorProps: DropDownDecoratorProps(
+                                      dropdownSearchDecoration: InputDecoration(
+                                          labelText: "Medical Purpose",
+                                          hintText:"choose your Medical Purpose",
+                                          hintStyle:  TextStyle(
+                                              color:AppColors.greyDark,
+                                              fontSize: 16.sp,
+                                              fontFamily: "Certa Sans"
+                                          ),
+                                          labelStyle: TextStyle(
+                                              color: AppColors.greyDark,
+                                              fontSize: 16.sp,
+                                              fontFamily: "Certa Sans"
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10.h, horizontal: 8.w),
+                                          prefixIcon: Icon(CustomIcons.home__2_,color: AppColors.greyColor,size: 16.sp,),
+                                          // suffixIcon: Icon(Icons.keyboard_arrow_down_outlined,color:Color(0xff697480),size: 16.sp,) ,
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(15.0.r),
+                                              borderSide: BorderSide(
+                                                  width: 0.5.w,
+                                                  color: Color(0xffbec0ca)
+                                              )
+                                          ) ,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(15.0.r),
+                                              borderSide: BorderSide(
+                                                  width: 0.5.w,
+                                                  color: Color(0xffbec0ca)
+                                              )
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(15.0.r),
+                                              borderSide: BorderSide(
+                                                  width: 0.5.w,
+                                                  color: Color(0xffbec0ca)
+                                              )
+                                          )
+                                      ),
+                                ),
+                                onChanged: (String? newValue) {
+                                      RequestMedicationCubit.get(context)
+                                          .selectMedicalPurpose(newValue!);
+                                      setState(() {});
+                                },
+                                selectedItem: RequestMedicationCubit.get(context)
+                                        .selectedMedicalPurpose,
+                                validator: (String? value) {
+                                      if (value==null) return AppStrings.required.tr();
+                                      return null;
+                                },
+                              ),
+                                    ],
+                                  )
+                                  : SizedBox(),
+
                               SizedBox(
                                 height: 10.h,
                               ),

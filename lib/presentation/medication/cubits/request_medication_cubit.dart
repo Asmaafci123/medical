@@ -34,6 +34,8 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
   EmployeeRelativeApi? currentEmployee;
   TextEditingController searchController=TextEditingController();
   TextEditingController commentController=TextEditingController();
+  List<String>? requestPurposes=[];
+
  //  EmployeeInf? currentEmployee1=EmployeeInf(
  //      employeeName:userData?.userName??"",
  //      employeeDepartment:userData?.departmentName??"",
@@ -61,6 +63,7 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
       categories=employeeRelativesResponse.category;
       subCategories=employeeRelativesResponse.subCategory;
       medicalDetails=employeeRelativesResponse.medicalDetails;
+      requestPurposes=employeeRelativesResponse.requestPurposes;
      if(employeeRelativesResponse.medicalDetails!.isNotEmpty)
        {
          for(int i=0;i<employeeRelativesResponse.medicalDetails!.length;i++)
@@ -192,6 +195,12 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
 
 
 
+  String? selectedMedicalPurpose;
+  selectMedicalPurpose(String medicalPurpose)
+  {
+    selectedMedicalPurpose=medicalPurpose;
+    emit( SelectMedicalPurposeSuccessState());
+  }
   List<File>imagesFiles=[];
   pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -241,7 +250,7 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
             monthlyMedication: monthlyInsurance,
             selfRequest:familyInsurance==true?false:true,
               medicalEntityId: requestId==1?selectedPharmacy?.medicalEntityId:selectedDetailsOfMedical!.medicalEntityId,
-              medicalPurpose: "test",
+              medicalPurpose: selectedMedicalPurpose??"",
             comment:  commentController.text,
             attachment: imagesFiles
           ),
@@ -271,6 +280,7 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
     selectedRelative=null;
     selectedDetailsOfMedical=null;
     selectedPharmacy=null;
+    selectedMedicalPurpose=null;
     emit(ClearCurrentEmployeeSuccessState());
   }
 }

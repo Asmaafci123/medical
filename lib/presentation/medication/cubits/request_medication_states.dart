@@ -48,3 +48,5 @@ class ChangeActiveStepSuccessState extends RequestMedicationState {}
 class RemoveSelectedSubCategorySuccessState extends RequestMedicationState {}
 
 class SelectPharmacySuccessState extends RequestMedicationState {}
+
+class SelectMedicalPurposeSuccessState extends RequestMedicationState {}
