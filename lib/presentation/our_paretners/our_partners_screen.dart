@@ -36,15 +36,16 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
     return BlocConsumer<More4uHomeCubit, More4uHomeState>(
       listener: (context, state)
       {
-        if(state is GetMedicalLoadingState)
-          {
-            loadingAlertDialog(context);
-          }
-        else if(state is GetMedicalSuccessState)
-          {
-            Navigator.pop(context);
-          }
-        else if (state is GetMedicalErrorState) {
+        // if(state is GetMedicalLoadingState)
+        //   {
+        //     loadingAlertDialog(context);
+        //   }
+        // else if(state is GetMedicalSuccessState)
+        //   {
+        //     Navigator.pop(context);
+        //   }
+       // else
+          if (state is GetMedicalErrorState) {
           {
             if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
               showMessageDialog(
@@ -219,7 +220,8 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                     ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 20.h,horizontal:30.w),
-                      child:ListView.builder(itemBuilder:(context,index)=>GestureDetector(
+                      child:
+                      ListView.builder(itemBuilder:(context,index)=>InkWell(
                         onTap: ()
                         {
                           List<DetailsOfMedicalModel>clinicsResult=More4uHomeCubit.get(context).getDetailsOfMedical("Clinics",result[index].subCategoryName!);
@@ -254,7 +256,7 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                               Spacer(),
                                 Image.asset("assets/images/general_surgery.png",
                                   width: 40.w,)
                               ],
@@ -269,13 +271,11 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                               endIndent: 5.w,
                               color: AppColors.greyText,
                               thickness: 0.2,
-                            ):SizedBox(
-                            ),
+                            ):SizedBox(),
                             index!=result.length-1?
                             SizedBox(
                               height: 10.h,
-                            ):SizedBox(
-                            ),
+                            ):SizedBox(),
                           ],
                         ),
                       ),

@@ -70,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   logOut(context);
                 });
           }
-
         },
         builder: (context, state) {
           return Scaffold(
