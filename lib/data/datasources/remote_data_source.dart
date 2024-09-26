@@ -1155,9 +1155,9 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       'monthlyMedication':
       medicationRequestModel.monthlyMedication.toString() ?? "",
       'selfRequest': medicationRequestModel.selfRequest.toString() ?? "",
-      'medicalEntityId': medicationRequestModel.medicalEntityId.toString() ??
-          "",
+      'medicalEntityId': medicationRequestModel.medicalEntityId.toString() ?? "",
       'reason': medicationRequestModel.medicalPurpose ?? "",
+      'medicalPurpose': medicationRequestModel.medicalPurpose ?? "",
       'comment': medicationRequestModel.comment ?? "",
       'languageCode': languageCode.toString() ?? "",
     });

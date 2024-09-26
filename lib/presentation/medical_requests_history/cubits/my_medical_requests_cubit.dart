@@ -17,7 +17,7 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
 
   static MyMedicalRequestsCubit get(context) => BlocProvider.of(context);
   List<Request>myMedicalRequests=[];
-  List<Request>myMedicalRequestsBeforeReverse=[];
+ // List<Request>myMedicalRequestsBeforeReverse=[];
   TextEditingController searchInMyMedicalRequestsController=TextEditingController();
   getMyMedicalRequests() async {
     emit(GetMyMedicalRequestsLoadingState());
@@ -29,8 +29,9 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
     result.fold((failure) {
       emit(GetMyMedicalRequestsErrorState(failure.message));
     }, (myMedicalRequestsResponse) {
-      myMedicalRequestsBeforeReverse=myMedicalRequestsResponse.requests..sort((a,b) => a.requestDate.compareTo(b.requestDate));
-      myMedicalRequests= myMedicalRequestsBeforeReverse.reversed.toList();
+      List<Request>requests=myMedicalRequestsResponse.requests;
+     requests.sort((a,b) => a.requestDate.compareTo(b.requestDate));
+      myMedicalRequests= requests.reversed.toList();
     //  myMedicalRequests=[];
       emit( GetMyMedicalRequestsSuccessState());
     });

@@ -269,7 +269,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                             InfoField(
                                 title: "Medical Purpose",
                                 value: request?.medicalRequestDetails?.medicalRequest
-                                    ?.medicalPurpose??""
+                                    ?.medicalPurpose??"_"
                             ),
                             SizedBox(
                               height: 5.h,

@@ -105,6 +105,7 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
     await getLanguageCode();
     var json = jsonDecode(user!);
       emit(GetMedicalLoadingState());
+    print(accessToken);
       final result = await getMedicalUsecase(
           token:accessToken,languageCode: languageId!,userNumber: json['userNumber']);
       result.fold((failure) async{

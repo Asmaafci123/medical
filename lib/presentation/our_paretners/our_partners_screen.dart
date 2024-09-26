@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:badges/badges.dart' as bg;
 import 'package:more4u/presentation/our_paretners/search_partners_screen.dart';
+import 'package:more4u/presentation/widgets/utils/loading_dialog.dart';
+import '../../core/constants/app_strings.dart';
 import '../../core/themes/app_colors.dart';
 import '../../data/models/category-model.dart';
 import '../../data/models/details-of-medical-model.dart';
@@ -11,6 +14,8 @@ import '../home/widgets/app_bar.dart';
 import '../medical_benefits/medical_benefits_screen.dart';
 import '../more4u_home/cubits/more4u_home_cubit.dart';
 import '../widgets/drawer_widget.dart';
+import '../widgets/helpers.dart';
+import '../widgets/utils/message_dialog.dart';
 class OurPartnersScreen extends StatefulWidget {
   static const routeName = 'OurPartnersScreen';
   const OurPartnersScreen({super.key});
@@ -28,7 +33,39 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<More4uHomeCubit, More4uHomeState>(
+    return BlocConsumer<More4uHomeCubit, More4uHomeState>(
+      listener: (context, state)
+      {
+        if(state is GetMedicalLoadingState)
+          {
+            loadingAlertDialog(context);
+          }
+        else if(state is GetMedicalSuccessState)
+          {
+            Navigator.pop(context);
+          }
+        else if (state is GetMedicalErrorState) {
+          {
+            if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+              showMessageDialog(
+                  context: context,
+                  isSucceeded: false,
+                  message: state.message,
+                  onPressedOk: () {
+                    logOut(context);
+                  });
+            }
+            else {
+              showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () => Navigator.pop(context),
+              );
+            }
+          }
+        }
+      },
       builder: (context, state) {
         List<CategoryModel>result=More4uHomeCubit.get(context).getSubCategory("Clinics");
         return Scaffold(

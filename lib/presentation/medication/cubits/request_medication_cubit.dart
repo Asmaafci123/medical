@@ -249,8 +249,8 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
             requestDate: DateTime.now().toString(),
             monthlyMedication: monthlyInsurance,
             selfRequest:familyInsurance==true?false:true,
-              medicalEntityId: requestId==1?selectedPharmacy?.medicalEntityId:selectedDetailsOfMedical!.medicalEntityId,
-              medicalPurpose: selectedMedicalPurpose??"",
+            medicalEntityId: requestId==1?selectedPharmacy?.medicalEntityId:selectedDetailsOfMedical!.medicalEntityId,
+            medicalPurpose: selectedMedicalPurpose??"",
             comment:  commentController.text,
             attachment: imagesFiles
           ),

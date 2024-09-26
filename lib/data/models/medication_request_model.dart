@@ -23,8 +23,8 @@ class MedicationRequestModel extends MedicationRequest {
             requestDate: requestDate,
             monthlyMedication: monthlyMedication,
             selfRequest: selfRequest,
-      medicalEntityId:medicalEntityId,
-      medicalPurpose:medicalPurpose,
+            medicalEntityId: medicalEntityId,
+            medicalPurpose: medicalPurpose,
             comment: comment,
             attachment: attachment);
 
