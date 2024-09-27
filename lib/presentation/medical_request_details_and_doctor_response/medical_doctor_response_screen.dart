@@ -1136,17 +1136,31 @@ class _MedicalDoctorResponseScreenState
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                     if(_cubit.selectedMedicalEntity!=null
-                                         && _chipKey2.currentState
-                                             ?.currentTextEditingValue.text.length==_cubit.selectedMedicalItems.length
-                                     )
-                                     {
-                                       await showDialog<void>(
-                                           context: context,
-                                           builder: (context) => ReasonAndComment(
-                                             status: "3",
-                                           ));
-                                     }
+                                    if(_cubit.medicalItems!=null)
+                                    {
+                                      if(_cubit.selectedMedicalEntity!=null
+                                          && _chipKey2.currentState
+                                              ?.currentTextEditingValue.text.length==_cubit.selectedMedicalItems.length
+                                      )
+                                      {
+                                        await showDialog<void>(
+                                            context: context,
+                                            builder: (context) => ReasonAndComment(
+                                              status: "3",
+                                            ));
+                                      }
+                                    }
+                                    else
+                                      {
+                                        if(_cubit.selectedMedicalEntity!=null)
+                                        {
+                                          await showDialog<void>(
+                                              context: context,
+                                              builder: (context) => ReasonAndComment(
+                                                status: "3",
+                                              ));
+                                        }
+                                      }
                                   },
                                   child: Container(
                                     height: 40.h,

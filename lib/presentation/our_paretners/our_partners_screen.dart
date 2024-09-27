@@ -36,15 +36,14 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
     return BlocConsumer<More4uHomeCubit, More4uHomeState>(
       listener: (context, state)
       {
-        // if(state is GetMedicalLoadingState)
-        //   {
-        //     loadingAlertDialog(context);
-        //   }
-        // else if(state is GetMedicalSuccessState)
-        //   {
-        //     Navigator.pop(context);
-        //   }
-       // else
+        if(state is GetMedicalLoadingState)
+          {
+            loadingAlertDialog(context);
+          }
+        if(state is GetMedicalSuccessState)
+          {
+            Navigator.pop(context);
+          }
           if (state is GetMedicalErrorState) {
           {
             if (state.message == AppStrings.sessionHasBeenExpired.tr()) {

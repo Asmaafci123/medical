@@ -17,6 +17,8 @@ import '../../injection_container.dart';
 import '../home/widgets/app_bar.dart';
 import '../medical_request_details_and_doctor_response/medical_doctor_response_screen.dart';
 import '../widgets/drawer_widget.dart';
+import '../widgets/helpers.dart';
+import '../widgets/utils/message_dialog.dart';
 
 class PendingRequestsScreen extends StatefulWidget {
   static const routeName = 'PendingRequestsScreen';
@@ -58,6 +60,9 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
+        print("aaaaaaaaaaaaaa");
+        print(state);
+        print("aaaaaaaaaaaaaa");
         if(state is ChangeRequestTypeSuccessState)
           {
             PendingRequestsCubit.get(context).getPendingRequests();
@@ -70,6 +75,26 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
         {
           Navigator.of(context).pop();
         }
+        if(state is GetPendingRequestsErrorState)
+          {
+            if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+              showMessageDialog(
+                  context: context,
+                  isSucceeded: false,
+                  message: state.message,
+                  onPressedOk: () {
+                    logOut(context);
+                  });
+            } else {
+              showMessageDialog(
+                  context: context,
+                  isSucceeded: false,
+                  message: state.message,
+                  onPressedOk: () {
+                    Navigator.pop(context);
+                  });
+            }
+          }
         if(state is GetMedicalRequestDetailsLoadingState)
         {
           loadingAlertDialog(context);
@@ -78,6 +103,25 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
           Navigator.of(context).pop();
           Navigator.pushNamedAndRemoveUntil(
               context, MedicalDoctorResponseScreen.routeName, (route) => false);
+        }
+        if (state is GetMedicalRequestDetailsErrorState) {
+          if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  logOut(context);
+                });
+          } else {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  Navigator.pop(context);
+                });
+          }
         }
       },
       builder:(context,state)
