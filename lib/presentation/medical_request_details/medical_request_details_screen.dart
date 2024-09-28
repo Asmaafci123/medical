@@ -10,6 +10,7 @@ import '../../data/models/response/medication_request_response_model.dart';
 import '../gallery_screen.dart';
 import '../home/widgets/app_bar.dart';
 import '../medical_requests_history/medical_requests_history_screen.dart';
+import '../medical_requests_history/widgets/selected_medical_items.dart';
 import '../widgets/drawer_widget.dart';
 
 class MedicalDetailsScreen extends StatelessWidget {
@@ -429,57 +430,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                                 ),
                                 SizedBox(
                                   height: 80.h,
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                      itemBuilder:(context,index)=>Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.whiteColor,
-                                      borderRadius: BorderRadius.circular(15.r),
-                                      border: Border.all(
-                                        width: 0.1.w,
-                                        color: AppColors.greyDark
-                                      )
-                                    ),
-                                        child: Padding(
-                                          padding:EdgeInsets.symmetric(horizontal: 16.w),
-                                          child: Row(
-                                            children: [
-                                              Image.asset("assets/images/capsules_10895948.png",width: 40.w,),
-                                             SizedBox(
-                                               width: 15.w,
-                                             ),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Omega 3",
-                                                    style: TextStyle(
-                                                      color: AppColors.blackColor,
-                                                      fontFamily: "Certa Sans",
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w600,
-                                                    ),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  Text(
-                                                    "30 Items",
-                                                    style: TextStyle(
-                                                      color: AppColors.greyDark,
-                                                      fontFamily: "Certa Sans",
-                                                      fontSize: 12.sp,
-                                                      fontWeight: FontWeight.w600,
-                                                    ),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                  ),
-                                    itemCount: 3,
-                                    separatorBuilder: (BuildContext context, int index)=>SizedBox(width: 15.w,),
-                                  ),
+                                  child:SelectedMedicalItems(medicalItems:request?.medicalRequestDetails?.medicalResponse?.medicalItems??[],)
                                 )
                               ],
                             ),

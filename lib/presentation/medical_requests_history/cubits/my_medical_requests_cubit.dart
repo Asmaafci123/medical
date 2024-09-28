@@ -33,7 +33,7 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
      requests.sort((a,b) => a.requestDate.compareTo(b.requestDate));
       myMedicalRequests= requests.reversed.toList();
     //  myMedicalRequests=[];
-      emit( GetMyMedicalRequestsSuccessState());
+      emit(GetMyMedicalRequestsSuccessState());
     });
   }
   List<Request> searchedResult=[];

@@ -122,7 +122,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
         itemId: selectedMedicalItems[index].itemId,
         itemName: selectedMedicalItems[index].itemName,
         itemType: selectedMedicalItems[index].itemType,
-        itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity??"0")+1).toString(),
+        itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity?.split("")[0]??"0")+1).toString(),
         itemDateFrom: selectedMedicalItems[index].itemDateFrom,
         itemDateTo: selectedMedicalItems[index].itemDateTo,
       itemImage: selectedMedicalItems[index].itemImage,

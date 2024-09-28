@@ -15,6 +15,7 @@ import '../home/widgets/app_bar.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/helpers.dart';
 import '../widgets/selection_chip.dart';
+import '../widgets/utils/loading_dialog.dart';
 import '../widgets/utils/message_dialog.dart';
 import 'cubits/my_medical_requests_cubit.dart';
 import 'cubits/my_medical_requests_state.dart';

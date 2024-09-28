@@ -42,6 +42,21 @@ class RequestMedicationScreen extends StatefulWidget {
 }
 
 class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
+  String getDaySuffix(int day) {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var _cubit = RequestMedicationCubit.get(context);
@@ -304,8 +319,8 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                           width: 10.w,
                                         ),
                                         Text(
-                                          RequestMedicationCubit.get(context).selectedRelative?.birthDate??"" ,
-                                          style: TextStyle(
+                                            DateFormat('MMMM d yyyy').format(DateTime.parse( RequestMedicationCubit.get(context).selectedRelative?.birthDate??"")),
+                                            style: TextStyle(
                                               color: AppColors.greyDark,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14.sp,
