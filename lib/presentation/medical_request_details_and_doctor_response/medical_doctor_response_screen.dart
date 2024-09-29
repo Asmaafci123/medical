@@ -1103,24 +1103,58 @@ class _MedicalDoctorResponseScreenState
                                                                           Spacer(),
                                                                           Column(
                                                                             children: [
-                                                                              Text(
-                                                                                _cubit.selectedMedicalItems[index].itemName ?? "",
-                                                                                style: TextStyle(color: AppColors.whiteBlueColor, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                                                              SizedBox(
+                                                                                width:180.w,
+                                                                                child: Text(
+                                                                                  _cubit.selectedMedicalItems[index].itemName ?? "",
+                                                                                  style: TextStyle(color: AppColors.whiteBlueColor, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                                                                  textAlign: TextAlign.center
+                                                                                ),
                                                                               ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Text(
-                                                                                    _cubit.selectedMedicalItems[index].itemQuantity ?? "0",
-                                                                                    style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
-                                                                                  ),
-                                                                                  SizedBox(
-                                                                                    width: 5.w,
-                                                                                  ),
-                                                                                  Text(
-                                                                                    "${_cubit.selectedMedicalItems[index].itemType ?? "0"}s",
-                                                                                    style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
-                                                                                  ),
-                                                                                ],
+                                                                              SizedBox(
+                                                                                width:180.w,
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Text(
+                                                                                           "Qt : ",
+                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800),
+                                                                                            textAlign: TextAlign.center
+                                                                                        ),
+                                                                                        SizedBox(
+                                                                                          width:40.w,
+                                                                                          child: Text(
+                                                                                            _cubit.selectedMedicalItems[index].itemQuantity ?? "0",
+                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                                                                              textAlign: TextAlign.start
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 5.w,
+                                                                                    ),
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Text(
+                                                                                            "Type : ",
+                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800),
+                                                                                            textAlign: TextAlign.center
+                                                                                        ),
+                                                                                        SizedBox(
+                                                                                          width:60.w,
+                                                                                          child: Text(
+                                                                                          _cubit.selectedMedicalItems[index].itemType ?? "0",
+                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                                                                              textAlign: TextAlign.center
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -1170,34 +1204,45 @@ class _MedicalDoctorResponseScreenState
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                    if (_cubit.medicalItems != null) {
-                                      if (_cubit.selectedMedicalEntity !=
+                                    if(_tabController.index==0 &&_cubit.selectedMedicalEntity==null)
+                                      {
+                                        showMessageDialog(
+                                          context: context,
+                                          isSucceeded: false,
+                                          message: "Please select medical entity",
+                                        );
+                                      }
+                                    else
+                                      {
+                                        if (_cubit.medicalItems != null) {
+                                          if (_cubit.selectedMedicalEntity !=
                                               null &&
-                                          _chipKey2
+                                              _chipKey2
                                                   .currentState
                                                   ?.currentTextEditingValue
                                                   .text
                                                   .length ==
-                                              _cubit.selectedMedicalItems
-                                                  .length) {
-                                        await showDialog<void>(
-                                            context: context,
-                                            builder: (context) =>
-                                                ReasonAndComment(
-                                                  status: "3",
-                                                ));
+                                                  _cubit.selectedMedicalItems
+                                                      .length) {
+                                            await showDialog<void>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    ReasonAndComment(
+                                                      status: "3",
+                                                    ));
+                                          }
+                                        } else {
+                                          if (_cubit.selectedMedicalEntity !=
+                                              null) {
+                                            await showDialog<void>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    ReasonAndComment(
+                                                      status: "3",
+                                                    ));
+                                          }
+                                        }
                                       }
-                                    } else {
-                                      if (_cubit.selectedMedicalEntity !=
-                                          null) {
-                                        await showDialog<void>(
-                                            context: context,
-                                            builder: (context) =>
-                                                ReasonAndComment(
-                                                  status: "3",
-                                                ));
-                                      }
-                                    }
                                   },
                                   child: Container(
                                     height: 40.h,

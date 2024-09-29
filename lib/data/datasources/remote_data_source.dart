@@ -1276,6 +1276,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
           "medicalItems${[index]}[itemDateFrom]": item.itemDateFrom ?? "",
           "medicalItems${[index]}[itemDateTo]": item.itemDateTo ?? "",
         });
+        index++;
       }
     }
     List<http.MultipartFile> files = [];

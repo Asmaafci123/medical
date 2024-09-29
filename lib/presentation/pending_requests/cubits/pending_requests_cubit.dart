@@ -111,7 +111,32 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
   }
   List<MedicalItem> selectedMedicalItems=[];
   changeMedicalItems(List<MedicalItem> changedMedicalItems) {
-    selectedMedicalItems = changedMedicalItems;
+   // selectedMedicalItems = changedMedicalItems;
+    List<MedicalItem> items=[];
+    bool x=false;
+    int index=0;
+    for(int i=0;i<changedMedicalItems.length;i++)
+      {
+        x=false;
+        index=0;
+       for(int j=0;j<selectedMedicalItems.length;j++)
+         {
+           if(changedMedicalItems[i].itemId==selectedMedicalItems[j].itemId)
+             {
+               x=true;
+               index=j;
+             }
+         }
+        if(x)
+        {
+          items.add(selectedMedicalItems[index]);
+        }
+        else
+          {
+            items.add(changedMedicalItems[i]);
+          }
+      }
+    selectedMedicalItems=items;
     emit(ChangeMedicalItemsSuccessState());
   }
 
@@ -122,7 +147,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
         itemId: selectedMedicalItems[index].itemId,
         itemName: selectedMedicalItems[index].itemName,
         itemType: selectedMedicalItems[index].itemType,
-        itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity?.split("")[0]??"0")+1).toString(),
+        itemQuantity: (int.parse(selectedMedicalItems[index].itemQuantity??"0")+1).toString(),
         itemDateFrom: selectedMedicalItems[index].itemDateFrom,
         itemDateTo: selectedMedicalItems[index].itemDateTo,
       itemImage: selectedMedicalItems[index].itemImage,
