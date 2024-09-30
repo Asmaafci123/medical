@@ -101,7 +101,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                             More4uHomeCubit.get(context).searchInMedical(
                                 More4uHomeCubit.get(context)
                                     .searchMedicalController1
-                                    .text);
+                                    .text,false);
                           },
                           child: Ink(
                             width: 38.w,
@@ -178,7 +178,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                                       setState(() {
                                         More4uHomeCubit.get(context)
                                             .searchInMedical(
-                                            recentlySearchOurPartners![idx]);
+                                            recentlySearchOurPartners![idx],true);
                                       });
                                     }),
                               );
@@ -196,7 +196,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                                       setState(() {
                                         More4uHomeCubit.get(context)
                                             .searchInMedical(
-                                            recentlySearchOurPartners![recentlySearchOurPartners!.length-(5-idx)]);
+                                            recentlySearchOurPartners![recentlySearchOurPartners!.length-(5-idx)],true);
                                       });
                                     }),
                               );

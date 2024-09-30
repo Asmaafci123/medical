@@ -75,9 +75,7 @@ class _MyMedicalRequestsScreenState
                   context: context,
                   isSucceeded: false,
                   message: state.message,
-                  onPressedOk: () {
-                    Navigator.pop(context);
-                  });
+                  onPressedOk: () => Navigator.pop(context),);
             }
           }
 

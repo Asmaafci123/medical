@@ -105,7 +105,6 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
     await getLanguageCode();
     var json = jsonDecode(user!);
       emit(GetMedicalLoadingState());
-    print(accessToken);
       final result = await getMedicalUsecase(
           token:accessToken,languageCode: languageId!,userNumber: json['userNumber']);
       result.fold((failure) async{
@@ -173,11 +172,14 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
   TextEditingController searchMedicalController1 = TextEditingController();
 
   List<String> recentlySearched=[];
-  searchInMedical(String input)async
+  searchInMedical(String input,bool  choiceChipFlag)async
   {
     resultList=[];
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
-    recentlySearchOurPartners?.add(input);
+    if(choiceChipFlag==false)
+      {
+        recentlySearchOurPartners?.add(input);
+      }
     for(var element in detailsOfMedical)
     {
       String text1=element.medicalDetailsName!.toLowerCase();
@@ -186,6 +188,7 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
       {
         resultList.add(element);
       }
+
     }
     await localDataSource.cashSearchedListOurPartners( recentlySearchOurPartners??[]);
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();

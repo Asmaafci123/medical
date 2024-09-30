@@ -82,7 +82,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
   MedicalRequestDetails? medicalRequestDetails;
   List<DetailsOfMedical>? medicalEntities;
   List<MedicalItem>? medicalItems;
-
+  MedicationRequestResponseModel? details;
   getMedicalRequestDetails(String medicalRequestId) async {
     emit(GetMedicalRequestDetailsLoadingState());
     await getLanguageCode();
@@ -94,6 +94,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     result.fold((failure) {
       emit(GetMedicalRequestDetailsErrorState(failure.message));
     }, (medicalRequestDetailsResponse) {
+      details=medicalRequestDetailsResponse;
       medicalRequestCurrentStatus=medicalRequestDetailsResponse;
       medicalRequestDetails =
           medicalRequestDetailsResponse.medicalRequestDetails;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:more4u/domain/entities/response_medical_request.dart';
 import 'package:more4u/presentation/medication/request_medication_screen.dart';
 
 import '../../../data/models/category-model.dart';
@@ -74,7 +75,7 @@ class AppRoutes {
 
       case MedicalDetailsScreen.routeName:
         return _materialRoute( MedicalDetailsScreen(
-          request:settings.arguments as MedicationRequestResponseModel ,employeeImageUrl: settings.arguments as String ,), MedicalDetailsScreen.routeName);
+          request:settings.arguments as Request,employeeImageUrl: settings.arguments as String ,), MedicalDetailsScreen.routeName);
 
 
       case SearchPartnersScreen.routeName:
