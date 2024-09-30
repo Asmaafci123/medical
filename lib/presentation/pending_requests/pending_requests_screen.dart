@@ -60,9 +60,6 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
-        print("aaaaaaaaaaaaaa");
-        print(state);
-        print("aaaaaaaaaaaaaa");
         if(state is ChangeRequestTypeSuccessState)
           {
             PendingRequestsCubit.get(context).getPendingRequests();

@@ -74,12 +74,23 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
           }
         }
         if (state is GetEmployeeRelativesErrorState) {
-          showMessageDialog(
-              context: context,
-              isSucceeded: false,
-              message:state.message,
-              onPressedOk:() => Navigator.pop(context)
-              );
+          if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  logOut(context);
+                });
+          } else {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  Navigator.pop(context);
+                });
+          }
         }
         if (state is SendMedicationRequestLoadingState) {
           loadingAlertDialog(context);
@@ -95,10 +106,26 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
               });
         }
         if (state is SendMedicationRequestErrorState) {
-          Navigator.pop(context);
-          Toast.show("Failed Request",
-              duration: Toast.lengthLong, gravity: Toast.top,backgroundColor: AppColors.redColor);
-        }
+          if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  logOut(context);
+                });
+          } else {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  Navigator.pop(context);
+                });
+          }
+
+              }
+
       },
       builder: (context, state) {
         return Scaffold(

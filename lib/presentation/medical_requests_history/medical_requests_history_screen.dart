@@ -80,6 +80,27 @@ class _MyMedicalRequestsScreenState
                   });
             }
           }
+
+          if(state is GetFilteredMedicalRequestsErrorState)
+            {
+              if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+                showMessageDialog(
+                    context: context,
+                    isSucceeded: false,
+                    message: state.message,
+                    onPressedOk: () {
+                      logOut(context);
+                    });
+              } else {
+                showMessageDialog(
+                    context: context,
+                    isSucceeded: false,
+                    message: state.message,
+                    onPressedOk: () {
+                      Navigator.pop(context);
+                    });
+              }
+            }
         },
         builder: (context, state) {
           var _cubit = MyMedicalRequestsCubit.get(context);

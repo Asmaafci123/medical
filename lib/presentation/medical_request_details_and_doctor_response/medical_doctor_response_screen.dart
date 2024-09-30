@@ -213,7 +213,7 @@ class _MedicalDoctorResponseScreenState
                             height: 20.h,
                           ),
                           SizedBox(
-                            height: 310.h,
+                            height: 330.h,
                             child: TabBarView(
                                 physics: NeverScrollableScrollPhysics(),
                                 controller: _tabController,

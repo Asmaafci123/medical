@@ -1,4 +1,4 @@
 storePassword=123456
 keyPassword=123456
 keyAlias=upload
-storeFile=../app/upload-keystore.jks
+storeFile=C:/Users/e-asedeek/Desktop/more4u_github/android/app/upload-keystore.jks
