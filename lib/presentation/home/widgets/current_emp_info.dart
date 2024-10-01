@@ -11,7 +11,6 @@ class CurrentEmployeeInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    relativeCount=null;
     return Stack(
       alignment: Alignment.topCenter,
       children: [
