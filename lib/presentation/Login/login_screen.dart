@@ -269,7 +269,7 @@ class LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 60.h,
                       ),
-                      const CustomTermsAndConditions(),
+                     CustomTermsAndConditions(),
                       const PoweredByCemex()
                     ]),
                   );

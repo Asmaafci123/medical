@@ -16,8 +16,11 @@ class WidgetOfSubCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("ttttttttttttttttttttttt");
+    print(obj.categoryName);
     return GestureDetector(
       onTap: () {
+        print("aaaaaaaaaaaaaaa");
         showModalBottomSheet(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(

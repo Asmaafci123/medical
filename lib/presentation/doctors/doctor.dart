@@ -16,6 +16,7 @@ import '../widgets/drawer_widget.dart';
 class Doctors extends StatefulWidget {
   final List<DetailsOfMedicalModel> details;
   final String title;
+
   const Doctors({Key? key,required this.details,required this.title}) : super(key: key);
 
   @override
@@ -36,6 +37,8 @@ class _DoctorsState extends State<Doctors> {
   }
   @override
   Widget build(BuildContext context) {
+    print("ttttttttttttttttttttttt");
+    print(widget.title);
     return BlocConsumer<More4uHomeCubit,More4uHomeState>(
   listener: (context, state) {
   },

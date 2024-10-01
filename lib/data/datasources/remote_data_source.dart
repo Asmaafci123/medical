@@ -1141,21 +1141,6 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       'POST',
       Uri.parse(sendMedicalRequestsEndPoint),
     );
-    print({
-      'createdBy': medicationRequestModel.createdBy ?? "",
-      'requestedBy': medicationRequestModel.requestBy ?? "",
-      'requestedFor': medicationRequestModel.requestedFor.toString() ?? "",
-      'requestType': medicationRequestModel.requestType.toString() ?? "",
-      'requestDate': medicationRequestModel.requestDate.toString() ?? "",
-      'monthlyMedication':
-      medicationRequestModel.monthlyMedication.toString() ?? "",
-      'selfRequest': medicationRequestModel.selfRequest.toString() ?? "",
-      'medicalEntityId': medicationRequestModel.medicalEntityId.toString() ?? "",
-      'reason': medicationRequestModel.medicalPurpose ?? "",
-      'medicalPurpose': medicationRequestModel.medicalPurpose ?? "",
-      'comment': medicationRequestModel.comment ?? "",
-      'languageCode': languageCode.toString() ?? "",
-    });
     request.fields.addAll({
       'createdBy': medicationRequestModel.createdBy ?? "",
       'requestedBy': medicationRequestModel.requestBy ?? "",

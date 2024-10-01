@@ -22,6 +22,7 @@ class MedicalItemCard extends StatelessWidget {
     return GestureDetector(
       onTap: ()
       {
+
         showModalBottomSheet(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -37,6 +38,7 @@ class MedicalItemCard extends StatelessWidget {
             isScrollControlled: true,
             backgroundColor: Colors.white,
             builder: (BuildContext context) {
+
               return ClipRRect(
                 child: MyBanner(
                   message: item.categoryName!,
@@ -78,7 +80,7 @@ class MedicalItemCard extends StatelessWidget {
                                   // color:Colors.white,
                                   color: AppColors.mainColor,
                                   fontSize: 24.sp,
-                                  fontFamily: 'Joti',
+                                  fontFamily: "Certa Sans",
                                   fontWeight: FontWeight.w500,
                                 ),
                                 textAlign: TextAlign.center,
@@ -156,7 +158,7 @@ class MedicalItemCard extends StatelessWidget {
                                   // color:Colors.white,
                                   color: AppColors.mainColor,
                                   fontSize: 20.sp,
-                                  fontFamily: "Roboto",
+                                  fontFamily: "Certa Sans",
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -184,8 +186,7 @@ class MedicalItemCard extends StatelessWidget {
                                           // color:Colors.white,
                                           color: AppColors.mainColor,
                                           fontSize: 16.sp,
-                                          fontFamily:
-                                          "Roboto",
+                                          fontFamily: "Certa Sans",
                                           fontWeight:
                                           FontWeight.w400,
                                         ),
@@ -213,7 +214,7 @@ class MedicalItemCard extends StatelessWidget {
                                             // color:Colors.white,
                                             color: AppColors.mainColor,
                                             fontSize: 20.sp,
-                                            fontFamily: "Roboto",
+                                            fontFamily: "Certa Sans",
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -248,8 +249,7 @@ class MedicalItemCard extends StatelessWidget {
                                                           // color:Colors.white,
                                                           color: AppColors.mainColor,
                                                           fontSize: 16.sp,
-                                                          fontFamily:
-                                                          "Roboto",
+                                                          fontFamily: "Certa Sans",
                                                           fontWeight:
                                                           FontWeight.w400,
                                                         ),
