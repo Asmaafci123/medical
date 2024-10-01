@@ -5,12 +5,13 @@ import 'package:more4u/custom_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../medical_request_details_and_doctor_response/widgets/side_cut_clipper.dart';
+
 class CurrentEmployeeInfo extends StatelessWidget {
   const CurrentEmployeeInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       alignment: Alignment.topCenter,
       children: [
         ClipPath(
@@ -46,11 +47,9 @@ class CurrentEmployeeInfo extends StatelessWidget {
                           Color(0xFF00a7ff),
                           Color(0xFF2a64ff),
                           Color(0xFF1980ff),
-                        ])
-                ),
+                        ])),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      16.w, 60.h, 16.w, 20.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 60.h, 16.w, 20.h),
                   child: Row(
                     children: [
                       Image.asset(
@@ -61,11 +60,10 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         width: 10.w,
                       ),
                       Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userData?.sapNumber.toString()??"",
+                            userData?.sapNumber.toString() ?? "",
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 14.sp,
@@ -94,21 +92,21 @@ class CurrentEmployeeInfo extends StatelessWidget {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(50.r)
-                        ),
+                            color: AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(50.r)),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Icon( Icons.family_restroom,
-                          color: Color(0xFF446CFF),),
+                          child: Icon(
+                            Icons.family_restroom,
+                            color: Color(0xFF446CFF),
+                          ),
                         ),
                       ),
                       SizedBox(
                         width: 8.w,
                       ),
                       Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "$relativeCount Members",
@@ -144,42 +142,57 @@ class CurrentEmployeeInfo extends StatelessWidget {
         ),
         Card(
           elevation: 2,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.r)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
           child: Container(
             width: 270.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.r)),
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 10.w, vertical: 8.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.r)
+                        borderRadius: BorderRadius.circular(50.r)),
+                    shadowColor: const Color(0xFF446CFF),
+                    // child: CircleAvatar(
+                    //   radius: 30.r,
+                    //   backgroundImage:
+                    //   NetworkImage(
+                    //     userData?.profilePictureAPI??"",
+                    //   )
+                    // )
+                    child: Container(
+                      height: 50.h,
+                      width: 50.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.r)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50.r),
+                        child: Image.network(
+                          userData?.profilePictureAPI ?? "",
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Image.asset(
+                                'assets/images/profile_avatar_placeholder.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
                     ),
-                    shadowColor:const Color(0xFF446CFF),
-                    child: CircleAvatar(
-                      radius: 30.r,
-                      backgroundImage:
-                      NetworkImage(
-                        userData?.profilePictureAPI??"",
-                      )
-                    )
                   ),
                   SizedBox(
                     width: 10.w,
                   ),
                   Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         child: Text(
-                          userData?.userName??"",
+                          userData?.userName ?? "",
                           style: TextStyle(
                             color: AppColors.blackColor,
                             fontSize: 20.sp,
@@ -196,7 +209,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                       // ),
                       SizedBox(
                         child: Text(
-                          userData?.departmentName??"",
+                          userData?.departmentName ?? "",
                           style: TextStyle(
                             color: AppColors.greyColor,
                             fontSize: 16.sp,
@@ -221,7 +234,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
             child: CircularPercentIndicator(
               radius: 30.0.r,
               lineWidth: 6.0.w,
-              percent:0.75* 0.9,
+              percent: 0.75 * 0.9,
               startAngle: 300,
               arcType: ArcType.FULL,
               circularStrokeCap: CircularStrokeCap.round,
@@ -232,20 +245,22 @@ class CurrentEmployeeInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        medicalCoverage??"0%",
+                        medicalCoverage ?? "0%",
                         style: TextStyle(
-                            color: AppColors.mainColor,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          fontFamily: "Certa Sans",),
+                          color: AppColors.mainColor,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Certa Sans",
+                        ),
                       ),
                       Text(
                         "Medical",
                         style: TextStyle(
-                            color: AppColors.mainColor,
-                            fontSize:10.sp,
-                            fontWeight: FontWeight.w600,
-                          fontFamily: "Certa Sans",),
+                          color: AppColors.mainColor,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Certa Sans",
+                        ),
                       ),
                     ],
                   ),
