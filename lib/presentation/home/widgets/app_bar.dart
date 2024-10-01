@@ -28,7 +28,7 @@ class HomeAppBar extends StatelessWidget {
           },
           child: Image.asset(
             "assets/images/menu.png",
-            width: 23.w,
+            width: 28.w,
           ),
         ),
         Spacer(),
@@ -53,7 +53,7 @@ class HomeAppBar extends StatelessWidget {
         GestureDetector(
           onTap:onTap,
           child: Icon(
-            Icons.arrow_forward_ios_outlined,
+            Icons.arrow_back_ios_new_outlined ,
             color: AppColors.blackColor,
             size: 22.sp,
           ),
