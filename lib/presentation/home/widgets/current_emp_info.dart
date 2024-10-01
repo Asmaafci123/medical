@@ -11,6 +11,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    relativeCount=null;
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -109,7 +110,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "$relativeCount Members",
+                            "${relativeCount??"0"} Members",
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 14.sp,
