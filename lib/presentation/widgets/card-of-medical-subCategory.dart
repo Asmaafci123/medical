@@ -16,11 +16,8 @@ class WidgetOfSubCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ttttttttttttttttttttttt");
-    print(obj.categoryName);
     return GestureDetector(
       onTap: () {
-        print("aaaaaaaaaaaaaaa");
         showModalBottomSheet(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -289,7 +286,7 @@ class WidgetOfSubCategory extends StatelessWidget {
       },
       child: SizedBox(
         width:330.w,
-        height: 120.h,
+        height: 140.h,
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),

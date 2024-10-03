@@ -54,7 +54,7 @@ class Comment extends StatelessWidget {
             fontSize: 16.sp,
             fontWeight: FontWeight.w300,
             fontFamily: "Certa Sans"),
-        errorStyle: TextStyle(fontSize: 12.sp,fontFamily: "Certa Sans"),
+        errorStyle: TextStyle(fontSize: 10.sp,fontFamily: "Certa Sans"),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       keyboardType: TextInputType.text,

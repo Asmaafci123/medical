@@ -176,9 +176,11 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
   {
     resultList=[];
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
+    recentlySearchOurPartners ??= [];
     if(choiceChipFlag==false)
       {
         recentlySearchOurPartners?.add(input);
+        print(recentlySearchOurPartners);
       }
     for(var element in detailsOfMedical)
     {
@@ -188,9 +190,8 @@ class More4uHomeCubit extends Cubit<More4uHomeState> {
       {
         resultList.add(element);
       }
-
     }
-    await localDataSource.cashSearchedListOurPartners( recentlySearchOurPartners??[]);
+    localDataSource.cashSearchedListOurPartners( recentlySearchOurPartners??[]);
     recentlySearchOurPartners=await localDataSource.getCashedSearchedListOurPartners();
     emit(SearchInMedicalSuccessState());
   }

@@ -22,14 +22,13 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () {
-            Scaffold.of(context).openDrawer();
-          },
-          child: Image.asset(
-            "assets/images/menu.png",
-            width: 28.w,
-          ),
+        IconButton(
+          onPressed: (){Scaffold.of(context).openDrawer();},
+          icon:Icon(Icons.menu_outlined,) ,
+          color: AppColors.mainColor,
+          iconSize: 30.sp,
+          padding: EdgeInsets.zero,
+          alignment: Alignment.centerLeft,
         ),
         Spacer(),
         title!=null?
@@ -49,7 +48,7 @@ class HomeAppBar extends StatelessWidget {
           ),
         ):const SizedBox(),
         Spacer(),
-        title!=null?
+        title!="More4u"?
         GestureDetector(
           onTap:onTap,
           child: Icon(

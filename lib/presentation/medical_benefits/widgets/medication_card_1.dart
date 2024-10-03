@@ -7,7 +7,8 @@ class MedicalBenefitsCard1 extends StatelessWidget {
   final  MedicalBenefitModel medicalBenefitModel;
   final void Function()? onTap;
   final double dividerWidth;
-  const MedicalBenefitsCard1({super.key,required this.medicalBenefitModel,required this.onTap,required this.dividerWidth});
+  final bool? history;
+  const MedicalBenefitsCard1({super.key,required this.medicalBenefitModel,required this.onTap,required this.dividerWidth,required this.history});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,7 @@ class MedicalBenefitsCard1 extends StatelessWidget {
                               Text(
                                 "Explore",
                                 style: TextStyle(
-                                  color: AppColors.mainColor,
+                                  color: medicalBenefitModel.title=="Sick Leave"?AppColors.greyDark:AppColors.mainColor,
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,
                                     fontFamily: "Certa Sans"
@@ -84,7 +85,7 @@ class MedicalBenefitsCard1 extends StatelessWidget {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_rounded,
-                                color: AppColors.mainColor,
+                                color: medicalBenefitModel.title=="Sick Leave"?AppColors.greyDark:AppColors.mainColor,
                               size: 15.sp,)
                             ],
                           ),
@@ -101,14 +102,15 @@ class MedicalBenefitsCard1 extends StatelessWidget {
           ),
           Card(
             elevation: 8,
-            shadowColor:const Color(0xFF2a64ff),
+            shadowColor: Color(0xFF2a64ff),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.r),
             ),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50.r),
-                  gradient: LinearGradient(
+                  gradient:
+                  LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       stops:[

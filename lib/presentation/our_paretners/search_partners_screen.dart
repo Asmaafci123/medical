@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/presentation/more4u_home/cubits/more4u_home_cubit.dart';
-import 'package:more4u/presentation/our_paretners/widgets/medical_items_widgets.dart';
 
 import '../../core/constants/constants.dart';
 import '../../core/themes/app_colors.dart';
 import '../../custom_icons.dart';
+import '../widgets/card-of-medical-subCategory.dart';
 import 'our_partners_screen.dart';
 
 class SearchPartnersScreen extends StatefulWidget {
@@ -24,7 +24,10 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
       body: SafeArea(
         child: BlocConsumer<More4uHomeCubit, More4uHomeState>(
           listener: (context, state) {
-            // TODO: implement listener
+           if(state is SearchInMedicalSuccessState)
+             {
+
+             }
           },
           builder: (context, state) {
             return Column(
@@ -210,23 +213,24 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
+                        More4uHomeCubit.get(context)
+                            .resultList.isNotEmpty?
                         Text(
-                          "Search Result",
+                          "Search Result (${More4uHomeCubit.get(context)
+                              .resultList.length})",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18.sp,
                               color: AppColors.blackColor),
-                        ),
+                        ): SizedBox(),
                         SizedBox(
                           height: 10.h,
                         ),
                         Expanded(
                           child: ListView.separated(
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => MedicalItemCard(
-                                item: More4uHomeCubit.get(context)
-                                    .resultList[index],
-                              ),
+                              itemBuilder: (context, index) => WidgetOfSubCategory(obj: More4uHomeCubit.get(context)
+                                  .resultList[index],),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 5.h,
                               ),

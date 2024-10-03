@@ -31,51 +31,51 @@ class _ReasonAndCommentState extends State<ReasonAndComment> {
           padding: EdgeInsets.fromLTRB(0,10.h,0,10.h),
           child:  Column(
             children: [
-              DropdownButtonFormField(
-                style: TextStyle(
-                    color: AppColors.mainColor, fontSize: 12.sp),
-                validator: (String? value) {
-                  if (value == null) return AppStrings.required.tr();
-                  return null;
-                },
-                decoration: InputDecoration(
-                  isDense: false,
-                  contentPadding: EdgeInsets.symmetric(
-                      vertical: 10.h, horizontal: 8.w),
-                  suffixIconConstraints:
-                  BoxConstraints(minHeight: 50.h, minWidth: 50.w),
-                  prefixIconConstraints:
-                  BoxConstraints(minHeight: 20.h, minWidth: 40.w),
-                  prefixIcon: Image(
-                    image: AssetImage(
-                      'assets/images/language.png',
-                    ),
-                    height: 25.h,
-                    fit: BoxFit.contain,
-                  ),
-                  border: const OutlineInputBorder(),
-                  labelText: "Reason",
-                  hintText: "Choose your Reason",
-                  labelStyle: TextStyle(fontSize: 14.sp),
-                  hintStyle: TextStyle(
-                      color: Color(0xffc1c1c1), fontSize: 12.sp),
-                  errorStyle: TextStyle(fontSize: 12.sp),
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                ),
-                items: PendingRequestsCubit.get(context).medicalRequestDetails!.medicalResponse!.feedbackCollection!.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                 PendingRequestsCubit.get(context).changeSelectedFeedback(newValue);
-                },
-                iconSize: 20.r,
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
+              // DropdownButtonFormField(
+              //   style: TextStyle(
+              //       color: AppColors.mainColor, fontSize: 12.sp),
+              //   validator: (String? value) {
+              //     if (value == null) return AppStrings.required.tr();
+              //     return null;
+              //   },
+              //   decoration: InputDecoration(
+              //     isDense: false,
+              //     contentPadding: EdgeInsets.symmetric(
+              //         vertical: 10.h, horizontal: 8.w),
+              //     suffixIconConstraints:
+              //     BoxConstraints(minHeight: 50.h, minWidth: 50.w),
+              //     prefixIconConstraints:
+              //     BoxConstraints(minHeight: 20.h, minWidth: 40.w),
+              //     prefixIcon: Image(
+              //       image: AssetImage(
+              //         'assets/images/language.png',
+              //       ),
+              //       height: 25.h,
+              //       fit: BoxFit.contain,
+              //     ),
+              //     border: const OutlineInputBorder(),
+              //     labelText: "Reason",
+              //     hintText: "Choose your Reason",
+              //     labelStyle: TextStyle(fontSize: 14.sp),
+              //     hintStyle: TextStyle(
+              //         color: Color(0xffc1c1c1), fontSize: 12.sp),
+              //     errorStyle: TextStyle(fontSize: 12.sp),
+              //     floatingLabelBehavior: FloatingLabelBehavior.always,
+              //   ),
+              //   items: PendingRequestsCubit.get(context).medicalRequestDetails!.medicalResponse!.feedbackCollection!.map((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: Text(value),
+              //     );
+              //   }).toList(),
+              //   onChanged: (String? newValue) {
+              //    PendingRequestsCubit.get(context).changeSelectedFeedback(newValue);
+              //   },
+              //   iconSize: 20.r,
+              // ),
+              // SizedBox(
+              //   height: 30.h,
+              // ),
               CustomTextFormField(
                 prefixIcon: Icon(
                   Icons.comment_bank_outlined,

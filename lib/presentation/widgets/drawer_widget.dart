@@ -14,6 +14,7 @@ import 'package:more4u/presentation/manage_requests/manage_requests_screen.dart'
 import 'package:more4u/presentation/my_benefits/my_benefits_screen.dart';
 import 'package:more4u/presentation/profile/profile_screen.dart';
 import 'package:more4u/presentation/terms_and_conditions/terms_and_conditions.dart';
+import 'package:more4u/presentation/widgets/utils/warning_diaglog.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:toast/toast.dart';
 
@@ -209,36 +210,34 @@ class DrawerWidget extends StatelessWidget {
                               leading: CustomIcons.ticket,
                               isMedical: false,
                               onTap: () async {
-                                print(userData?.hasMore4uService);
-                                if(userData?.hasMore4uService == true)
-                                  {
-                                    Navigator.pop(context);
-                                    if (ModalRoute //send argument to widget
-                                        .of(context)
-                                        ?.settings
-                                        .name ==
-                                        HomeScreen.routeName) {
-                                      final completer = Completer();
-                                      final result = await Navigator.pushNamed(
-                                          context, MyBenefitsScreen.routeName)
-                                          .whenComplete(() {
-                                        _cubit.getCurrentUser();
-                                      });
-                                      completer.complete(result);
-                                    } else {
-                                      final result =
-                                      await Navigator.pushReplacementNamed(
-                                          context, MyBenefitsScreen.routeName,
-                                          result: completer.future);
-                                      completer.complete(result);
-                                    }
+                                if (userData?.hasMore4uService == true) {
+                                  Navigator.pop(context);
+                                  if (ModalRoute //send argument to widget
+                                              .of(context)
+                                          ?.settings
+                                          .name ==
+                                      HomeScreen.routeName) {
+                                    final completer = Completer();
+                                    final result = await Navigator.pushNamed(
+                                            context, MyBenefitsScreen.routeName)
+                                        .whenComplete(() {
+                                      _cubit.getCurrentUser();
+                                    });
+                                    completer.complete(result);
+                                  } else {
+                                    final result =
+                                        await Navigator.pushReplacementNamed(
+                                            context, MyBenefitsScreen.routeName,
+                                            result: completer.future);
+                                    completer.complete(result);
                                   }
-                                else{
-                                   Toast.show("You don't have more4u service",
-                                      backgroundColor: AppColors.redColor,
-                                      duration: Toast.lengthLong, gravity: Toast.top);
+                                } else {
+                                  showWarningDialog(
+                                    context: context,
+                                    message: "You don't have more4u service",
+                                    isSucceeded: false,
+                                  );
                                 }
-
                               },
                             ),
                           ),
@@ -250,30 +249,30 @@ class DrawerWidget extends StatelessWidget {
                               leading: CustomIcons.balloons,
                               isMedical: false,
                               onTap: () async {
-                                if(userData?.hasMore4uService == true)
-                                {
+                                if (userData?.hasMore4uService == true) {
                                   Navigator.pop(context);
                                   if (ModalRoute.of(context)?.settings.name ==
                                       HomeScreen.routeName) {
                                     final completer = Completer();
                                     final result = await Navigator.pushNamed(
-                                        context, MyGiftsScreen.routeName)
+                                            context, MyGiftsScreen.routeName)
                                         .whenComplete(() {
                                       _cubit.getCurrentUser();
                                     });
                                     completer.complete(result);
                                   } else {
                                     final result =
-                                    await Navigator.pushReplacementNamed(
-                                        context, MyGiftsScreen.routeName,
-                                        result: completer.future);
+                                        await Navigator.pushReplacementNamed(
+                                            context, MyGiftsScreen.routeName,
+                                            result: completer.future);
                                     completer.complete(result);
                                   }
-                                }
-                                else{
-                                  Toast.show("You don't have more4u service",
-                                      backgroundColor: AppColors.redColor,
-                                      duration: Toast.lengthLong, gravity: Toast.top);
+                                } else {
+                                  showWarningDialog(
+                                    context: context,
+                                    message: "You don't have more4u service",
+                                    isSucceeded: false,
+                                  );
                                 }
                               },
                             ),
@@ -287,28 +286,28 @@ class DrawerWidget extends StatelessWidget {
                                 leading: CustomIcons.business_time,
                                 isMedical: false,
                                 onTap: () async {
-                                  if(userData?.hasMore4uService == true)
-                                  {
+                                  if (userData?.hasMore4uService == true) {
                                     Navigator.pop(context);
                                     if (ModalRoute.of(context)?.settings.name ==
                                         HomeScreen.routeName) {
                                       Navigator.pushNamed(context,
-                                          ManageRequestsScreen.routeName)
+                                              ManageRequestsScreen.routeName)
                                           .whenComplete(
                                               () => _cubit.getCurrentUser());
                                     } else {
                                       final result =
-                                      await Navigator.pushReplacementNamed(
-                                          context,
-                                          ManageRequestsScreen.routeName,
-                                          result: completer.future);
+                                          await Navigator.pushReplacementNamed(
+                                              context,
+                                              ManageRequestsScreen.routeName,
+                                              result: completer.future);
                                       completer.complete(result);
                                     }
-                                  }
-                                  else{
-                                    Toast.show("You don't have more4u service",
-                                        backgroundColor: AppColors.redColor,
-                                        duration: Toast.lengthLong, gravity: Toast.top);
+                                  } else {
+                                    showWarningDialog(
+                                      context: context,
+                                      message: "You don't have more4u service",
+                                      isSucceeded: false,
+                                    );
                                   }
                                 },
                               ),
@@ -324,8 +323,7 @@ class DrawerWidget extends StatelessWidget {
                         title: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            userData!.isDoctor == true
-                                ? BlocBuilder<HomeCubit, HomeState>(
+                            BlocBuilder<HomeCubit, HomeState>(
                                     builder: (context, state) {
                                       return bg.Badge(
                                         showBadge:
@@ -362,13 +360,8 @@ class DrawerWidget extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                  )
-                                : SimpleShadow(
-                                    offset: const Offset(0, 4),
-                                    color: Colors.black,
-                                    child: Icon(CustomIcons.apps,
-                                        color: AppColors.mainColor, size: 20.r),
                                   ),
+
                             SizedBox(
                               width: 15.w,
                             ),
@@ -420,11 +413,12 @@ class DrawerWidget extends StatelessWidget {
                                           completer.complete(result);
                                         }
                                       } else {
-                                        Toast.show(
-                                            "You don't have medical service",
-                                            backgroundColor: AppColors.redColor,
-                                            duration: Toast.lengthLong,
-                                            gravity: Toast.top);
+                                        showWarningDialog(
+                                          context: context,
+                                          message:
+                                              "You don't have medical service",
+                                          isSucceeded: false,
+                                        );
                                       }
                                     },
                                   ),
@@ -437,11 +431,10 @@ class DrawerWidget extends StatelessWidget {
                                   child: buildListTile(
                                     context,
                                     title: "Request",
-                                    leading: CustomIcons.balloons,
+                                    leading: CustomIcons.document,
                                     isMedical: true,
                                     onTap: () async {
                                       Navigator.pop(context);
-
                                       if (ModalRoute.of(context)
                                               ?.settings
                                               .name ==
@@ -467,6 +460,45 @@ class DrawerWidget extends StatelessWidget {
                                   ),
                                 )
                               : const SizedBox(),
+
+                          (userData!.isMedicalAdmin == true &&
+                              userData!.isDoctor == false)
+                              ? Padding(
+                            padding: EdgeInsets.only(left: 30.w),
+                            child: buildListTile(
+                              context,
+                              title: "Pending Requests",
+                              leading: CustomIcons.document,
+                              isMedical: true,
+                              onTap: () async {
+                                Navigator.pop(context);
+                                if (ModalRoute.of(context)
+                                    ?.settings
+                                    .name ==
+                                    HomeScreen.routeName) {
+                                  final completer = Completer();
+                                  final result =
+                                  await Navigator.pushNamed(
+                                      context,
+                                      MedicalRequestsHistoryScreen
+                                          .routeName)
+                                      .whenComplete(() {
+                                    _cubit.getCurrentUser();
+                                  });
+                                  completer.complete(result);
+                                } else {
+                                  final result = await Navigator
+                                      .pushReplacementNamed(context,
+                                      MedicalRequestsHistoryScreen.routeName,
+                                      result: completer.future);
+                                  completer.complete(result);
+                                }
+                              },
+                            ),
+                          )
+                              : const SizedBox(),
+
+
                           Padding(
                             padding: EdgeInsets.only(left: 30.w),
                             child: buildListTile(
@@ -640,7 +672,7 @@ class DrawerWidget extends StatelessWidget {
           minLeadingWidth: 0,
           minVerticalPadding: 0,
           contentPadding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 12.w),
-          leading: title == AppStrings.manageRequests.tr()
+          leading: (title == AppStrings.manageRequests.tr() || title=='My Requests'.tr() || title=="Pending Requests")
               ? BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     return bg.Badge(

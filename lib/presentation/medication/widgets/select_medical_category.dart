@@ -25,17 +25,17 @@ class SelectMedicalCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownSearch<Category>(
-      dropdownBuilder: (context, selectedItem) {
-        return Text(
-          selectedCategory?.categoryName?? hintTitle,
-          style:TextStyle(
-              color: AppColors.greyDark,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w200,
-              fontFamily: "Certa Sans"
-          )
-        );
-      },
+      // dropdownBuilder: (context, selectedItem) {
+      //   return Text(
+      //     selectedCategory?.categoryName?? hintTitle,
+      //     style:TextStyle(
+      //     //    color: AppColors.greyDark,
+      //         fontSize: 14.sp,
+      //         fontWeight: FontWeight.w200,
+      //         fontFamily: "Certa Sans"
+      //     )
+      //   );
+      // },
       popupProps:PopupProps.dialog(
         showSearchBox: true,
         fit: FlexFit.loose,

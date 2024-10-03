@@ -122,7 +122,10 @@ class _MedicalDoctorResponseScreenState
                         employeeCoverage: employeeCoverage,
                         requestedByName: _cubit
                             .medicalRequestDetails?.medicalRequest?.requestedBy,
-                        requestedByDepartment: "Planing",
+                        requestedByDepartment: _cubit
+                            .medicalRequestDetails?.medicalRequest?.employeeDepartment,
+                        phoneNumber:_cubit
+                            .medicalRequestDetails?.medicalRequest?.employeePhoneNumber ,
                       ),
                     ],
                   ),
@@ -155,7 +158,7 @@ class _MedicalDoctorResponseScreenState
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
-                                color: Color(0xFFf8f4f0),
+                                color: Color(0xFF2c93e7)
                               ),
                               height: 50.h,
                               child: Padding(
@@ -163,7 +166,7 @@ class _MedicalDoctorResponseScreenState
                                     EdgeInsets.fromLTRB(4.w, 8.h, 4.w, 8.h),
                                 child: TabBar(
                                     controller: _tabController,
-                                    unselectedLabelColor: AppColors.greyDark,
+                                    unselectedLabelColor: AppColors.whiteColor,
                                     labelColor: Color(0xFF2c93e7),
                                     indicator: BoxDecoration(
                                         borderRadius:
@@ -221,7 +224,7 @@ class _MedicalDoctorResponseScreenState
                                   SingleChildScrollView(
                                     child: Column(children: [
                                       Container(
-                                        color: Color(0xFF2c93e7),
+                                        color: AppColors.greyText,
                                         width: double.infinity,
                                         child: Padding(
                                           padding: EdgeInsets.fromLTRB(
@@ -812,11 +815,11 @@ class _MedicalDoctorResponseScreenState
                                               ? SizedBox()
                                               : Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 10.h,
+                                                      top: 0.h,
                                                       left: 10.w,
                                                       bottom: 10.h),
                                                   child: Text(
-                                                    "please select from suggestions List ",
+                                                    "Required",
                                                     style: TextStyle(
                                                         fontSize: 14.sp,
                                                         fontFamily:
@@ -1017,9 +1020,9 @@ class _MedicalDoctorResponseScreenState
                                               ? SizedBox()
                                               : Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 10.h, left: 10.w),
+                                                      top: 0.h, left: 10.w),
                                                   child: Text(
-                                                    "please select from suggestions List ",
+                                                    "Required",
                                                     style: TextStyle(
                                                         fontSize: 14.sp,
                                                         fontFamily:
@@ -1224,12 +1227,23 @@ class _MedicalDoctorResponseScreenState
                                                   .length ==
                                                   _cubit.selectedMedicalItems
                                                       .length) {
-                                            await showDialog<void>(
-                                                context: context,
-                                                builder: (context) =>
-                                                    ReasonAndComment(
-                                                      status: "3",
-                                                    ));
+                                            if(_cubit.selectedMedicalItems.isNotEmpty)
+                                                {
+                                                  await showDialog<void>(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          ReasonAndComment(
+                                                            status: "3",
+                                                          ));
+                                                }
+                                            else
+                                              {
+                                                showMessageDialog(
+                                                  context: context,
+                                                  isSucceeded: false,
+                                                  message: "Please select medical items",
+                                                );
+                                              }
                                           }
                                         } else {
                                           if (_cubit.selectedMedicalEntity !=
@@ -1248,19 +1262,19 @@ class _MedicalDoctorResponseScreenState
                                     height: 40.h,
                                     //  width: 150.w,
                                     decoration: BoxDecoration(
-                                      // color: Color(0xFF4daa57),
-                                      borderRadius: BorderRadius.circular(15.r),
+                                     color: Color(0xFF4daa57),
+                                      borderRadius: BorderRadius.circular(10.r),
                                       border: Border.all(
                                         color: Color(0xFF4daa57),
                                       ),
-                                      color: AppColors.whiteColor,
+                                  //    color: AppColors.whiteColor,
                                     ),
                                     child: Center(
                                       child: Text(
                                         "Approve",
                                         style: TextStyle(
-                                            // color: AppColors.whiteColor,
-                                            color: Color(0xFF4daa57),
+                                            color: AppColors.whiteColor,
+                                          //  color: Color(0xFF4daa57),
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.w600),
                                       ),
@@ -1285,9 +1299,9 @@ class _MedicalDoctorResponseScreenState
                                   height: 40.h,
                                   //  width: 150.w,
                                   decoration: BoxDecoration(
-                                    // color: AppColors.redColor,
-                                    color: AppColors.whiteColor,
-                                    borderRadius: BorderRadius.circular(15.r),
+                                     color: AppColors.redColor,
+                                  //  color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(10.r),
                                     border: Border.all(
                                       color: AppColors.redColor,
                                     ),
@@ -1296,8 +1310,8 @@ class _MedicalDoctorResponseScreenState
                                     child: Text(
                                       "Reject",
                                       style: TextStyle(
-                                          // color: AppColors.whiteColor,
-                                          color: AppColors.redColor,
+                                          color: AppColors.whiteColor,
+                                         // color: AppColors.redColor,
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.w600),
                                     ),

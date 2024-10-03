@@ -211,7 +211,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
           responseDate: DateTime.now().toString(),
           medicalEntity:
               selectedMedicalEntity?.medicalEntityId.toString() ?? "",
-          feedback: selectedFeedback ?? "",
+          feedback:  "Any",
           responseComment: responseCommentController.text.toString()??"",
           LanguageId: languageId.toString(),
           attachment: doctorResponseImages,

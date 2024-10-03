@@ -1,7 +1,6 @@
-
 import '../../domain/entities/medical_request.dart';
 
-class MedicalRequestModel extends MedicalRequest{
+class MedicalRequestModel extends MedicalRequest {
   const MedicalRequestModel({
     required String? createdBy,
     required String? requestedBy,
@@ -20,28 +19,31 @@ class MedicalRequestModel extends MedicalRequest{
     required String? medicalEntityId,
     required String? medicalPurpose,
     required String? comment,
+    required String? employeeDepartment,
+    required String? employeePhoneNumber,
   }) : super(
-    createdBy: createdBy,
-    requestedBy:requestedBy,
-   requestedByNumber: requestedByNumber,
-     employeeCoverage: employeeCoverage,
-    requestedFor: requestedFor,
-    relativeCoverage: relativeCoverage,
-     relation:relation,
-     order:order,
-    requestType:requestType,
-    requestDate:requestDate,
-    monthlyMedication: monthlyMedication,
-    attachment:attachment,
-     selfRequest: selfRequest,
-   medicalEntity:medicalEntity,
-    medicalEntityId:medicalEntityId,
-    medicalPurpose:medicalPurpose,
-     comment: comment,
-  );
+            createdBy: createdBy,
+            requestedBy: requestedBy,
+            requestedByNumber: requestedByNumber,
+            employeeCoverage: employeeCoverage,
+            requestedFor: requestedFor,
+            relativeCoverage: relativeCoverage,
+            relation: relation,
+            order: order,
+            requestType: requestType,
+            requestDate: requestDate,
+            monthlyMedication: monthlyMedication,
+            attachment: attachment,
+            selfRequest: selfRequest,
+            medicalEntity: medicalEntity,
+            medicalEntityId: medicalEntityId,
+            medicalPurpose: medicalPurpose,
+            comment: comment,
+            employeeDepartment: employeeDepartment,
+            employeePhoneNumber: employeePhoneNumber);
 
   factory MedicalRequestModel.fromJson(Map<String, dynamic> json) {
-    return MedicalRequestModel (
+    return MedicalRequestModel(
       createdBy: json['createdBy'],
       requestedBy: json['requestedBy'],
       requestedByNumber: json['requestedByNumber'],
@@ -53,12 +55,16 @@ class MedicalRequestModel extends MedicalRequest{
       requestType: json['requestType'],
       requestDate: json['requestDate'],
       monthlyMedication: json['monthlyMedication'],
-      attachment: json['attachment']!= null? List<String>.from(json['attachment']).toList():null,
+      attachment: json['attachment'] != null
+          ? List<String>.from(json['attachment']).toList()
+          : null,
       selfRequest: json['selfRequest'],
       medicalEntity: json['medicalEntity'],
       medicalEntityId: json['medicalEntityId'],
       medicalPurpose: json['medicalPurpose'],
       comment: json['comment'],
+      employeeDepartment: json['employeeDepartment'],
+      employeePhoneNumber: json['employeePhoneNumber'],
     );
   }
 }

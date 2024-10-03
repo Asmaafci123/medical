@@ -37,8 +37,6 @@ class _DoctorsState extends State<Doctors> {
   }
   @override
   Widget build(BuildContext context) {
-    print("ttttttttttttttttttttttt");
-    print(widget.title);
     return BlocConsumer<More4uHomeCubit,More4uHomeState>(
   listener: (context, state) {
   },

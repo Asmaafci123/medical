@@ -18,6 +18,8 @@ class MedicalRequest extends Equatable {
   final String? medicalEntityId;
   final String? medicalPurpose;
   final String? comment;
+  final String? employeeDepartment;
+  final String? employeePhoneNumber;
 
   const MedicalRequest({
     required this.createdBy,
@@ -37,6 +39,8 @@ class MedicalRequest extends Equatable {
     required this.medicalEntityId,
     required this.medicalPurpose,
     required this.comment,
+    required this.employeeDepartment,
+    required this.employeePhoneNumber,
   });
 
   @override
@@ -58,5 +62,7 @@ class MedicalRequest extends Equatable {
         medicalEntityId,
         medicalPurpose,
         comment,
+    employeeDepartment,
+    employeePhoneNumber
       ];
 }

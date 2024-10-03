@@ -32,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+     // maxLines: 5,
       style: TextStyle(
           fontWeight: FontWeight.w400,
           color: AppColors.mainColor,
@@ -55,7 +56,7 @@ class CustomTextFormField extends StatelessWidget {
               color: AppColors.greyColor
             )
         ),
-        isDense: true,
+       // isDense: true,
         contentPadding: EdgeInsets.symmetric(vertical: 20.h),
         suffixIconConstraints: suffixIconConstraints,
         prefixIconConstraints:prefixIconConstraints,
@@ -67,7 +68,7 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(color: Color(0xffc1c1c1), fontSize: 16.sp,fontFamily: "Certa Sans",),
         errorStyle: TextStyle(fontSize: 12.sp,fontFamily: "Certa Sans"),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+   //     floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       keyboardType: keyboardType,
       controller: controller,

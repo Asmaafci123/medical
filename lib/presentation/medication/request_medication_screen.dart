@@ -88,7 +88,9 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                 isSucceeded: false,
                 message: state.message,
                 onPressedOk: () {
-                  Navigator.pop(context);
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
                 });
           }
         }
@@ -489,22 +491,22 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                     ? Column(
                                         children: [
                                           DropdownSearch<Category>(
-                                            dropdownBuilder:
-                                                (context, selectedItem) {
-                                              return Text(
-                                                  RequestMedicationCubit.get(
-                                                              context)
-                                                          .selectedSubCategory
-                                                          ?.subCategoryName ??
-                                                      "",
-                                                  style: TextStyle(
-                                                      color: AppColors.greyDark,
-                                                      fontSize: 14.sp,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      fontFamily:
-                                                          "Certa Sans"));
-                                            },
+                                            // dropdownBuilder:
+                                            //     (context, selectedItem) {
+                                            //   return Text(
+                                            //       RequestMedicationCubit.get(
+                                            //                   context)
+                                            //               .selectedSubCategory
+                                            //               ?.subCategoryName ??
+                                            //           "",
+                                            //       style: TextStyle(
+                                            //           color: AppColors.greyDark,
+                                            //           fontSize: 14.sp,
+                                            //           fontWeight:
+                                            //               FontWeight.w200,
+                                            //           fontFamily:
+                                            //               "Certa Sans"));
+                                            // },
                                             popupProps: PopupProps.dialog(
                                               showSearchBox: true,
                                               fit: FlexFit.loose,
@@ -548,19 +550,19 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                               dropdownSearchDecoration:
                                                   InputDecoration(
                                                       labelText:
-                                                          "choose your Sub",
+                                                          "Choose your Sub",
                                                       hintText:
-                                                          "choose your Sub",
+                                                          "Choose your Sub",
                                                       hintStyle: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
-                                                          fontSize: 16.sp,
+                                                          fontSize: 18.sp,
                                                           fontFamily:
                                                               "Certa Sans"),
                                                       labelStyle: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
-                                                          fontSize: 16.sp,
+                                                          fontSize: 18.sp,
                                                           fontFamily:
                                                               "Certa Sans"),
                                                       contentPadding:
@@ -666,14 +668,14 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                   labelText:
                                                       "Medical Authority",
                                                   hintText:
-                                                      "choose your Medical Authority",
+                                                      "Choose your Medical Authority",
                                                   hintStyle: TextStyle(
                                                       color: AppColors.greyDark,
-                                                      fontSize: 16.sp,
+                                                      fontSize: 18.sp,
                                                       fontFamily: "Certa Sans"),
                                                   labelStyle: TextStyle(
                                                       color: AppColors.greyDark,
-                                                      fontSize: 16.sp,
+                                                      fontSize: 18.sp,
                                                       fontFamily: "Certa Sans"),
                                                   contentPadding: EdgeInsets.symmetric(
                                                       vertical: 10.h,
@@ -786,13 +788,13 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                       hintStyle: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
-                                                          fontSize: 16.sp,
+                                                          fontSize: 18.sp,
                                                           fontFamily:
                                                               "Certa Sans"),
                                                       labelStyle: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
-                                                          fontSize: 16.sp,
+                                                          fontSize: 18.sp,
                                                           fontFamily:
                                                               "Certa Sans"),
                                                       contentPadding:
@@ -836,8 +838,9 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                         context)
                                                     .selectedMedicalPurpose,
                                             validator: (String? value) {
-                                              if (value == null)
+                                              if (value == null) {
                                                 return AppStrings.required.tr();
+                                              }
                                               return null;
                                             },
                                           ),
@@ -950,13 +953,28 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                Text(
-                                  "Documents",
-                                  style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18.sp,
-                                      fontFamily: "Certa Sans"),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Documents ",
+                                      style: TextStyle(
+                                          color: AppColors.blackColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18.sp,
+                                          fontFamily: "Certa Sans"),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 5.w,
+                                    // ),
+                                    Text(
+                                      "( 4 is the Maximum Number of Documents )",
+                                      style: TextStyle(
+                                          color: AppColors.greyColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.sp,
+                                          fontFamily: "Certa Sans"),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: 10.h,
@@ -990,6 +1008,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                   fontSize: 16.sp,
                                                   fontFamily: "Certa Sans"),
                                             ),
+
                                           ],
                                         ),
                                       )),

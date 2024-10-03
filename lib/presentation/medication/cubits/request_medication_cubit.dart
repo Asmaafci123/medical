@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:more4u/core/constants/app_strings.dart';
@@ -203,15 +204,27 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
   }
   List<File>imagesFiles=[];
   pickImage() async {
+    imagesFiles=[];
     final ImagePicker _picker = ImagePicker();
     List<XFile?> images =
     await _picker.pickMultiImage();
     if (images.isNotEmpty) {
-      for(int i=0;i<images.length;i++)
+      if(images.length<=4)
+      {
+        for(int i=0;i<images.length;i++)
         {
           File imageFile = File(images[i]!.path);
           imagesFiles.add(imageFile);
         }
+      }
+      else
+      {
+        for(int i=0;i<4;i++)
+        {
+          File imageFile = File(images[i]!.path);
+          imagesFiles.add(imageFile);
+        }
+      }
       emit(ImagesPickedSuccessState());
     }
   }
@@ -239,6 +252,10 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
   sendMedicationRequest(int requestId) async {
     emit(SendMedicationRequestLoadingState());
     await getLanguageCode();
+    if(requestId==2 && selectedDetailsOfMedical==null)
+      {
+        emit(SendMedicationRequestErrorState("Please Select Entity"));
+      }
     final result = await sendMedicationRequestUseCase(
       medicationRequestModel:
           MedicationRequestModel(

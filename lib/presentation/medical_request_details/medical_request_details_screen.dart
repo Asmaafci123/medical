@@ -35,13 +35,13 @@ class MedicalDetailsScreen extends StatefulWidget {
 class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
   @override
   void initState() {
-    PendingRequestsCubit.get(context).getMedicalRequestDetails(widget.request.requestID);
+    PendingRequestsCubit.get(context)
+        .getMedicalRequestDetails(widget.request.requestID);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
         if (state is GetMedicalRequestDetailsLoadingState) {
@@ -70,7 +70,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
         var outputFormat = DateFormat('dd MMM, yyyy hh:mm a');
         var convertedRequestDate = DateTime.parse(_cubit
                 .details?.medicalRequestDetails?.medicalRequest?.requestDate ??
-           DateTime.now().toString());
+            DateTime.now().toString());
         var requestDate = outputFormat.format(convertedRequestDate);
         var convertedResponseDate = _cubit.details?.medicalRequestDetails
                     ?.medicalResponse?.responseDate !=
@@ -108,378 +108,496 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        state is GetMedicalRequestDetailsSuccessState? Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.r)),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10.h, horizontal: 8.w),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  _cubit.details?.medicalRequestDetails
-                                              ?.requestStatus ==
-                                          "Rejected"
-                                      ? "assets/images/reject.png"
-                                      : _cubit.details?.medicalRequestDetails
-                                                  ?.requestStatus ==
-                                              "Pending"
-                                          ? "assets/images/loading.png"
-                                          : "assets/images/approved.png",
-                                  width: 50.w,
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  _cubit.details?.medicalRequestDetails
-                                          ?.requestStatus ??
-                                      "",
-                                  style: TextStyle(
-                                    color: _cubit.details?.medicalRequestDetails
-                                                ?.requestStatus ==
-                                            "Rejected"
-                                        ? AppColors.redColor
-                                        : _cubit.details?.medicalRequestDetails
+                        state is GetMedicalRequestDetailsSuccessState
+                            ? Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.r)),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.h, horizontal: 8.w),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        _cubit.details?.medicalRequestDetails
                                                     ?.requestStatus ==
-                                                "Approved"
-                                            ? AppColors.greenColor
-                                            : AppColors.mainColor,
-                                    fontFamily: "Certa Sans",
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Divider(
-                                  indent: 100,
-                                  endIndent: 100,
-                                  color: AppColors.greyColor,
-                                  thickness: 0.2.h,
-                                ),
-                                Text(
-                                  "${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ? "Medication" : _cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 2 ? "CheckUps" : "SickLeave"} Request",
-                                  style: TextStyle(
-                                    color: AppColors.greyDark,
-                                    fontFamily: "Certa Sans",
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Request Details",
-                                      style: TextStyle(
-                                        color: AppColors.blackColor,
-                                        fontFamily: "Certa Sans",
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.r),
-                                      color: Color(0xFFf6f6f6)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10.h, horizontal: 8.w),
-                                    child: Row(
-                                      children: [
-                                        ClipOval(
-                                          child: Image.network(
-                                            widget.employeeImageUrl ?? "",
-                                            height: 50.w,
-                                            width: 50.w,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Employee Name",
-                                              style: TextStyle(
-                                                color: AppColors.greyDark,
-                                                fontFamily: "Certa Sans",
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            SizedBox(
-                                              width: 150.w,
-                                              child: Text(
-                                                _cubit
+                                                "Rejected"
+                                            ? "assets/images/reject.png"
+                                            : _cubit
                                                         .details
                                                         ?.medicalRequestDetails
-                                                        ?.medicalRequest
-                                                        ?.requestedBy ??
-                                                    "",
-                                                style: TextStyle(
-                                                  color: AppColors.blackColor,
-                                                  fontFamily: "Certa Sans",
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Spacer(),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "Request ID",
-                                              style: TextStyle(
-                                                color: AppColors.greyDark,
-                                                fontFamily: "Certa Sans",
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            Text(
-                                              _cubit
+                                                        ?.requestStatus ==
+                                                    "Pending"
+                                                ? "assets/images/loading.png"
+                                                : "assets/images/approved.png",
+                                        width: 50.w,
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        _cubit.details?.medicalRequestDetails
+                                                ?.requestStatus ??
+                                            "",
+                                        style: TextStyle(
+                                          color: _cubit
                                                       .details
                                                       ?.medicalRequestDetails
-                                                      ?.medicalRequestId ??
-                                                  "",
-                                              style: TextStyle(
-                                                color: AppColors.blackColor,
-                                                fontFamily: "Certa Sans",
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
+                                                      ?.requestStatus ==
+                                                  "Rejected"
+                                              ? AppColors.redColor
+                                              : _cubit
+                                                          .details
+                                                          ?.medicalRequestDetails
+                                                          ?.requestStatus ==
+                                                      "Approved"
+                                                  ? AppColors.greenColor
+                                                  : AppColors.mainColor,
+                                          fontFamily: "Certa Sans",
+                                          fontSize: 22.sp,
+                                          fontWeight: FontWeight.w200,
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                InfoField(
-                                  title: "Created by",
-                                  value: _cubit.details?.medicalRequestDetails
-                                          ?.medicalRequest?.createdBy ??
-                                      "",
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(
-                                  title: "Request For",
-                                  value: _cubit.details?.medicalRequestDetails
-                                          ?.medicalRequest?.requestedFor ??
-                                      "",
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(
-                                    title: "Employee Coverage",
-                                    value: _cubit
-                                            .details
-                                            ?.medicalRequestDetails
-                                            ?.medicalRequest
-                                            ?.employeeCoverage ??
-                                        ""),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(
-                                  title: "Monthly Medication",
-                                  value: _cubit
-                                              .details
-                                              ?.medicalRequestDetails
-                                              ?.medicalRequest
-                                              ?.monthlyMedication ==
-                                          true
-                                      ? "Yes"
-                                      : "No",
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(title: "Time", value: requestDate),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(
-                                    title: "Medical Entity",
-                                    value: _cubit.details?.medicalRequestDetails
-                                            ?.medicalRequest?.medicalEntity ??
-                                        ""),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                InfoField(
-                                    title: "Medical Purpose",
-                                    value: _cubit.details?.medicalRequestDetails
-                                            ?.medicalRequest?.medicalPurpose ??
-                                        "_"),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                _cubit.details?.medicalRequestDetails
-                                            ?.medicalRequest?.attachment !=
-                                        null
-                                    ? Row(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Divider(
+                                        indent: 100,
+                                        endIndent: 100,
+                                        color: AppColors.greyColor,
+                                        thickness: 0.2.h,
+                                      ),
+                                      Text(
+                                        "${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ? "Medication" : _cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 2 ? "CheckUps" : "SickLeave"} Request",
+                                        style: TextStyle(
+                                          color: AppColors.greyDark,
+                                          fontFamily: "Certa Sans",
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Row(
                                         children: [
                                           Text(
-                                            "Documents",
+                                            "Request Details",
                                             style: TextStyle(
-                                              color: AppColors.mainColor,
-                                              fontFamily: "Cairo",
-                                              fontSize: 14.sp,
+                                              color: AppColors.blackColor,
+                                              fontFamily: "Certa Sans",
+                                              fontSize: 20.sp,
                                               fontWeight: FontWeight.w600,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          Spacer(),
-                                          IconButton(
-                                              padding: EdgeInsets.zero,
-                                              constraints:
-                                                  const BoxConstraints(),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            GalleryScreen(
-                                                              images: _cubit
-                                                                      .details
-                                                                      ?.medicalRequestDetails
-                                                                      ?.medicalRequest
-                                                                      ?.attachment ??
-                                                                  [],
-                                                              index: 0,
-                                                              numberColor:
-                                                                  AppColors
-                                                                      .blackColor,
-                                                            )));
-                                              },
-                                              icon: Icon(
-                                                Icons.attachment,
-                                                color: Color(0xFFdddddd),
-                                              ))
                                         ],
-                                      )
-                                    : SizedBox(),
-                                Divider(
-                                  indent: 100,
-                                  endIndent: 100,
-                                  color: AppColors.greyColor,
-                                  thickness: 0.2.h,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Response Details",
-                                      style: TextStyle(
-                                        color: AppColors.blackColor,
-                                        fontFamily: "Certa Sans",
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                                _cubit.details?.medicalRequestDetails
-                                            ?.requestStatus ==
-                                        "Pending"
-                                    ? Padding(
-                                        padding: EdgeInsets.only(top: 20.h),
-                                        child: FadingText(
-                                          'Loading...',
-                                          style: TextStyle(
-                                            color: Color(0xFF2c93e7),
-                                            fontFamily: "Certa Sans",
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w600,
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.r),
+                                            color: Color(0xFFf6f6f6)),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10.h, horizontal: 8.w),
+                                          child: Row(
+                                            children: [
+                                              ClipOval(
+                                                child: Image.network(
+                                                  widget.employeeImageUrl ?? "",
+                                                  height: 50.w,
+                                                  width: 50.w,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Employee Name",
+                                                    style: TextStyle(
+                                                      color: AppColors.greyDark,
+                                                      fontFamily: "Certa Sans",
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 150.w,
+                                                    child: Text(
+                                                      _cubit
+                                                              .details
+                                                              ?.medicalRequestDetails
+                                                              ?.medicalRequest
+                                                              ?.requestedBy ??
+                                                          "",
+                                                      style: TextStyle(
+                                                        color: AppColors
+                                                            .blackColor,
+                                                        fontFamily:
+                                                            "Certa Sans",
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "Request ID",
+                                                    style: TextStyle(
+                                                      color: AppColors.greyDark,
+                                                      fontFamily: "Certa Sans",
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                  Text(
+                                                    _cubit
+                                                            .details
+                                                            ?.medicalRequestDetails
+                                                            ?.medicalRequestId ??
+                                                        "",
+                                                    style: TextStyle(
+                                                      color:
+                                                          AppColors.blackColor,
+                                                      fontFamily: "Certa Sans",
+                                                      fontSize: 16.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      )
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          InfoField(
-                                            title: "Created by",
-                                            value: _cubit
-                                                    .details
-                                                    ?.medicalRequestDetails
-                                                    ?.medicalResponse
-                                                    ?.createdBy ??
-                                                "",
-                                          ),
-                                          InfoField(
-                                              title: "Time",
-                                              value: responseDate ?? ""),
-                                          InfoField(
-                                            title: "Feedback",
-                                            value: _cubit
-                                                    .details
-                                                    ?.medicalRequestDetails
-                                                    ?.medicalResponse
-                                                    ?.feedback ??
-                                                "",
-                                          ),
-                                          InfoField(
-                                            title: "Comment",
-                                            value: _cubit
-                                                    .details
-                                                    ?.medicalRequestDetails
-                                                    ?.medicalResponse
-                                                    ?.responseComment ??
-                                                "",
-                                          ),
-                                          _cubit
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      InfoField(
+                                        title: "Created by",
+                                        value: _cubit
+                                                .details
+                                                ?.medicalRequestDetails
+                                                ?.medicalRequest
+                                                ?.createdBy ??
+                                            "",
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                        title: "Request For",
+                                        value: _cubit
+                                                .details
+                                                ?.medicalRequestDetails
+                                                ?.medicalRequest
+                                                ?.requestedFor ??
+                                            "",
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                          title: "Employee Coverage",
+                                          value: _cubit
+                                                  .details
+                                                  ?.medicalRequestDetails
+                                                  ?.medicalRequest
+                                                  ?.employeeCoverage ??
+                                              ""),
+                                      _cubit
+                                          .details
+                                          ?.medicalRequestDetails
+                                          ?.medicalRequest?.relation!="Self"?
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              InfoField(
+                                                  title: "Relative Coverage",
+                                                  value: _cubit
                                                       .details
                                                       ?.medicalRequestDetails
-                                                      ?.medicalResponse
-                                                      ?.attachment !=
-                                                  null
-                                              ? Row(
+                                                      ?.medicalRequest
+                                                      ?.relativeCoverage??
+                                                      ""),
+
+                                            ],
+                                          ):SizedBox( ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                        title: "Monthly Medication",
+                                        value: _cubit
+                                                    .details
+                                                    ?.medicalRequestDetails
+                                                    ?.medicalRequest
+                                                    ?.monthlyMedication ==
+                                                true
+                                            ? "Yes"
+                                            : "No",
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                          title: "Time", value: requestDate),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                          title: "Medical Entity",
+                                          value: _cubit
+                                                  .details
+                                                  ?.medicalRequestDetails
+                                                  ?.medicalRequest
+                                                  ?.medicalEntity ??
+                                              ""),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                          title: "Medical Purpose",
+                                          value: _cubit
+                                                  .details
+                                                  ?.medicalRequestDetails
+                                                  ?.medicalRequest
+                                                  ?.medicalPurpose ??
+                                              "_"),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      InfoField(
+                                          title: "Request Comment",
+                                          value: _cubit
+                                              .details
+                                              ?.medicalRequestDetails
+                                              ?.medicalRequest
+                                              ?.comment ??
+                                              "_"),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      _cubit
+                                                  .details
+                                                  ?.medicalRequestDetails
+                                                  ?.medicalRequest
+                                                  ?.attachment !=
+                                              null
+                                          ? Row(
+                                              children: [
+                                                Text(
+                                                  "Documents",
+                                                  style: TextStyle(
+                                                    color: AppColors.mainColor,
+                                                    fontFamily: "Certa Sans",
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Spacer(),
+                                                IconButton(
+                                                    padding: EdgeInsets.zero,
+                                                    constraints:
+                                                        const BoxConstraints(),
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  GalleryScreen(
+                                                                    images: _cubit
+                                                                            .details
+                                                                            ?.medicalRequestDetails
+                                                                            ?.medicalRequest
+                                                                            ?.attachment ??
+                                                                        [],
+                                                                    index: 0,
+                                                                    numberColor:
+                                                                        AppColors
+                                                                            .blackColor,
+                                                                  )));
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.attachment,
+                                                      color: Color(0xFFdddddd),
+                                                    ))
+                                              ],
+                                            )
+                                          : SizedBox(),
+                                      Divider(
+                                        indent: 100,
+                                        endIndent: 100,
+                                        color: AppColors.greyColor,
+                                        thickness: 0.2.h,
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Response Details",
+                                            style: TextStyle(
+                                              color: AppColors.blackColor,
+                                              fontFamily: "Certa Sans",
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      _cubit.details?.medicalRequestDetails
+                                                  ?.requestStatus ==
+                                              "Pending"
+                                          ? Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 20.h),
+                                              child: Text("Pending",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF2c93e7),
+                                                    fontFamily: "Certa Sans",
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  )))
+                                          : Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
+                                                InfoField(
+                                                  title: "Created by",
+                                                  value: _cubit
+                                                          .details
+                                                          ?.medicalRequestDetails
+                                                          ?.medicalResponse
+                                                          ?.createdBy ??
+                                                      "",
+                                                ),
+                                                InfoField(
+                                                    title: "Time",
+                                                    value: responseDate ?? ""),
+                                                // InfoField(
+                                                //   title: "Feedback",
+                                                //   value: _cubit
+                                                //           .details
+                                                //           ?.medicalRequestDetails
+                                                //           ?.medicalResponse
+                                                //           ?.feedback ??
+                                                //       "",
+                                                // ),
+                                                InfoField(
+                                                  title: "Comment",
+                                                  value: _cubit
+                                                          .details
+                                                          ?.medicalRequestDetails
+                                                          ?.medicalResponse
+                                                          ?.responseComment ??
+                                                      "",
+                                                ),
+                                                _cubit
+                                                            .details
+                                                            ?.medicalRequestDetails
+                                                            ?.medicalResponse
+                                                            ?.attachment !=
+                                                        null
+                                                    ? Row(
+                                                        children: [
+                                                          Text(
+                                                            "Documents",
+                                                            style: TextStyle(
+                                                              color: AppColors
+                                                                  .mainColor,
+                                                              fontFamily:
+                                                                  "Certa Sans",
+                                                              fontSize: 14.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                          const Spacer(),
+                                                          IconButton(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              constraints:
+                                                                  const BoxConstraints(),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .push(MaterialPageRoute(
+                                                                        builder: (_) => GalleryScreen(
+                                                                              images: _cubit.details?.medicalRequestDetails?.medicalRequest?.attachment ?? [],
+                                                                              index: 0,
+                                                                              numberColor: AppColors.blackColor,
+                                                                            )));
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .attachment,
+                                                                color: Color(
+                                                                    0xFFdddddd),
+                                                              ))
+                                                        ],
+                                                      )
+                                                    : SizedBox(),
+                                                InfoField(
+                                                  title: "Entity",
+                                                  value: _cubit
+                                                          .details
+                                                          ?.medicalRequestDetails
+                                                          ?.medicalResponse
+                                                          ?.medicalEntity ??
+                                                      "",
+                                                ),
+                                                Row(
                                                   children: [
                                                     Text(
-                                                      "Documents",
+                                                      "Medical Items ",
                                                       style: TextStyle(
                                                         color:
                                                             AppColors.mainColor,
@@ -492,86 +610,42 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
-                                                    const Spacer(),
-                                                    IconButton(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        constraints:
-                                                            const BoxConstraints(),
-                                                        onPressed: () {
-                                                          Navigator.of(context).push(
-                                                              MaterialPageRoute(
-                                                                  builder: (_) =>
-                                                                      GalleryScreen(
-                                                                        images:
-                                                                            _cubit.details?.medicalRequestDetails?.medicalRequest?.attachment ??
-                                                                                [],
-                                                                        index:
-                                                                            0,
-                                                                        numberColor:
-                                                                            AppColors.blackColor,
-                                                                      )));
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.attachment,
-                                                          color:
-                                                              Color(0xFFdddddd),
-                                                        ))
+                                                    Text(
+                                                      "(${_cubit.details?.medicalRequestDetails?.medicalResponse?.medicalItems?.length.toString() ?? ""})",
+                                                      style: TextStyle(
+                                                        color:
+                                                            AppColors.mainColor,
+                                                        fontFamily:
+                                                            "Certa Sans",
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   ],
-                                                )
-                                              : SizedBox(),
-                                          InfoField(
-                                            title: "Entity",
-                                            value: _cubit
-                                                    .details
-                                                    ?.medicalRequestDetails
-                                                    ?.medicalResponse
-                                                    ?.medicalEntity ??
-                                                "",
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Medical Items ",
-                                                style: TextStyle(
-                                                  color: AppColors.mainColor,
-                                                  fontFamily: "Certa Sans",
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              Text(
-                                                "(${_cubit.details?.medicalRequestDetails?.medicalResponse?.medicalItems?.length.toString() ?? ""})",
-                                                style: TextStyle(
-                                                  color: AppColors.mainColor,
-                                                  fontFamily: "Certa Sans",
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600,
+                                                SizedBox(
+                                                  height: 10.h,
                                                 ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          SizedBox(
-                                              height: 80.h,
-                                              child: SelectedMedicalItems(
-                                                medicalItems: _cubit
-                                                        .details
-                                                        ?.medicalRequestDetails
-                                                        ?.medicalResponse
-                                                        ?.medicalItems ??
-                                                    [],
-                                              ))
-                                        ],
-                                      ),
-                              ],
-                            ),
-                          ),
-                        ):SizedBox(),
+                                                SizedBox(
+                                                    height: 80.h,
+                                                    child: SelectedMedicalItems(
+                                                      medicalItems: _cubit
+                                                              .details
+                                                              ?.medicalRequestDetails
+                                                              ?.medicalResponse
+                                                              ?.medicalItems ??
+                                                          [],
+                                                    ))
+                                              ],
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
                       ],
                     ),
                   )

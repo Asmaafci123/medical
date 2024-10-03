@@ -18,6 +18,7 @@ import '../widgets/drawer_widget.dart';
 import '../widgets/helpers.dart';
 import '../widgets/utils/loading_dialog.dart';
 import '../widgets/utils/message_dialog.dart';
+import '../widgets/utils/warning_diaglog.dart';
 import 'models/medical_benefit_model.dart';
 
 class MedicalBenefitsScreen extends StatefulWidget {
@@ -170,6 +171,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                       Row(
                         children: [
                           MedicalBenefitsCard1(
+                            history:false,
                             dividerWidth: 140.w,
                             medicalBenefitModel: medicalBenefits[0],
                             onTap: () {
@@ -181,7 +183,6 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                                     .getEmployeeRelatives(
                                         userNumber.toString(), "medication");
                               } else {
-
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
@@ -191,18 +192,11 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                                             )),
                                     (route) => false);
                               }
-                              // Navigator.pushAndRemoveUntil(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             RequestMedicationScreen(
-                              //               medicationType: "medication",
-                              //             )),
-                              //         (route) => false);
                             },
                           ),
                           const Spacer(),
                           MedicalBenefitsCard1(
+                            history:false,
                             dividerWidth: 140.w,
                             medicalBenefitModel: medicalBenefits[1],
                             onTap: () {
@@ -214,9 +208,14 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                                     .getEmployeeRelatives(
                                         userNumber.toString(), "checkups");
                               } else {
-                                Navigator.of(context).pushNamed(
-                                    RequestMedicationScreen.routeName,
-                                    arguments: "checkups");
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RequestMedicationScreen(
+                                              medicationType: "checkups",
+                                            )),
+                                        (route) => false);
                               }
                               // Navigator.of(context).pushNamed(
                               //     RequestMedicationScreen.routeName,
@@ -232,19 +231,28 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                         children: [
                           MedicalBenefitsCard1(
                             dividerWidth: 140.w,
+                            history:false,
                             medicalBenefitModel: medicalBenefits[2],
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(RequestMedicationScreen.routeName);
+                              showWarningDialog(
+                                context: context,
+                                message:"You don't have Sick Leave service",
+                                isSucceeded: false,
+                              );
                             },
                           ),
                           const Spacer(),
                           MedicalBenefitsCard1(
                             dividerWidth: 140.w,
+                            history:true,
                             medicalBenefitModel: medicalBenefits[3],
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(MedicalRequestsHistoryScreen.routeName);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      MedicalRequestsHistoryScreen()),
+                                      (route) => false);
                             },
                           )
                         ],
@@ -254,6 +262,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                       ),
                       MedicalBenefitsCard1(
                         dividerWidth: 280.w,
+                        history:true,
                         medicalBenefitModel: medicalBenefits[4],
                         onTap: () {
                           Navigator.of(context)

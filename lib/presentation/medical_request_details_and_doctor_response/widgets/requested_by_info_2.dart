@@ -2,11 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/core/themes/app_colors.dart';
-import 'package:more4u/custom_icons.dart';
 import 'package:more4u/presentation/medical_request_details_and_doctor_response/widgets/side_cut_clipper.dart';
-import 'package:more4u/presentation/medical_request_details_and_doctor_response/widgets/view_profile_button.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
 import '../../pending_requests/cubits/pending_requests_cubit.dart';
 import 'call_icon.dart';
 
@@ -15,12 +12,14 @@ class RequestedByInfo1 extends StatelessWidget {
   final double employeeCoverage;
   final String? requestedByName;
   final String? requestedByDepartment;
+  final String? phoneNumber;
   const RequestedByInfo1(
       {super.key,
       required this.employeeCoverage,
       required this.requestedByName,
       required this.requestedByDepartment,
-        required this.requestDate
+        required this.requestDate,
+        required this.phoneNumber
       });
 
   @override
@@ -38,7 +37,7 @@ class RequestedByInfo1 extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.r)),
             child: Container(
-                height: 140.h,
+                height: 130.h,
                 width: 500.w,
                 decoration: BoxDecoration(
                  //   color:Color(0xFFf8f4f0),
@@ -75,9 +74,10 @@ class RequestedByInfo1 extends StatelessWidget {
                       SizedBox(
                         height: 100.h,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CircularPercentIndicator(
-                              radius: 40.0.r,
+                              radius: 35.0.r,
                               lineWidth: 8.0.w,
                               percent: 0.9,
                               startAngle: 290,
@@ -145,11 +145,12 @@ class RequestedByInfo1 extends StatelessWidget {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: SizedBox(
-                                    width: 190.w,
+                                    width: 170.w,
                                     child: Text(
                                       requestedByName ?? "",
                                       style: TextStyle(
@@ -185,31 +186,15 @@ class RequestedByInfo1 extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Row(
+                                PendingRequestsCubit.get(context)
+                                    .medicalRequestDetails
+                                    ?.medicalRequest
+                                    ?.monthlyMedication==true?
+                                Column(
                                   children: [
-                                    Container(
-                                      height: 40.h,
-                                      decoration: BoxDecoration(
-                                          color:Color(0xFFe8f2ff),
-                                          borderRadius: BorderRadius.circular(15)),
-                                      child: Padding(
-                                        padding:EdgeInsets.symmetric(horizontal:10.w),
-                                        child: Icon(
-                                          Icons.person,
-                                          color:Color(0xFF2c93e7),
-                                          size: 22.sp,
-                                        ),
-                                      ),
-                                                                                                                                                                                                                                                                                                                                                              ),
-                                    SizedBox(width: 5.w,),
-                                  //  ViewProfileButton(),
-                                    PendingRequestsCubit.get(context)
-                                        .medicalRequestDetails
-                                        ?.medicalRequest
-                                        ?.monthlyMedication==true?
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
                                     Container(
                                       height: 40.h,
                                       decoration: BoxDecoration(
@@ -237,9 +222,9 @@ class RequestedByInfo1 extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ): SizedBox(),
+                                    ),
                                   ],
-                                )
+                                ): SizedBox()
                               ],
                             )
                           ],
@@ -254,7 +239,7 @@ class RequestedByInfo1 extends StatelessWidget {
         Positioned(
           right: 15.w,
           bottom: 5.h,
-          child:CallIcon(),
+          child:CallIcon(phoneNumber: phoneNumber,),
         )
       ],
     );

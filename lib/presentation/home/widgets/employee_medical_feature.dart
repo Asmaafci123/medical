@@ -7,6 +7,7 @@ import '../../../core/constants/constants.dart';
 import '../../medical_benefits/medical_benefits_screen.dart';
 import '../../more4u_home/more4u_home_screen.dart';
 import '../../our_paretners/our_partners_screen.dart';
+import '../../widgets/utils/warning_diaglog.dart';
 import '../home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,28 +26,35 @@ class EmployeeMedicalFeature extends StatelessWidget {
               imagePath:"assets/images/surprise.png",
               title:"More4u",
               description:  "Mange all Medical Requests",
+              enabled: userData?.hasMore4uService??false,
               onTap:() {
                 userData?.hasMore4uService == true? Navigator.of(context).pushNamed(
                     More4uHomeScreen.routeName):
-                Toast.show("You don't have more4u service",
-                    backgroundColor: AppColors.redColor,
-                    duration: Toast.lengthLong, gravity: Toast.top);
+                showWarningDialog(
+                  context: context,
+                  message:"You don't have more4u service",
+                  isSucceeded: false,
+                );
 
               }),
           MedicalFeature(
               imagePath: "assets/images/medical-report.png",
               title:"Medical",
               description: "Create New Medical Request",
+              enabled: userData?.hasMedicalService ??false,
               onTap:() {
                 userData?.hasMedicalService == true? Navigator.of(context).pushNamed(
                     MedicalBenefitsScreen.routeName):
-                Toast.show("You don't have medical service",
-                    backgroundColor: AppColors.redColor,
-                    duration: Toast.lengthLong, gravity: Toast.top);
+                showWarningDialog(
+                  context: context,
+                  message:"You don't have medical service",
+                  isSucceeded: false,
+                );
               }),
           MedicalFeature(
               imagePath: "assets/images/support.png",
               title:"PartnerShips",
+              enabled: true,
               description:  "Mange all Medical Requests",
               onTap:() {
                 Navigator.of(context).pushNamed(

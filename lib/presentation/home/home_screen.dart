@@ -15,12 +15,14 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:toast/toast.dart';
 import '../../injection_container.dart';
+import '../medical_requests_history/medical_requests_history_screen.dart';
 import '../more4u_home/more4u_home_screen.dart';
 import '../pending_requests/pending_requests_screen.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/helpers.dart';
 import '../widgets/utils/loading_dialog.dart';
 import '../widgets/utils/message_dialog.dart';
+import '../widgets/utils/warning_diaglog.dart';
 import 'cubits/home_cubit.dart';
 import 'cubits/home_states.dart';
 
@@ -81,14 +83,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 14.h),
+                      padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 14.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         const HomeAppBar(),
+                         HomeAppBar(title: "More4u",),
                           SizedBox(
-                            height: 10.h,
+                            height: 30.h,
                           ),
                           Text(
                             "Welcome Back !",
@@ -99,14 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: "Certa Sans",
                             ),
                           ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
                         ],
                       ),
                     ),
+
                     CurrentEmployeeInfo(),
                     SizedBox(
                       height: 5.h,
                     ),
-                    userData?.isDoctor == true?
+                    (userData?.isDoctor == true ||  userData?.isMedicalAdmin== true )?
                     Padding(
                       padding: EdgeInsets.only(left: 20.w,bottom: 20.h),
                       child: Column(
@@ -126,14 +132,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(
                             width: 180.w,
-                            child: MedicalFeature(
+                            child:  userData?.isDoctor== true ?MedicalFeature(
                               imagePath: "assets/images/pending.png",
                               title:"Pending Requests",
+                              enabled: true,
                               description:"Mange Pending Medical Requests",
                               onTap:() {
                             Navigator.of(context).pushNamed(
                             PendingRequestsScreen.routeName);
-                            }),
+                            }):userData?.isMedicalAdmin== true?MedicalFeature(
+                                imagePath: "assets/images/pending.png",
+                                title:"Pending Requests",
+                                description:"Follow Pending Medical Requests",
+                                enabled: true,
+                                onTap:() {
+                                  Navigator.of(context)
+                                      .pushNamed(MedicalRequestsHistoryScreen.routeName);
+                                }):SizedBox(),
                           ),
                         ],
                       ),
@@ -142,10 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 20.w),
                       child: Text(
-                        (userData?.isDoctor == true ||
-                            userData?.isMedicalAdmin == true)
-                            ? "Medical Features"
-                            : "Features",
+                         "Features",
                         style: TextStyle(
                           color: AppColors.blackColor,
                           fontSize: 20.sp,
@@ -185,8 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            (userData?.isDoctor == true ||
-                                userData?.isMedicalAdmin == true)? "Features":"Coming Soon",
+                           "Coming Soon",
                             style: TextStyle(
                               color: AppColors.blackColor,
                               fontSize: 20.sp,
@@ -198,140 +209,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               userData?.isMedicalAdmin == true)?SizedBox(
                             height: 10.h,
                           ):SizedBox(),
-                          (userData?.isDoctor == true ||
-                              userData?.isMedicalAdmin == true)?
-                          GestureDetector(
-                            onTap: () {
-                              userData?.hasMedicalService == true? Navigator.of(context)
-                                  .pushNamed(More4uHomeScreen.routeName):
-                              Toast.show("You don't have medical service",
-                                  backgroundColor: AppColors.redColor,
-                                  duration: Toast.lengthLong, gravity: Toast.top);
-                            },
-                            child: Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.r),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.r),
-                                child: Container(
-                                    height: 110.h,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.whiteColor,
-                                      border: Border(
-                                          left: BorderSide(
-                                        color: Color(0xFF446CFF),
-                                        width: 5.w,
-                                      )),
-                                      //  gradient: LinearGradient(colors: [ Color(0xFF446CFF), Color(0xFF1E9AFF),]),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15.w),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/more4u_icon.png",
-                                            height: 40.h,
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "More4u",
-                                                style: TextStyle(
-                                                  color: AppColors.blackColor,
-                                                  fontSize:20.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: "Certa Sans",
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 190.w,
-                                                    child: Text(
-                                                      "Enjoy a variety of different benefits",
-                                                      style: TextStyle(
-                                                        color:
-                                                            AppColors.greyColor,
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontFamily: "Certa Sans",
-                                                      ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15.w,
-                                                  ),
-                                                  CircleAvatar(
-                                                    radius: 12.r,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    child: Container(
-                                                        decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            gradient: LinearGradient(
-                                                                begin: Alignment.topLeft,
-                                                                end: Alignment.bottomRight,
-                                                                stops: [
-                                                                  0.0,
-                                                                  0.7,
-                                                                  1
-                                                                ],
-                                                                //  tileMode: TileMode.repeated,
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFF00a7ff),
-                                                                  Color(
-                                                                      0xFF2a64ff),
-                                                                  Color(
-                                                                      0xFF1980ff),
-                                                                ])
-                                                        ),
-                                                        child: Center(
-                                                            child: Icon(
-                                                          Icons
-                                                              .arrow_forward_ios_outlined,
-                                                          size: 18.sp,
-                                                          color: AppColors
-                                                              .whiteColor,
-                                                        ))),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ),
-                          ):SizedBox(),
                           SizedBox(
                             height: 10.h,
                           ),
                           GestureDetector(
                             onTap: ()
                             {
-                              Toast.show("There is no Privileges Yet",
-                                  backgroundColor: AppColors.redColor,
-                                  duration: Toast.lengthLong, gravity: Toast.top);
+                              showWarningDialog(
+                                  context: context,
+                                  message: "Warning",
+                                  isSucceeded: false,
+                              );
                             },
                             child: Card(
                               elevation: 5,

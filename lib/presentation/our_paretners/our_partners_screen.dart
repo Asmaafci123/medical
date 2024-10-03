@@ -158,10 +158,11 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                               CircleAvatar(
                                 backgroundColor:Color(0xfff2f3f8),
                                 radius: 35.r,
-                                child: Image.asset(
-                                    "assets/images/Optometry Centers.png",
-                                  width: 45.w,
-                                ),
+                                child: Image.network(
+                                  More4uHomeCubit.get(context).cat[index].categoryImage??"",
+                                  fit: BoxFit.cover,
+                                  width: 35.w,
+                                )
                               ),
                               SizedBox(
                                 height: 5.h,
@@ -256,8 +257,11 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                                   ],
                                 ),
                                Spacer(),
-                                Image.asset("assets/images/general_surgery.png",
-                                  width: 40.w,)
+                                Image.network(
+                                  result[index].subCategoryImage??"",
+                                  fit: BoxFit.cover,
+                                  width: 35.w,
+                                )
                               ],
                             ),
                             index!=result.length-1?

@@ -9,12 +9,15 @@ class MedicalFeature extends StatelessWidget {
   final String title;
   final String description;
   final void Function()? onTap;
+  final bool enabled;
   const MedicalFeature(
       {super.key,
       required this.imagePath,
       required this.title,
       required this.description,
-      required this.onTap});
+      required this.onTap,
+        required this.enabled
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,8 @@ class MedicalFeature extends StatelessWidget {
                         CircleAvatar(
                           radius: 10.r,
                           backgroundColor: Colors.transparent,
-                          child: Container(
+                          child:enabled?
+                          Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 gradient: LinearGradient(
@@ -149,7 +153,19 @@ class MedicalFeature extends StatelessWidget {
                                 Icons.arrow_forward_ios_outlined,
                                 size: 12.sp,
                                 color: AppColors.whiteColor,
-                              ))),
+                              ))):
+                          Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.greyWhiteColor
+                              ),
+                              child: Center(
+                                  child: Icon(
+                                    Icons.arrow_forward_ios_outlined,
+                                    size: 12.sp,
+                                    color: AppColors.whiteColor,
+                                  )))
+                          ,
                         )
                       ],
                     )
