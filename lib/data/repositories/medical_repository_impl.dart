@@ -12,6 +12,7 @@ import '../models/medication_request_model.dart';
 import '../models/response/employee_medical_response_model.dart';
 import '../models/response/medication_request_response_model.dart';
 import '../models/response/pending_requests_response_model.dart';
+import '../models/response/search_medical_items_model_response.dart';
 
 class MedicalRepositoryImpl extends MedicalRepository {
   final RemoteDataSource remoteDataSource;
@@ -159,6 +160,32 @@ class MedicalRepositoryImpl extends MedicalRepository {
         RequestsResponseModel result =
         await remoteDataSource.getFilteredMedicalRequests(
             filter: filter,
+            token: token);
+        return Right(result);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.message));
+      }
+    } else {
+      return Left(ConnectionFailure(AppStrings.noInternetConnection.tr()));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, SearchMedicalItemsModelResponse>>  searchInMedicalItems({
+    String? requestType,
+    String? searchText,
+    required int languageCode,
+    String? token,
+  })async
+  {
+    if (await networkInfo.isConnected) {
+      try {
+        SearchMedicalItemsModelResponse result =
+        await remoteDataSource.searchInMedicalItems(
+            requestType: requestType,
+            searchText:searchText,
+            languageCode:languageCode,
             token: token);
         return Right(result);
       } on ServerException catch (e) {

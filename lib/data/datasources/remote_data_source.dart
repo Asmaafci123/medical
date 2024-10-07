@@ -30,6 +30,7 @@ import '../models/response/get_user_response_model.dart';
 import '../models/response/home_data_response_model.dart';
 import '../models/response/login_response_model.dart';
 import '../models/response/medical-response-model.dart';
+import '../models/response/search_medical_items_model_response.dart';
 import '../models/user_model.dart';
 import 'local_data_source/secure_local_data_source.dart';
 
@@ -191,6 +192,13 @@ abstract class RemoteDataSource {
 
   Future<RequestsResponseModel> getFilteredMedicalRequests({
     FilteredMedicalRequestsSearch? filter,
+    String? token,
+  });
+
+  Future<SearchMedicalItemsModelResponse> searchInMedicalItems({
+    String? requestType,
+    String? searchText,
+    required int languageCode,
     String? token,
   });
 
@@ -1361,17 +1369,6 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         'Authorization': 'Bearer $token',
       },
     );
-    print({
-      "selectedRequestType":filter?.selectedRequestType??"",
-      "selectedRequestStatus":filter?.selectedRequestStatus??"",
-      "requestId":filter?.requestId??"",
-      "userNumberSearch":filter?.userNumberSearch??"",
-      "relativeId":filter?.relativeId??"",
-      "userNumber":filter?.userNumber??"",
-      "searchDateFrom":filter?.searchDateFrom??"",
-      "searchDateTo":filter?.searchDateTo??"",
-      "languageId":filter?.languageId??"",
-    });
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
       RequestsResponseModel requestsResponseModel =
@@ -1382,6 +1379,50 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       await refreshUserToken(languageId);
       return getFilteredMedicalRequests(
         filter: filter,
+        token: accessToken,
+      );
+    } else {
+      Map<String, dynamic> result = jsonDecode(response.body);
+      if (result.isNotEmpty && result['message'] != null) {
+        throw ServerException(result['message']);
+      } else {
+        throw ServerException(AppStrings.someThingWentWrong.tr());
+      }
+    }
+  }
+
+  @override
+  Future<SearchMedicalItemsModelResponse> searchInMedicalItems({
+    String? requestType,
+    String? searchText,
+    required int languageCode,
+    String? token,
+  })async
+  {
+
+    final response = await client.post(
+      Uri.parse(searchMedicalItemsEndPoint ).replace(queryParameters: {
+        "requestType":requestType,
+        "searchText":searchText,
+        "LanguageId": languageCode.toString(),
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> result = jsonDecode(response.body);
+      SearchMedicalItemsModelResponse searchMedicalItemsModelResponse =
+      SearchMedicalItemsModelResponse.fromJson(result);
+
+      return searchMedicalItemsModelResponse ;
+    }else if (response.statusCode == 401) {
+      await refreshUserToken(languageId);
+      return  searchInMedicalItems(
+        requestType: requestType,
+        searchText:searchText,
+        languageCode:languageCode,
         token: accessToken,
       );
     } else {

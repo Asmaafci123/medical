@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/core/themes/app_colors.dart';
 import 'package:toast/toast.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/constants.dart';
 import '../../medical_benefits/medical_benefits_screen.dart';
 import '../../more4u_home/more4u_home_screen.dart';
@@ -25,14 +27,14 @@ class EmployeeMedicalFeature extends StatelessWidget {
           MedicalFeature(
               imagePath:"assets/images/surprise.png",
               title:"More4u",
-              description:  "Mange all Medical Requests",
+              description: AppStrings.followOurMore4Benefits.tr(),
               enabled: userData?.hasMore4uService??false,
               onTap:() {
                 userData?.hasMore4uService == true? Navigator.of(context).pushNamed(
                     More4uHomeScreen.routeName):
                 showWarningDialog(
                   context: context,
-                  message:"You don't have more4u service",
+                  message:AppStrings.youNotHaveMore4uService.tr(),
                   isSucceeded: false,
                 );
 
@@ -40,22 +42,22 @@ class EmployeeMedicalFeature extends StatelessWidget {
           MedicalFeature(
               imagePath: "assets/images/medical-report.png",
               title:"Medical",
-              description: "Create New Medical Request",
+              description: AppStrings.followOurMedicalServices.tr(),
               enabled: userData?.hasMedicalService ??false,
               onTap:() {
                 userData?.hasMedicalService == true? Navigator.of(context).pushNamed(
                     MedicalBenefitsScreen.routeName):
                 showWarningDialog(
                   context: context,
-                  message:"You don't have medical service",
+                  message:AppStrings.youNotHaveMedicalService.tr(),
                   isSucceeded: false,
                 );
               }),
           MedicalFeature(
               imagePath: "assets/images/support.png",
-              title:"PartnerShips",
+              title:AppStrings.partnerShips.tr(),
               enabled: true,
-              description:  "Mange all Medical Requests",
+              description:  AppStrings.followOurPartnerShips.tr(),
               onTap:() {
                 Navigator.of(context).pushNamed(
                     OurPartnersScreen.routeName);

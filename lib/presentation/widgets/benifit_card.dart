@@ -40,10 +40,8 @@ class BenefitCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               border: Border(
-                left: context.locale.languageCode=='ar'? BorderSide.none:BorderSide(width: 7.0.w, color: Color(
-                    0xFF1980ff)),
-                right: context.locale.languageCode=='en'? BorderSide.none:BorderSide(width: 7.0.w, color: Color(
-                    0xFF1980ff)),
+                left: context.locale.languageCode=='ar'? BorderSide.none:BorderSide(width: 7.0.w, color: AppColors.mainColor),
+                right: context.locale.languageCode=='en'? BorderSide.none:BorderSide(width: 7.0.w, color: AppColors.mainColor),
               ),
               color: Colors.white,
             ),

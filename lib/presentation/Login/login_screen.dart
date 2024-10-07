@@ -107,6 +107,7 @@ class LoginScreenState extends State<LoginScreen> {
                     key: _formKey,
                     child: Column(children: <Widget>[
                       CustomTextFormField(
+                        maxLines:1,
                         prefixIcon: Icon(
                           CustomIcons.user_info,
                           size: 20.r,
@@ -129,6 +130,7 @@ class LoginScreenState extends State<LoginScreen> {
                         height: 20.h,
                       ),
                       CustomTextFormField(
+                        maxLines:1,
                         prefixIcon: Icon(
                           CustomIcons.lock2,
                           size: 20.r,

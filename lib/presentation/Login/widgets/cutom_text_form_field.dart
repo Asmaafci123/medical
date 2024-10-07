@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final BoxConstraints? suffixIconConstraints;
   final BoxConstraints? prefixIconConstraints;
   final bool obscureText;
+  final int maxLines;
   const CustomTextFormField(
       {super.key,
       required this.prefixIcon,
@@ -27,12 +28,13 @@ class CustomTextFormField extends StatelessWidget {
       this.suffixIcon,
       this.suffixIconConstraints,
       this.prefixIconConstraints,
-      required this.obscureText});
+      required this.obscureText,
+      required this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-     // maxLines: 5,
+      maxLines: maxLines,
       style: TextStyle(
           fontWeight: FontWeight.w400,
           color: AppColors.mainColor,

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/constants/app_strings.dart';
 import 'package:more4u/core/constants/constants.dart';
-import 'package:more4u/custom_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../medical_request_details_and_doctor_response/widgets/side_cut_clipper.dart';
@@ -51,6 +52,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 60.h, 16.w, 20.h),
                   child: Row(
+                     mainAxisAlignment:languageId==2? MainAxisAlignment.end:MainAxisAlignment.start,
                     children: [
                       Image.asset(
                         "assets/images/man.png",
@@ -76,7 +78,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                             height: 2.h,
                           ),
                           Text(
-                            "Employee #",
+                           AppStrings.employeeNumber.tr(),
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 12.sp,
@@ -122,7 +124,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                             height: 2.h,
                           ),
                           Text(
-                            "Medical Coverage",
+                           AppStrings.medicalCoverage.tr(),
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 12.sp,
@@ -254,7 +256,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Medical",
+                       AppStrings.medical.tr(),
                         style: TextStyle(
                           color: AppColors.mainColor,
                           fontSize: 10.sp,

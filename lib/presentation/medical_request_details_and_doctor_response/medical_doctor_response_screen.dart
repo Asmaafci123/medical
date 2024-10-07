@@ -1,18 +1,20 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/custom_icons.dart';
-import 'package:more4u/data/models/medical_item_model.dart';
+import 'package:badges/badges.dart' as bg;
 import 'package:more4u/presentation/medical_request_details_and_doctor_response/widgets/gallery_strings.dart';
 import 'package:more4u/presentation/medical_request_details_and_doctor_response/widgets/requested_by_info_2.dart';
 import 'package:more4u/presentation/medical_request_details_and_doctor_response/widgets/resone_and_comment_widget.dart';
 import 'package:more4u/presentation/pending_requests/pending_requests_screen.dart';
 import 'package:more4u/presentation/widgets/utils/loading_dialog.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 import 'package:toast/toast.dart';
 import '../../core/themes/app_colors.dart';
 import '../../core/utils/flutter_chips/src/chips_input.dart';
 import '../../domain/entities/details-of-medical.dart';
-import '../../domain/entities/medical_item.dart';
 import '../home/widgets/app_bar.dart';
 import '../pending_requests/cubits/pending_requests_cubit.dart';
 import '../pending_requests/cubits/pending_requests_state.dart';
@@ -59,10 +61,12 @@ class _MedicalDoctorResponseScreenState
   @override
   Widget build(BuildContext context) {
     var _cubit = PendingRequestsCubit.get(context);
-
     ToastContext().init(context);
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
+        print("1111111111111111111111111111111111");
+        print(state);
+        print("1111111111111111111111111111111111");
         if (state is SendDoctorResponseLoadingState) {
           loadingAlertDialog(context);
         }
@@ -83,6 +87,19 @@ class _MedicalDoctorResponseScreenState
           Toast.show(" ${state.message}",
               duration: Toast.lengthLong, gravity: Toast.top);
         }
+
+        if (state is SearchInMedicalItemsLoadingState) {
+          loadingAlertDialog(context);
+        }
+        if (state is GetMedicalRequestDetailsSuccessState) {
+          Navigator.pop(context);
+        }
+        if (state is SearchInMedicalItemsErrorState) {
+        }
+        if(state is AddMedicalItemSuccessState)
+          {
+
+          }
       },
       builder: (context, state) {
         var employeeCoverage = double.parse(_cubit
@@ -122,10 +139,10 @@ class _MedicalDoctorResponseScreenState
                         employeeCoverage: employeeCoverage,
                         requestedByName: _cubit
                             .medicalRequestDetails?.medicalRequest?.requestedBy,
-                        requestedByDepartment: _cubit
-                            .medicalRequestDetails?.medicalRequest?.employeeDepartment,
-                        phoneNumber:_cubit
-                            .medicalRequestDetails?.medicalRequest?.employeePhoneNumber ,
+                        requestedByDepartment: _cubit.medicalRequestDetails
+                            ?.medicalRequest?.employeeDepartment,
+                        phoneNumber: _cubit.medicalRequestDetails
+                            ?.medicalRequest?.employeePhoneNumber,
                       ),
                     ],
                   ),
@@ -157,9 +174,8 @@ class _MedicalDoctorResponseScreenState
                                 borderRadius: BorderRadius.circular(10.r)),
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.r),
-                                color: Color(0xFF2c93e7)
-                              ),
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: Color(0xFF2c93e7)),
                               height: 50.h,
                               child: Padding(
                                 padding:
@@ -829,215 +845,357 @@ class _MedicalDoctorResponseScreenState
                                                   ),
                                                 ),
                                           _cubit.medicalItems != null
-                                              ? Text(
-                                                  "Medical Items",
-                                                  style: TextStyle(
-                                                      color:
-                                                          AppColors.blackColor,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 18.sp,
-                                                      fontFamily: "Certa Sans"),
+                                              ? Column(
+                                                  children: [
+                                                    Text(
+                                                      "Medical Items",
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18.sp,
+                                                          fontFamily:
+                                                              "Certa Sans"),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        showDialog(
+                                                            barrierDismissible:
+                                                                false,
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.r)),
+                                                                scrollable:
+                                                                    true,
+                                                                title: Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      "Medical Items",
+                                                                    ),
+                                                                    Spacer(),
+                                                                    BlocBuilder<
+                                                                        PendingRequestsCubit,
+                                                                        PendingRequestsState>(
+                                                                      builder:
+                                                                          (context,
+                                                                              state) {
+                                                                        return bg
+                                                                            .Badge(
+                                                                          showBadge:
+                                                                              true,
+                                                                          ignorePointer:
+                                                                              true,
+                                                                          position: BadgePosition.bottomEnd(
+                                                                              bottom: 0,
+                                                                              end: 0),
+                                                                          badgeColor:
+                                                                              AppColors.redColor,
+                                                                          padding:
+                                                                              EdgeInsets.all(0),
+                                                                          badgeContent:
+                                                                              Container(
+                                                                            decoration:
+                                                                                BoxDecoration(shape: BoxShape.circle),
+                                                                            width:
+                                                                                25.w,
+                                                                            height:
+                                                                                25.h,
+                                                                            child:
+                                                                                AutoSizeText(
+                                                                              _cubit.selectedMedicalItems.length.toString(),
+                                                                              maxLines: 1,
+                                                                              wrapWords: false,
+                                                                              textAlign: TextAlign.center,
+                                                                              minFontSize: 9,
+                                                                              style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Material(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(150.r),
+                                                                            clipBehavior:
+                                                                                Clip.antiAlias,
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            child:
+                                                                                IconButton(
+                                                                              onPressed: () {},
+                                                                              iconSize: 30.w,
+                                                                              icon: SimpleShadow(
+                                                                                  offset: Offset(0, 4),
+                                                                                  color: Colors.black.withOpacity(0.25),
+                                                                                  child: Image.asset(
+                                                                                    "assets/images/drugs.png",
+                                                                                    width: 50.w,
+                                                                                  )),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                content: BlocBuilder<
+                                                                    PendingRequestsCubit,
+                                                                    PendingRequestsState>(
+                                                                  builder:
+                                                                      (context,
+                                                                          state) {
+                                                                    return Form(
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            width:
+                                                                                280,
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: 230,
+                                                                                  child: TextField(
+                                                                                    style: TextStyle(fontSize: 12.sp, fontFamily: "Certa Sans"),
+                                                                                    controller: _cubit.searchInMedicalItemsController,
+                                                                                    keyboardType: TextInputType.text,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: "Search In Medical Items",
+                                                                                      isDense: true,
+                                                                                      contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
+                                                                                      fillColor: Colors.white,
+                                                                                      filled: true,
+                                                                                      labelStyle: TextStyle(fontSize: 16.sp, fontFamily: "Certa Sans"),
+                                                                                      hintStyle: TextStyle(color: Color(0xFFB5B9B9), fontSize: 16.sp, fontFamily: "Certa Sans", fontWeight: FontWeight.w500),
+                                                                                      suffixIcon: IconButton(
+                                                                                        icon: Icon(
+                                                                                          Icons.clear,
+                                                                                          size: 17.r,
+                                                                                        ),
+                                                                                        onPressed: () {
+                                                                                          _cubit.clearSearchResult();
+                                                                                        },
+                                                                                      ),
+                                                                                      enabledBorder: OutlineInputBorder(
+                                                                                        borderSide: BorderSide(color: AppColors.whiteGreyColor),
+                                                                                        borderRadius: BorderRadius.circular(15.r),
+                                                                                      ),
+                                                                                      focusedBorder: OutlineInputBorder(
+                                                                                        borderSide: BorderSide(color: AppColors.whiteGreyColor),
+                                                                                        borderRadius: BorderRadius.circular(15.r),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                Spacer(),
+                                                                                InkWell(
+                                                                                  borderRadius: BorderRadius.circular(15.r),
+                                                                                  onTap: () {
+                                                                                    _cubit.searchInMedicalItems();
+                                                                                  },
+                                                                                  child: Ink(
+                                                                                    width: 38.w,
+                                                                                    height: 40.w,
+                                                                                    decoration: BoxDecoration(
+                                                                                        color: Color(0xFFe8f2ff),
+                                                                                        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                                                                                        borderRadius: BorderRadius.circular(15.r),
+                                                                                        gradient: LinearGradient(
+                                                                                            begin: Alignment.topLeft,
+                                                                                            end: Alignment.bottomRight,
+                                                                                            stops: [
+                                                                                              0.0,
+                                                                                              0.7,
+                                                                                              1
+                                                                                            ],
+                                                                                            //  tileMode: TileMode.repeated,
+                                                                                            colors: [
+                                                                                              Color(0xFF00a7ff),
+                                                                                              Color(0xFF2a64ff),
+                                                                                              Color(0xFF1980ff),
+                                                                                            ])),
+                                                                                    child: Center(
+                                                                                        child: Icon(
+                                                                                      // Icons.filter_list_alt,
+                                                                                      CustomIcons.search__1_,
+                                                                                      size: 17.r,
+                                                                                      // color: Color(0xFF2c93e7),
+                                                                                      color: AppColors.whiteColor,
+                                                                                    )),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+
+                                                                          _cubit.searchedMedicalItems.isNotEmpty
+                                                                              ? SizedBox(
+                                                                                  height: 300.h,
+                                                                                  width: 300.w,
+                                                                                  child: ListView.separated(
+                                                                                      itemBuilder: (context, index) => InkWell(
+                                                                                            onTap: () {
+                                                                                              _cubit.addMedicalItems(_cubit.searchedMedicalItems[index],index);
+                                                                                            },
+                                                                                            child: SizedBox(
+                                                                                              width: 270.w,
+                                                                                              child: Card(
+                                                                                                elevation: 5,
+                                                                                                shape: RoundedRectangleBorder(
+                                                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                                                  side: BorderSide(
+                                                                                                    color: _cubit.medicalItemsColor[index],
+                                                                                                    width: 0.5.w
+                                                                                                  )
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                                                                                  child: Column(
+                                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                    children: [
+                                                                                                      Text(_cubit.searchedMedicalItems[index].itemName ?? "", style: TextStyle(color: AppColors.blackColor, fontWeight: FontWeight.w600, fontSize: 18.sp, fontFamily: "Certa Sans")),
+                                                                                                      SizedBox(
+                                                                                                        height: 5.h,
+                                                                                                      ),
+                                                                                                      Text(_cubit.searchedMedicalItems[index].itemType ?? "", style: TextStyle(color: AppColors.greyDark, fontWeight: FontWeight.w200, fontSize: 16.sp, fontFamily: "Certa Sans")),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                      separatorBuilder: (context, index) => SizedBox(
+                                                                                            height: 5.h,
+                                                                                          ),
+                                                                                      itemCount: _cubit.searchedMedicalItems!.length),
+                                                                                )
+                                                                              : Column(
+                                                                                children: [
+                                                                                  SizedBox(
+                                                                                    height:
+                                                                                    20.h,
+                                                                                  ),
+                                                                                  Text(
+                                                                                      "No Data Available",
+                                                                                      style: TextStyle(color: AppColors.greyDark, fontWeight: FontWeight.w600, fontSize: 16.sp, fontFamily: "Certa Sans"),
+                                                                                    ),
+                                                                                ],
+                                                                              ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                20.h,
+                                                                          ),
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                                  gradient: LinearGradient(
+                                                                                      begin: Alignment.topLeft,
+                                                                                      end: Alignment.bottomRight,
+                                                                                      stops: [
+                                                                                        0.0,
+                                                                                        0.7,
+                                                                                        1
+                                                                                      ],
+                                                                                      //  tileMode: TileMode.repeated,
+                                                                                      colors: [
+                                                                                        Color(0xFF00a7ff),
+                                                                                        Color(0xFF2a64ff),
+                                                                                        Color(0xFF1980ff),
+                                                                                      ])),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                                                                                child: Text("Close", style: TextStyle(color: AppColors.whiteColor, fontWeight: FontWeight.w600, fontSize: 18.sp, fontFamily: "Certa Sans")),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              );
+                                                            });
+                                                      },
+                                                      child: Container(
+                                                        height: 80.h,
+                                                        width: 80.w,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: AppColors
+                                                                    .blackColor,
+                                                                width: 0.3),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.r)),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/images/select_items_2.png",
+                                                              width: 40.w,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.h,
+                                                            ),
+                                                            Text(
+                                                              "Select",
+                                                              style: TextStyle(
+                                                                  color: AppColors
+                                                                      .greyDark,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      16.sp,
+                                                                  fontFamily:
+                                                                      "Certa Sans"),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 )
                                               : SizedBox(),
-                                          _cubit.medicalItems != null
-                                              ? Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      0, 20.h, 0, 20.h),
-                                                  child:
-                                                      ChipsInput<MedicalItem>(
-                                                    key: _chipKey2,
-                                                    enabled: true,
-                                                    initialValue: _cubit
-                                                            .selectedMedicalItems
-                                                            .isNotEmpty
-                                                        ? _cubit
-                                                            .selectedMedicalItems
-                                                        : [],
-                                                    textStyle: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      height: 1,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color:
-                                                          AppColors.mainColor,
-                                                    ),
-                                                    // enabled: false,
-                                                    allowChipEditing: true,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      suffixIconConstraints:
-                                                          BoxConstraints(
-                                                              maxHeight: 20.h,
-                                                              minWidth: 50.w),
-                                                      prefixIcon: Icon(
-                                                        CustomIcons.home__2_,
-                                                        size: 20.r,
-                                                      ),
-                                                      contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 0.0,
-                                                      ),
-                                                      border: OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      15.0.r)),
-                                                      labelText:
-                                                          "Medical Items",
-                                                      labelStyle: TextStyle(
-                                                          fontSize: 14.sp),
-                                                      hintText:
-                                                          "Enter Medical Items",
-                                                      hintStyle: TextStyle(
-                                                          color: const Color(
-                                                              0xffc1c1c1),
-                                                          fontSize: 12.sp),
-                                                      errorStyle: TextStyle(
-                                                          fontSize: 12.sp),
-                                                      //  errorText: _cubit.lowParticipantError,
-                                                      floatingLabelBehavior:
-                                                          FloatingLabelBehavior
-                                                              .always,
-                                                    ),
-                                                    findSuggestions:
-                                                        (String query) {
-                                                      if (query.length > 1) {
-                                                        var lowercaseQuery =
-                                                            query.toLowerCase();
-                                                        return _cubit
-                                                            .medicalItems!
-                                                            .where((profile) {
-                                                          return profile
-                                                                  .itemName!
-                                                                  .toLowerCase()
-                                                                  .contains(query
-                                                                      .toLowerCase()) ||
-                                                              profile.itemName
-                                                                  .toString()
-                                                                  .toLowerCase()
-                                                                  .contains(query
-                                                                      .toLowerCase());
-                                                        }).toList(
-                                                                growable: false)
-                                                          ..sort((a, b) => a
-                                                              .itemName!
-                                                              .toLowerCase()
-                                                              .indexOf(
-                                                                  lowercaseQuery)
-                                                              .compareTo(b
-                                                                  .itemName!
-                                                                  .toLowerCase()
-                                                                  .indexOf(
-                                                                      lowercaseQuery)));
-                                                      } else {
-                                                        return const <MedicalItemModel>[];
-                                                      }
-                                                    },
-                                                    // onChanged: _cubit.participantsOnChange,
-                                                    onChanged:
-                                                        (List<MedicalItem>
-                                                            value) {
-                                                      _cubit.changeMedicalItems(
-                                                          value);
-                                                    },
-                                                    chipBuilder: (context,
-                                                        state, profile) {
-                                                      return InputChip(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        deleteIconColor:
-                                                            AppColors.mainColor,
-                                                        labelStyle: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            color: AppColors
-                                                                .mainColor),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          side: BorderSide(
-                                                              color: Color(
-                                                                  0xFFC1C1C1)),
-                                                        ),
-                                                        backgroundColor:
-                                                            Color(0xFFE7E7E7),
-                                                        key: ObjectKey(profile),
-                                                        label: Text(
-                                                          profile.itemName ??
-                                                              "",
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp),
-                                                        ),
-                                                        onDeleted: () {
-                                                          state.deleteChip(
-                                                              profile);
-                                                          //  _cubit.changeMedicalEntity(null);
-                                                        },
-                                                        materialTapTargetSize:
-                                                            MaterialTapTargetSize
-                                                                .shrinkWrap,
-                                                      );
-                                                    },
-                                                    suggestionBuilder: (context,
-                                                        state, profile) {
-                                                      return ListTile(
-                                                        key: ObjectKey(profile),
-                                                        leading: CircleAvatar(
-                                                          backgroundImage:
-                                                              AssetImage(
-                                                                  'assets/images/profile_avatar_placeholder.png'),
-                                                        ),
-                                                        title: Text(
-                                                            profile.itemName ??
-                                                                "",
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    12.sp)),
-                                                        subtitle: Text(profile
-                                                            .itemDose
-                                                            .toString()),
-                                                        onTap: () => state
-                                                            .selectSuggestion(
-                                                                profile),
-                                                      );
-                                                    },
-                                                  ),
-                                                )
-                                              : SizedBox(),
-                                          _cubit.validateOnChipsKeyMedicalItems(
-                                                  _chipKey2
-                                                          .currentState
-                                                          ?.currentTextEditingValue
-                                                          .text
-                                                          .length ??
-                                                      0)
-                                              ? SizedBox()
-                                              : Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 0.h, left: 10.w),
-                                                  child: Text(
-                                                    "Required",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontFamily:
-                                                            "Certa Sans",
-                                                        color:
-                                                            AppColors.redColor),
-                                                  ),
-                                                ),
                                           _cubit.selectedMedicalItems.isNotEmpty
                                               ? Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Divider(
+                                                      endIndent: 100,
+                                                      indent: 100,
+                                                      color: AppColors.greyDark,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
                                                     Text(
-                                                      "Items(${_cubit.selectedMedicalItems.length})",
+                                                      "Selected Items ( ${_cubit.selectedMedicalItems.length} )",
                                                       style: TextStyle(
                                                           color: AppColors
                                                               .blackColor,
@@ -1055,38 +1213,45 @@ class _MedicalDoctorResponseScreenState
                                                           _cubit
                                                               .selectedMedicalItems
                                                               .length,
-                                                          (index) => Card(
+                                                          (index) => Stack(
+                                                            alignment: Alignment.topRight,
+                                                            children: [
+                                                              Card(
                                                                 shape:
-                                                                    RoundedRectangleBorder(
+                                                                RoundedRectangleBorder(
                                                                   borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15.r),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      15.r),
                                                                 ),
                                                                 child:
-                                                                    Container(
+                                                                Container(
                                                                   decoration:
-                                                                      BoxDecoration(
+                                                                  BoxDecoration(
                                                                     color: Color(
                                                                         0xFFf8f4f0),
                                                                     borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15.r),
+                                                                    BorderRadius.circular(
+                                                                        15.r),
                                                                   ),
                                                                   child:
-                                                                      Padding(
+                                                                  Padding(
                                                                     padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
+                                                                    const EdgeInsets.all(
+                                                                        8.0),
                                                                     child:
-                                                                        IntrinsicHeight(
+                                                                    IntrinsicHeight(
                                                                       child:
-                                                                          Row(
+                                                                      Row(
                                                                         children: [
                                                                           IconButton(
                                                                               padding: EdgeInsets.only(bottom: 10.h),
                                                                               onPressed: () {
-                                                                                _cubit.minusMedicalItemQuantity(index);
+                                                                                if(int.parse(_cubit
+                                                                                    .selectedMedicalItems[index].itemQuantity??"0")>1)
+                                                                               {
+                                                                                 _cubit.minusMedicalItemQuantity(index);
+                                                                               }
                                                                               },
                                                                               icon: Icon(
                                                                                 Icons.minimize_outlined,
@@ -1095,44 +1260,32 @@ class _MedicalDoctorResponseScreenState
                                                                               )),
                                                                           VerticalDivider(
                                                                             indent:
-                                                                                5.h,
+                                                                            5.h,
                                                                             endIndent:
-                                                                                5.h,
+                                                                            5.h,
                                                                             color:
-                                                                                AppColors.greyColor,
+                                                                            AppColors.greyColor,
                                                                             thickness:
-                                                                                0.2,
+                                                                            0.2,
                                                                           ),
                                                                           Spacer(),
                                                                           Column(
                                                                             children: [
                                                                               SizedBox(
-                                                                                width:180.w,
-                                                                                child: Text(
-                                                                                  _cubit.selectedMedicalItems[index].itemName ?? "",
-                                                                                  style: TextStyle(color: AppColors.whiteBlueColor, fontSize: 18.sp, fontWeight: FontWeight.w600),
-                                                                                  textAlign: TextAlign.center
-                                                                                ),
+                                                                                width: 180.w,
+                                                                                child: Text(_cubit.selectedMedicalItems[index].itemName ?? "", style: TextStyle(color: AppColors.whiteBlueColor, fontSize: 18.sp, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
                                                                               ),
                                                                               SizedBox(
-                                                                                width:180.w,
+                                                                                width: 180.w,
                                                                                 child: Row(
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Row(
                                                                                       children: [
-                                                                                        Text(
-                                                                                           "Qt : ",
-                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800),
-                                                                                            textAlign: TextAlign.center
-                                                                                        ),
+                                                                                        Text("Qt : ", style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800), textAlign: TextAlign.center),
                                                                                         SizedBox(
-                                                                                          width:40.w,
-                                                                                          child: Text(
-                                                                                            _cubit.selectedMedicalItems[index].itemQuantity ?? "0",
-                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
-                                                                                              textAlign: TextAlign.start
-                                                                                          ),
+                                                                                          width: 40.w,
+                                                                                          child: Text(_cubit.selectedMedicalItems[index].itemQuantity ?? "0", style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600), textAlign: TextAlign.start),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1141,18 +1294,10 @@ class _MedicalDoctorResponseScreenState
                                                                                     ),
                                                                                     Row(
                                                                                       children: [
-                                                                                        Text(
-                                                                                            "Type : ",
-                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800),
-                                                                                            textAlign: TextAlign.center
-                                                                                        ),
+                                                                                        Text("Type : ", style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w800), textAlign: TextAlign.center),
                                                                                         SizedBox(
-                                                                                          width:60.w,
-                                                                                          child: Text(
-                                                                                          _cubit.selectedMedicalItems[index].itemType ?? "0",
-                                                                                            style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
-                                                                                              textAlign: TextAlign.center
-                                                                                          ),
+                                                                                          width: 60.w,
+                                                                                          child: Text(_cubit.selectedMedicalItems[index].itemType ?? "0", style: TextStyle(color: AppColors.greyDark, fontSize: 16.sp, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1164,13 +1309,13 @@ class _MedicalDoctorResponseScreenState
                                                                           Spacer(),
                                                                           VerticalDivider(
                                                                             color:
-                                                                                AppColors.greyColor,
+                                                                            AppColors.greyColor,
                                                                             indent:
-                                                                                5.h,
+                                                                            5.h,
                                                                             endIndent:
-                                                                                5.h,
+                                                                            5.h,
                                                                             thickness:
-                                                                                0.2,
+                                                                            0.2,
                                                                           ),
                                                                           IconButton(
                                                                               onPressed: () {
@@ -1185,7 +1330,18 @@ class _MedicalDoctorResponseScreenState
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              )),
+                                                              ),
+                                                              Positioned(
+                                                                top:-10,
+                                                                  right:-10,
+                                                                  child: IconButton(
+                                                                      iconSize:30.sp,
+                                                                    onPressed: (){
+                                                                        _cubit.removeMedicalItem(_cubit
+                                                                            .selectedMedicalItems[index]);
+                                                                    }, icon: Icon(Icons.delete_forever_rounded),color: AppColors.redColor,)),
+                                                            ],
+                                                          )),
                                                     ),
                                                   ],
                                                 )
@@ -1207,74 +1363,64 @@ class _MedicalDoctorResponseScreenState
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
-                                    if(_tabController.index==0 &&_cubit.selectedMedicalEntity==null)
-                                      {
-                                        showMessageDialog(
-                                          context: context,
-                                          isSucceeded: false,
-                                          message: "Please select medical entity",
-                                        );
-                                      }
-                                    else
-                                      {
-                                        if (_cubit.medicalItems != null) {
-                                          if (_cubit.selectedMedicalEntity !=
-                                              null &&
-                                              _chipKey2
-                                                  .currentState
-                                                  ?.currentTextEditingValue
-                                                  .text
-                                                  .length ==
-                                                  _cubit.selectedMedicalItems
-                                                      .length) {
-                                            if(_cubit.selectedMedicalItems.isNotEmpty)
-                                                {
-                                                  await showDialog<void>(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          ReasonAndComment(
-                                                            status: "3",
-                                                          ));
-                                                }
-                                            else
-                                              {
-                                                showMessageDialog(
-                                                  context: context,
-                                                  isSucceeded: false,
-                                                  message: "Please select medical items",
-                                                );
-                                              }
-                                          }
-                                        } else {
-                                          if (_cubit.selectedMedicalEntity !=
-                                              null) {
+                                    if (_tabController.index == 0 &&
+                                        _cubit.selectedMedicalEntity == null) {
+                                      showMessageDialog(
+                                        context: context,
+                                        isSucceeded: false,
+                                        message: "Please select medical entity",
+                                      );
+                                    } else {
+                                      if (_cubit.medicalItems != null) {
+                                        if (_cubit.selectedMedicalEntity !=
+                                                null ) {
+                                          if (_cubit.selectedMedicalItems
+                                              .isNotEmpty) {
                                             await showDialog<void>(
                                                 context: context,
                                                 builder: (context) =>
                                                     ReasonAndComment(
                                                       status: "3",
                                                     ));
+                                          } else {
+                                            showMessageDialog(
+                                              context: context,
+                                              isSucceeded: false,
+                                              message:
+                                                  "Please select medical items",
+                                            );
                                           }
                                         }
+                                      } else {
+                                        if (_cubit.selectedMedicalEntity !=
+                                            null) {
+                                          await showDialog<void>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  ReasonAndComment(
+                                                    status: "3",
+                                                  ));
+                                        }
                                       }
+                                    }
                                   },
                                   child: Container(
                                     height: 40.h,
                                     //  width: 150.w,
                                     decoration: BoxDecoration(
-                                     color: Color(0xFF4daa57),
+                                      color: Color(0xFF4daa57),
                                       borderRadius: BorderRadius.circular(10.r),
                                       border: Border.all(
                                         color: Color(0xFF4daa57),
                                       ),
-                                  //    color: AppColors.whiteColor,
+                                      //    color: AppColors.whiteColor,
                                     ),
                                     child: Center(
                                       child: Text(
                                         "Approve",
                                         style: TextStyle(
                                             color: AppColors.whiteColor,
-                                          //  color: Color(0xFF4daa57),
+                                            //  color: Color(0xFF4daa57),
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.w600),
                                       ),
@@ -1299,8 +1445,8 @@ class _MedicalDoctorResponseScreenState
                                   height: 40.h,
                                   //  width: 150.w,
                                   decoration: BoxDecoration(
-                                     color: AppColors.redColor,
-                                  //  color: AppColors.whiteColor,
+                                    color: AppColors.redColor,
+                                    //  color: AppColors.whiteColor,
                                     borderRadius: BorderRadius.circular(10.r),
                                     border: Border.all(
                                       color: AppColors.redColor,
@@ -1311,7 +1457,7 @@ class _MedicalDoctorResponseScreenState
                                       "Reject",
                                       style: TextStyle(
                                           color: AppColors.whiteColor,
-                                         // color: AppColors.redColor,
+                                          // color: AppColors.redColor,
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.w600),
                                     ),

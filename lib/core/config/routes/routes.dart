@@ -75,7 +75,7 @@ class AppRoutes {
 
       case MedicalDetailsScreen.routeName:
         return _materialRoute( MedicalDetailsScreen(
-          request:settings.arguments as Request,employeeImageUrl: settings.arguments as String ,), MedicalDetailsScreen.routeName);
+          requestId:settings.arguments as String,employeeImageUrl: settings.arguments as String ,), MedicalDetailsScreen.routeName);
 
 
       case SearchPartnersScreen.routeName:

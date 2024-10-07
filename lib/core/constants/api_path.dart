@@ -37,4 +37,6 @@ String getMedicalRequestDetailsEndPoint = '$baseUrl/MedicalRequestApi/MedicalReq
 String sendMedicalDoctorResponseEndPoint = '$baseUrl/MedicalRequestApi/MedicalResponse';
 String getMyMedicalRequestsEndPoint = '$baseUrl/MedicalRequestApi/MyMedicalRequests';
 String getFilteredMedicalRequestsEndPoint = '$baseUrl/MedicalRequestApi/MedicalRequestsSearch';
+String searchMedicalItemsEndPoint = '$baseUrl/MedicalRequestApi/MedicalItemsSearch';
+
 

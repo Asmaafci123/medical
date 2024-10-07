@@ -8,17 +8,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:more4u/core/constants/app_strings.dart';
 import 'package:more4u/custom_icons.dart';
 import 'package:more4u/presentation/manage_requests/manage_requests_screen.dart';
+import 'package:more4u/presentation/medical_request_details/medical_request_details_screen.dart';
 import 'package:more4u/presentation/my_gifts/my_gifts_screen.dart';
+import 'package:more4u/presentation/pending_requests/pending_requests_screen.dart';
 import 'package:more4u/presentation/widgets/drawer_widget.dart';
 import 'package:more4u/presentation/widgets/utils/message_dialog.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../core/themes/app_colors.dart';
 import '../home/home_screen.dart';
 import '../home/widgets/app_bar.dart';
+import '../medical_request_details_and_doctor_response/medical_doctor_response_screen.dart';
 import '../more4u_home/cubits/more4u_home_cubit.dart';
 import '../my_benefit_requests/my_benefit_requests_screen.dart';
+import '../pending_requests/cubits/pending_requests_cubit.dart';
+import '../pending_requests/cubits/pending_requests_state.dart';
 import '../widgets/helpers.dart';
 import '../widgets/utils/app_bar.dart';
+import '../widgets/utils/loading_dialog.dart';
 import 'cubits/notification_cubit.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:timeago/timeago.dart';
@@ -73,6 +79,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 context: context, isSucceeded: false, message: state.message);
           }
 
+        }
+        if(state is GetMedicalRequestDetailsLoadingState)
+        {
+          loadingAlertDialog(context);
+        }
+        if (state is GetMedicalRequestDetailsSuccessState) {
+          Navigator.of(context).pop();
+          Navigator.pushNamedAndRemoveUntil(
+              context, MedicalDoctorResponseScreen.routeName, (route) => false);
+        }
+        if (state is GetMedicalRequestDetailsErrorState) {
+          if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  logOut(context);
+                });
+          } else {
+            showMessageDialog(
+                context: context,
+                isSucceeded: false,
+                message: state.message,
+                onPressedOk: () {
+                  Navigator.pop(context);
+                });
+          }
         }
       },
       builder: (context, state) {
@@ -177,7 +211,31 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           elevation: 0,
                                           child: InkWell(
                                             onTap: () async {
-                                              if (_cubit.notifications[index]
+                                              if(_cubit.notifications[index]
+                                                  .notificationType ==
+                                                  'MedicalAction')
+                                                {
+                                                  final completer = Completer();
+                                                  final result = await Navigator.push(context, MaterialPageRoute(
+                                                    builder:  (context) =>PendingRequestsScreen()
+                                                  ));
+                                                  completer.complete(result);
+                                                }
+                                              else if(_cubit.notifications[index]
+                                                  .notificationType ==
+                                                  'MedicalView')
+                                              {
+                                                final completer = Completer();
+                                                final result = await Navigator.push(context, MaterialPageRoute(
+                                                    builder:  (context) =>MedicalDetailsScreen(
+                                                       requestId:_cubit.notifications[index].requestNumber.toString(),
+                                                  //      requestId:"238",
+                                                      employeeImageUrl:_cubit.notifications[index].userProfilePicture ,
+                                                    )
+                                                ));
+                                                completer.complete(result);
+                                              }
+                                              else if (_cubit.notifications[index]
                                                           .notificationType ==
                                                       'Request' ||
                                                   _cubit.notifications[index]
@@ -219,7 +277,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                         result:
                                                             completer.future);
                                                 completer.complete(result);
-                                              } else {
+                                              }
+                                              else {
                                                 final completer = Completer();
                                                 final result = await Navigator
                                                     .pushReplacement(

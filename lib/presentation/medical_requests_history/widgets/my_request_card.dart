@@ -1,20 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/custom_icons.dart';
 import 'package:more4u/presentation/medical_request_details/medical_request_details_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../domain/entities/response_medical_request.dart';
-import '../../pending_requests/cubits/pending_requests_cubit.dart';
-import '../../pending_requests/cubits/pending_requests_state.dart';
-import 'package:jiffy/jiffy.dart';
-
-import '../../widgets/helpers.dart';
-import '../../widgets/utils/loading_dialog.dart';
-import '../../widgets/utils/message_dialog.dart';
 
 class MyRequestCard extends StatelessWidget {
   final Request request;
@@ -52,7 +43,7 @@ class MyRequestCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => MedicalDetailsScreen(
-                  request: request,
+                  requestId: request.requestID,
                   employeeImageUrl: request.employeeImageUrl,
                 )),
                 (route) => false);

@@ -5,6 +5,7 @@ import '../../../../../core/errors/failures.dart';
 import '../../data/models/doctor_resonse_model.dart';
 import '../../data/models/response/employee_medical_response_model.dart';
 import '../../data/models/response/medication_request_response_model.dart';
+import '../../data/models/response/search_medical_items_model_response.dart';
 import '../entities/medical_requests_filteration.dart';
 
 abstract class MedicalRepository {
@@ -45,6 +46,14 @@ abstract class MedicalRepository {
 
   Future<Either<Failure, RequestsResponseModel>> getFilteredMedicalRequests({
     FilteredMedicalRequestsSearch? filter,
+    String? token,
+  });
+
+
+  Future<Either<Failure, SearchMedicalItemsModelResponse>>  searchInMedicalItems({
+    String? requestType,
+    String? searchText,
+    required int languageCode,
     String? token,
   });
 

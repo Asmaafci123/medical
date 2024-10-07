@@ -166,5 +166,20 @@
  "Locations":"العناوين",
  "Search": "البحث",
  "View": "عرض",
- "Working Hours": "مواعيد العمل"
+ "Working Hours": "مواعيد العمل",
+ "Welcome Back !":  "مرحبًا بعودتك !",
+ "Employee #":  "رقم الموظف",
+ "Medical Coverage":  "التغطية الطبية",
+ "Mange Requests": "اداره الطلبات",
+ "Pending Requests": "الطلبات المعلقة",
+ "Mange Pending Medical Requests": "إدارة الطلبات الطبية المعلقة",
+ "Features": "خصائص",
+ "PartnerShips": "شراكات",
+ "Follow our PartnerShips": "تابع شراكاتنا",
+ "Follow our Medical Services": "تابع خدماتنا الطبية",
+ "Follow our More4 Benefits": " تابع مزايا More4u ",
+ "You don't have medical service": "ليس لديك خدمة طبية",
+ "You don't have more4u service": "ليس لديك خدمة More4u",
+ "Coming Soon": "قريبًا",
+ "Follow our Privileges Benefits":"تابع امتيازاتنا"
 }

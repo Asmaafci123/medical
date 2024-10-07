@@ -157,4 +157,22 @@ class AppStrings {
   static const String search="Search";
   static const String view="View";
   static const String workingHoursMedical="Working Hours";
+  static const String welcomeBack="Welcome Back !";
+  static const String employeeNumber="Employee #";
+  static const String medicalCoverage="Medical Coverage";
+  static const String medical="Medical";
+  static const String mangeRequests="Mange Requests";
+  static const String pendingRequests="Pending Requests";
+  static const String mangePendingMedicalRequests="Mange Pending Medical Requests";
+  static const String features="Features";
+  static const String partnerShips= "PartnerShips";
+  static const String followOurPartnerShips="Follow our PartnerShips";
+  static const String followOurMedicalServices="Follow our Medical Services";
+  static const String followOurMore4Benefits="Follow our More4 Benefits";
+  static const String youNotHaveMedicalService="You don't have medical service";
+  static const String youNotHaveMore4uService="You don't have more4u service";
+  static const String comingSoon="Coming Soon";
+  static const String followOurPrivilegesBenefits="Follow our Privileges Benefits";
 }
+
+

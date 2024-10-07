@@ -51,3 +51,15 @@ class RemoveMedicalItemQuantitySuccessState extends PendingRequestsState {}
 
 class SearchInPendingRequestsLoadingState extends PendingRequestsState {}
 class SearchInPendingRequestsSuccessState extends PendingRequestsState {}
+
+class AddMedicalItemSuccessState extends PendingRequestsState {}
+
+
+class SearchInMedicalItemsLoadingState extends PendingRequestsState {}
+class SearchInMedicalItemsSuccessState extends PendingRequestsState {}
+class SearchInMedicalItemsErrorState extends PendingRequestsState {
+
+  final String message;
+  SearchInMedicalItemsErrorState(this.message);
+}
+

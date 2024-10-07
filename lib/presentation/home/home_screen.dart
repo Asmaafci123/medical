@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carousel_slider/carousel_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,7 @@ import 'package:more4u/presentation/home/widgets/medical_feature.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:toast/toast.dart';
+import '../../core/constants/app_strings.dart';
 import '../../injection_container.dart';
 import '../medical_requests_history/medical_requests_history_screen.dart';
 import '../more4u_home/more4u_home_screen.dart';
@@ -83,17 +85,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 14.h),
+                      padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 14.h),
+                      child: HomeAppBar(title: "More4u",),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20.w, 14.h, 20.w, 14.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         HomeAppBar(title: "More4u",),
-                          SizedBox(
-                            height: 30.h,
-                          ),
                           Text(
-                            "Welcome Back !",
+                           AppStrings.welcomeBack.tr(),
                             style: TextStyle(
                               color: AppColors.blackColor,
                               fontSize: 20.sp,
@@ -119,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                          "Mange Requests",
+                          AppStrings.mangeRequests.tr(),
                             style: TextStyle(
                               color: AppColors.blackColor,
                               fontSize: 20.sp,
@@ -134,15 +136,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 180.w,
                             child:  userData?.isDoctor== true ?MedicalFeature(
                               imagePath: "assets/images/pending.png",
-                              title:"Pending Requests",
+                              title:AppStrings.pendingRequests.tr(),
                               enabled: true,
-                              description:"Mange Pending Medical Requests",
+                              description:AppStrings.mangePendingMedicalRequests.tr(),
                               onTap:() {
                             Navigator.of(context).pushNamed(
                             PendingRequestsScreen.routeName);
                             }):userData?.isMedicalAdmin== true?MedicalFeature(
                                 imagePath: "assets/images/pending.png",
-                                title:"Pending Requests",
+                                title:AppStrings.pendingRequests.tr(),
                                 description:"Follow Pending Medical Requests",
                                 enabled: true,
                                 onTap:() {
@@ -155,9 +157,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ):
                     SizedBox(),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w),
+                      padding: EdgeInsets.only(left: 20.w,right: 20.w),
                       child: Text(
-                         "Features",
+                         AppStrings.features.tr(),
                         style: TextStyle(
                           color: AppColors.blackColor,
                           fontSize: 20.sp,
@@ -191,13 +193,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         : const SizedBox(),
 
                     Padding(
-                      padding: EdgeInsets.fromLTRB(16.w,15.h, 16.w,10.h),
+                      padding: EdgeInsets.fromLTRB(20.w,15.h, 20.w,10.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                           "Coming Soon",
+                           AppStrings.comingSoon.tr(),
                             style: TextStyle(
                               color: AppColors.blackColor,
                               fontSize: 20.sp,
@@ -264,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "Privileges",
+                                            AppStrings.privileges.tr(),
                                                 style: TextStyle(
                                                   color: AppColors.blackColor,
                                                   fontSize: 16.sp,
@@ -277,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   SizedBox(
                                                     width: 190.w,
                                                     child: Text(
-                                                      "Lorem ipsum dolores sit amet is the ",
+                                                      AppStrings.followOurPrivilegesBenefits.tr(),
                                                       style: TextStyle(
                                                         color:
                                                             AppColors.greyColor,

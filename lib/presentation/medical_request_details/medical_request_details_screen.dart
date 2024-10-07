@@ -22,11 +22,11 @@ import '../widgets/utils/loading_dialog.dart';
 import '../widgets/utils/message_dialog.dart';
 
 class MedicalDetailsScreen extends StatefulWidget {
-  final Request request;
+  final String requestId;
   final String? employeeImageUrl;
   static const routeName = 'MedicalDetailsScreen';
   const MedicalDetailsScreen(
-      {super.key, required this.request, this.employeeImageUrl});
+      {super.key, required this.requestId, this.employeeImageUrl});
 
   @override
   State<MedicalDetailsScreen> createState() => _MedicalDetailsScreenState();
@@ -36,7 +36,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
   @override
   void initState() {
     PendingRequestsCubit.get(context)
-        .getMedicalRequestDetails(widget.request.requestID);
+        .getMedicalRequestDetails(widget.requestId);
     super.initState();
   }
 

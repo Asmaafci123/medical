@@ -9,6 +9,7 @@ import 'package:more4u/domain/usecases/get_mobile_version.dart';
 import 'package:more4u/domain/usecases/get_participants.dart';
 import 'package:more4u/domain/usecases/get_pending_requests.dart';
 import 'package:more4u/domain/usecases/get_privileges.dart';
+import 'package:more4u/domain/usecases/search_medical_items.dart';
 import 'package:more4u/domain/usecases/send_doctor_response.dart';
 import 'package:more4u/domain/usecases/send_medication_request.dart';
 import 'package:more4u/presentation/Login/cubits/login_cubit.dart';
@@ -85,7 +86,10 @@ Future<void> init() async {
   sl.registerFactory(() => TermsAndConditionsCubit(getTermsAndConditionsUseCase: sl()));
   sl.registerFactory(() => NotificationCubit(getNotificationsUsecase: sl()));
   sl.registerFactory(() => RequestMedicationCubit( getEmployeeRelativesUseCase:  sl(),sendMedicationRequestUseCase:  sl(),));
-  sl.registerFactory(() => PendingRequestsCubit(getPendingRequestsUseCase:  sl(),getMedicalRequestDetailsUseCas: sl(), sendDoctorResponseUseCase: sl()));
+  sl.registerFactory(() => PendingRequestsCubit(getPendingRequestsUseCase:  sl(),
+      getMedicalRequestDetailsUseCas: sl(),
+      sendDoctorResponseUseCase: sl(),
+  searchInMedicalItemsUseCase: sl()));
   sl.registerFactory(() => MyMedicalRequestsCubit(getMyMedicalRequestsRequestsUseCase: sl(), getFilteredMedicalRequestsRequestsUseCase: sl()));
   sl.registerLazySingleton(() => GetTermsAndConditionsUseCase(sl()));
   sl.registerLazySingleton(() => LoginUserUsecase(sl()));
@@ -115,6 +119,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() =>  SendDoctorResponseUseCase(sl()));
   sl.registerLazySingleton(() =>  GetMyMedicalRequestsRequestsUseCase(sl()));
   sl.registerLazySingleton(() =>  GetFilteredMedicalRequestsRequestsUseCase(sl()));
+  sl.registerLazySingleton(() =>  SearchInMedicalItemsUseCase(sl()));
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
       localDataSource: sl(),secureStorage: sl(), remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<BenefitRepository>(

@@ -5,12 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:more4u/core/constants/constants.dart';
+import 'package:more4u/core/themes/app_colors.dart';
 import 'package:more4u/data/models/doctor_resonse_model.dart';
 import 'package:more4u/domain/entities/details-of-medical.dart';
 import 'package:more4u/domain/entities/medical_request_details.dart';
 import 'package:more4u/domain/entities/response_medical_request.dart';
 import 'package:more4u/domain/usecases/get_medical_request_details.dart';
 import 'package:more4u/domain/usecases/get_pending_requests.dart';
+import 'package:more4u/domain/usecases/search_medical_items.dart';
 import 'package:more4u/domain/usecases/send_doctor_response.dart';
 import 'package:more4u/presentation/pending_requests/cubits/pending_requests_state.dart';
 import '../../../core/utils/function/get_language.dart';
@@ -21,12 +23,14 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
   final GetPendingRequestsUseCase getPendingRequestsUseCase;
   final GetMedicalRequestDetailsUseCase getMedicalRequestDetailsUseCas;
   final SendDoctorResponseUseCase sendDoctorResponseUseCase;
+  final SearchInMedicalItemsUseCase searchInMedicalItemsUseCase;
   static PendingRequestsCubit get(context) => BlocProvider.of(context);
 
   PendingRequestsCubit(
       {required this.getPendingRequestsUseCase,
       required this.getMedicalRequestDetailsUseCas,
-      required this.sendDoctorResponseUseCase})
+      required this.sendDoctorResponseUseCase,
+      required this.searchInMedicalItemsUseCase})
       : super(PendingRequestsInitial());
 
   List<Request> medicationPendingRequests = [];
@@ -82,6 +86,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
   MedicalRequestDetails? medicalRequestDetails;
   List<DetailsOfMedical>? medicalEntities;
   List<MedicalItem>? medicalItems;
+  List<MedicalItem> searchedMedicalItems=[];
   MedicationRequestResponseModel? details;
   getMedicalRequestDetails(String medicalRequestId) async {
     emit(GetMedicalRequestDetailsLoadingState());
@@ -103,6 +108,49 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
       emit(GetMedicalRequestDetailsSuccessState());
     });
   }
+
+  TextEditingController searchInMedicalItemsController=TextEditingController();
+  List<Color>medicalItemsColor=[];
+  searchInMedicalItems()async
+  {
+    medicalItemsColor=[];
+    searchedMedicalItems=[];
+    emit(SearchInMedicalItemsLoadingState());
+    await getLanguageCode();
+    final result = await searchInMedicalItemsUseCase(
+        requestType:  medicalRequestDetails?.medicalRequest?.requestType.toString()??"" ,
+        searchText: searchInMedicalItemsController.text.toString(),
+        languageCode: languageId!,
+        token: accessToken);
+    result.fold((failure) {
+      emit(SearchInMedicalItemsErrorState(failure.message));
+    }, (searchInMedicalItemsResponse) {
+      searchedMedicalItems =searchInMedicalItemsResponse.items;
+      for(int i=0;i<searchedMedicalItems.length;i++)
+        {
+          medicalItemsColor.add(AppColors.greyWhiteColor);
+        }
+      emit(GetMedicalRequestDetailsSuccessState());
+    });
+  }
+
+  addMedicalItems(MedicalItem item,int index)
+  {
+    MedicalItem newItem=MedicalItem(
+        itemId:item.itemId,
+        itemName: item.itemName,
+        itemType: item.itemType,
+        itemQuantity: "1",
+        itemDateFrom:item.itemDateFrom,
+        itemDateTo: item.itemDateTo,
+        itemImage: item.itemImage,
+        itemDose: item.itemDose
+    );
+    selectedMedicalItems.add(newItem);
+    medicalItemsColor[index]=AppColors.greenColor;
+    emit(AddMedicalItemSuccessState());
+  }
+
 
   DetailsOfMedical? selectedMedicalEntity;
 
@@ -229,6 +277,9 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     selectedMedicalEntity = null;
     selectedMedicalItems=[];
     doctorResponseImages = [];
+    searchInMedicalItemsController.clear();
+    searchedMedicalItems=[];
+    medicalItemsColor=[];
   }
 
 
