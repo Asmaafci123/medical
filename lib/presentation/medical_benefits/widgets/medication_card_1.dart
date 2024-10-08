@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../models/medical_benefit_model.dart';
 class MedicalBenefitsCard1 extends StatelessWidget {
@@ -75,7 +77,7 @@ class MedicalBenefitsCard1 extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Explore",
+                                AppStrings.explore.tr(),
                                 style: TextStyle(
                                   color: medicalBenefitModel.title=="Sick Leave"?AppColors.greyDark:AppColors.mainColor,
                                   fontSize: 14.sp,

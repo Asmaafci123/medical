@@ -36,34 +36,28 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
     List<MedicalBenefitModel> medicalBenefits = [
       MedicalBenefitModel(
         imagePath: "assets/images/medication_request_2.png",
-        title: "Medications",
-        description1: "Request your prescribed",
-        description2: "mediscines",
+        title: AppStrings.medications.tr(),
+        description1: AppStrings.requestYourPrescribed.tr(),
       ),
       MedicalBenefitModel(
         imagePath: "assets/images/check-up.png",
-        title: "Check Ups",
-        description1: "Request your medical",
-        description2: "transfer to labs and others ",
+        title: AppStrings.checkUps.tr(),
+        description1: AppStrings.requestYourCheckUp.tr(),
       ),
       MedicalBenefitModel(
         imagePath: "assets/images/sick_leave_icon.png",
-        title: "Sick Leave",
-        description1: "Request a sick leave when",
-        description2: "feeling tired",
+        title: AppStrings.sickLeave.tr(),
+        description1: AppStrings.requestYourSickLeave.tr(),
       ),
       MedicalBenefitModel(
         imagePath: "assets/images/my_requests_icon.png",
-        title: "History",
-        description1: "Track your pending, accepted",
-        description2: " and rejected ",
+        title: AppStrings.requestsLog.tr(),
+        description1: AppStrings.trackYourPendingAndAccepted.tr(),
       ),
       MedicalBenefitModel(
         imagePath: "assets/images/support_white.png",
-        title: "Our Partnerships",
-        description1:
-            "View our partnerships with different labs and hospitals ",
-        description2: "",
+        title: AppStrings.partnerShips.tr(),
+        description1:  AppStrings.viewOurPartnerships.tr(),
       ),
     ];
     return Scaffold(
@@ -111,24 +105,24 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 0),
+                  padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                  child: HomeAppBar(
+                    title: AppStrings. medicalBenefits.tr(),
+                    onTap:  () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HomeScreen()),
+                              (route) => false);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.w, 0.h, 16.w, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      HomeAppBar(
-                        title: "Medical Benefits",
-                        onTap:  () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomeScreen()),
-                                  (route) => false);
-                        },
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
                       CarouselSlider(
                           items: [
                             Row(
@@ -138,7 +132,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                                   width: 5.w,
                                 ),
                                 Text(
-                                  "your health condition matters to us",
+                                 AppStrings. healthCondition.tr(),
                                   style: TextStyle(
                                     color: AppColors.greyDark,
                                     fontSize: 16.sp,

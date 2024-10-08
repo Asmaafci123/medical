@@ -13,11 +13,15 @@ class InfoField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            color: AppColors.mainColor,
-            fontFamily: "Certa Sans",
+          style:TextStyle(
+            color: AppColors
+                .mainColor,
+            fontFamily:
+            "Certa Sans",
             fontSize: 14.sp,
-            fontWeight: FontWeight.w300,
+            fontWeight:
+            FontWeight
+                .w600,
           ),
           overflow: TextOverflow.ellipsis,
         ),

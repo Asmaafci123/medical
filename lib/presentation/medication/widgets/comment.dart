@@ -48,7 +48,7 @@ class Comment extends StatelessWidget {
             fontSize: 16.sp,
             fontWeight: FontWeight.w300,
             fontFamily: "Certa Sans"),
-        hintText: "say anything extra you want the doctor to know",
+        hintText: AppStrings.extraNotes.tr(),
         hintStyle: TextStyle(
             color: AppColors.greyDark,
             fontSize: 16.sp,

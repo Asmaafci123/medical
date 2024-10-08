@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../profile/profile_screen.dart';
 import '../cubits/request_medication_cubit.dart';
@@ -94,7 +96,7 @@ class EmployeeInfo2 extends StatelessWidget {
                           width: 4.w,
                         ),
                         Text(
-                          "${_cubit.currentEmployee?.relatives?.length??"0"} Members",
+                          "${_cubit.currentEmployee?.relatives?.length??"0"} ${AppStrings.members.tr()}",
                           style: TextStyle(
                               color: AppColors.greyDark,
                               fontWeight: FontWeight.w400,
@@ -128,7 +130,7 @@ class EmployeeInfo2 extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${_cubit.currentEmployee?.medicalCoverage?.split("%")[0]??"0"} coverage",
+                          "${_cubit.currentEmployee?.medicalCoverage?.split("%")[0]??"0"} ${AppStrings.medicalCoverage.tr()}",
                           style: TextStyle(
                               color: AppColors.greyDark,
                               fontWeight: FontWeight.w400,

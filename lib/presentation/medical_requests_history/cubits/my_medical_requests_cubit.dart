@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:more4u/core/constants/app_strings.dart';
 import 'package:more4u/domain/entities/relative.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/utils/function/get_language.dart';
@@ -128,24 +130,24 @@ class MyMedicalRequestsCubit extends Cubit<MyMedicalRequestsState> {
     );
 
     if(selectedRequestType==1) {
-      filteredSearchSet.add("Medications");
+      filteredSearchSet.add(AppStrings.medications.tr());
     }
     else if(selectedRequestType==2) {
-      filteredSearchSet.add("CheckUps");
+      filteredSearchSet.add(AppStrings.checkUps.tr());
     }
     else if(selectedRequestType==3) {
-      filteredSearchSet.add("SickLeave");
+      filteredSearchSet.add(AppStrings.sickLeave.tr());
     }
 
 
     if(selectedRequestStatus==1) {
-      filteredSearchSet.add("Pending");
+      filteredSearchSet.add(AppStrings.pending.tr());
     }
     else if(selectedRequestStatus==3) {
-      filteredSearchSet.add("Approved");
+      filteredSearchSet.add(AppStrings.approved.tr());
     }
     else if(selectedRequestStatus==4) {
-      filteredSearchSet.add("Rejected");
+      filteredSearchSet.add(AppStrings.rejected.tr());
     }
 
     if(requestIdFiltrationController.text.isNotEmpty)

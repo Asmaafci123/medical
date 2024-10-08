@@ -90,24 +90,25 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
+                    padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                    child: HomeAppBar(
+                      title: AppStrings.requestDetails.tr(),
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MedicalRequestsHistoryScreen()),
+                                (route) => false);
+                      },
+                    ),
+                  ),
+                  Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
                     child: Column(
                       children: [
-                        HomeAppBar(
-                          title: "Request Details",
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MedicalRequestsHistoryScreen()),
-                                (route) => false);
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+
                         state is GetMedicalRequestDetailsSuccessState
                             ? Card(
                                 shape: RoundedRectangleBorder(
@@ -135,8 +136,8 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       Text(
-                                        _cubit.details?.medicalRequestDetails
-                                                ?.requestStatus ??
+                                        "${_cubit.details?.medicalRequestDetails
+                                            ?.requestStatus}".tr() ??
                                             "",
                                         style: TextStyle(
                                           color: _cubit
@@ -165,7 +166,10 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         thickness: 0.2.h,
                                       ),
                                       Text(
-                                        "${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ? "Medication" : _cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 2 ? "CheckUps" : "SickLeave"} Request",
+                                        "${AppStrings.request.tr()} ${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ?
+                                        AppStrings.medications.tr() :
+                                        _cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 2 ? AppStrings.checkUps.tr()  :
+                                        AppStrings.sickLeave.tr() } ",
                                         style: TextStyle(
                                           color: AppColors.greyDark,
                                           fontFamily: "Certa Sans",
@@ -180,7 +184,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Request Details",
+                                            AppStrings.requestDetails.tr(),
                                             style: TextStyle(
                                               color: AppColors.blackColor,
                                               fontFamily: "Certa Sans",
@@ -220,7 +224,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Employee Name",
+                                                    AppStrings.employeeName.tr(),
                                                     style: TextStyle(
                                                       color: AppColors.greyDark,
                                                       fontFamily: "Certa Sans",
@@ -264,7 +268,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                     CrossAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    "Request ID",
+                                                    AppStrings.requestID.tr(),
                                                     style: TextStyle(
                                                       color: AppColors.greyDark,
                                                       fontFamily: "Certa Sans",
@@ -305,7 +309,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 10.h,
                                       ),
                                       InfoField(
-                                        title: "Created by",
+                                        title: AppStrings.createdBy.tr(),
                                         value: _cubit
                                                 .details
                                                 ?.medicalRequestDetails
@@ -317,7 +321,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                        title: "Request For",
+                                        title: AppStrings.requestFor.tr(),
                                         value: _cubit
                                                 .details
                                                 ?.medicalRequestDetails
@@ -329,7 +333,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                          title: "Employee Coverage",
+                                          title: AppStrings.employeeCoverage.tr(),
                                           value: _cubit
                                                   .details
                                                   ?.medicalRequestDetails
@@ -346,7 +350,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                 height: 5.h,
                                               ),
                                               InfoField(
-                                                  title: "Relative Coverage",
+                                                  title: AppStrings.relativeCoverage.tr(),
                                                   value: _cubit
                                                       .details
                                                       ?.medicalRequestDetails
@@ -360,7 +364,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                        title: "Monthly Medication",
+                                        title: AppStrings.monthlyMedication.tr(),
                                         value: _cubit
                                                     .details
                                                     ?.medicalRequestDetails
@@ -374,7 +378,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                          title: "Time", value: requestDate),
+                                          title: AppStrings.time.tr(), value: requestDate),
                                       SizedBox(
                                         height: 5.h,
                                       ),
@@ -382,7 +386,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                          title: "Medical Entity",
+                                          title: AppStrings.medicalEntity.tr(),
                                           value: _cubit
                                                   .details
                                                   ?.medicalRequestDetails
@@ -393,7 +397,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                          title: "Medical Purpose",
+                                          title: AppStrings.medicalPurpose.tr(),
                                           value: _cubit
                                                   .details
                                                   ?.medicalRequestDetails
@@ -404,7 +408,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         height: 5.h,
                                       ),
                                       InfoField(
-                                          title: "Request Comment",
+                                          title: AppStrings.requestComment.tr(),
                                           value: _cubit
                                               .details
                                               ?.medicalRequestDetails
@@ -423,7 +427,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                           ? Row(
                                               children: [
                                                 Text(
-                                                  "Documents",
+                                                  AppStrings.documents.tr(),
                                                   style: TextStyle(
                                                     color: AppColors.mainColor,
                                                     fontFamily: "Certa Sans",
@@ -474,7 +478,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Response Details",
+                                           AppStrings.responseDetails.tr(),
                                             style: TextStyle(
                                               color: AppColors.blackColor,
                                               fontFamily: "Certa Sans",
@@ -506,7 +510,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                   height: 5.h,
                                                 ),
                                                 InfoField(
-                                                  title: "Created by",
+                                                  title: AppStrings.createdBy.tr(),
                                                   value: _cubit
                                                           .details
                                                           ?.medicalRequestDetails
@@ -515,7 +519,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                       "",
                                                 ),
                                                 InfoField(
-                                                    title: "Time",
+                                                    title:AppStrings.time.tr(),
                                                     value: responseDate ?? ""),
                                                 // InfoField(
                                                 //   title: "Feedback",
@@ -527,7 +531,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                 //       "",
                                                 // ),
                                                 InfoField(
-                                                  title: "Comment",
+                                                  title: AppStrings.responseComment.tr(),
                                                   value: _cubit
                                                           .details
                                                           ?.medicalRequestDetails
@@ -544,7 +548,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                     ? Row(
                                                         children: [
                                                           Text(
-                                                            "Documents",
+                                                            AppStrings.documents.tr(),
                                                             style: TextStyle(
                                                               color: AppColors
                                                                   .mainColor,
@@ -586,7 +590,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                       )
                                                     : SizedBox(),
                                                 InfoField(
-                                                  title: "Entity",
+                                                  title: AppStrings.medicalEntity.tr(),
                                                   value: _cubit
                                                           .details
                                                           ?.medicalRequestDetails
@@ -597,7 +601,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      "Medical Items ",
+                                                      AppStrings. medicalItems.tr(),
                                                       style: TextStyle(
                                                         color:
                                                             AppColors.mainColor,

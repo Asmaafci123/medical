@@ -18,7 +18,7 @@ class CheckBoxInsurance extends StatelessWidget {
             title,
             style: TextStyle(
                 color: AppColors.blackColor,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 fontSize: 18.sp,
                 fontFamily: "Certa Sans"),
           ),

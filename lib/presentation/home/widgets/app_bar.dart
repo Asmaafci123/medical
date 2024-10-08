@@ -27,7 +27,7 @@ class HomeAppBar extends StatelessWidget {
           icon:Icon(Icons.menu_outlined,) ,
           color: AppColors.mainColor,
           iconSize: 30.sp,
-          padding: EdgeInsets.zero,
+        //  padding: EdgeInsets.zero,
           alignment: Alignment.centerLeft,
         ),
         Spacer(),
@@ -49,14 +49,11 @@ class HomeAppBar extends StatelessWidget {
         ):const SizedBox(),
         Spacer(),
         title!="More4u"?
-        GestureDetector(
-          onTap:onTap,
-          child: Icon(
-            Icons.arrow_back_ios_new_outlined ,
-            color: AppColors.blackColor,
-            size: 22.sp,
-          ),
-        ):
+            IconButton(onPressed:onTap, icon: Icon(
+              Icons.arrow_back_ios_new_outlined ,
+              color: AppColors.blackColor,
+              size: 22.sp,
+            )) :
         BlocBuilder<HomeCubit,HomeState>(
           builder: (context, state) {
             return bg.Badge(

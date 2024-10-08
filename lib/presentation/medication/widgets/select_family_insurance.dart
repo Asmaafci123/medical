@@ -32,7 +32,7 @@ class SelectFamilyInsurance extends StatelessWidget {
           isDense: true,
           value: RequestMedicationCubit.get(context).selectedRelative,
           hint: Text(
-            "Select",
+            AppStrings.select.tr(),
             style: TextStyle(
               fontSize: 14,
               color: Theme.of(context).hintColor,
@@ -81,69 +81,3 @@ class SelectFamilyInsurance extends StatelessWidget {
      ;
   }
 }
-
-/*
- DropdownButtonFormField(
-      style: TextStyle(
-        color: AppColors.mainColor,
-        fontSize: 12.sp,
-        fontFamily: "Certa Sans",
-      ),
-      validator: (Relative? value) {
-        if (value == null) return AppStrings.required.tr();
-        return null;
-      },
-      isExpanded: true,
-      icon: Icon(
-        Icons.keyboard_arrow_down_outlined,
-        color: Color(0xff697480),
-        size: 16.sp,
-      ),
-      decoration: InputDecoration(
-          isDense: false,
-          contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 8.w),
-          suffixIconConstraints:
-              BoxConstraints(minHeight: 50.h, minWidth: 50.w),
-          prefixIconConstraints:
-              BoxConstraints(minHeight: 20.h, minWidth: 40.w),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0.r),
-              borderSide: BorderSide(width: 0.5.w, color: Color(0xffbec0ca))),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0.r),
-              borderSide: BorderSide(width: 0.5.w, color: Color(0xffbec0ca))),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0.r),
-              borderSide: BorderSide(width: 0.5.w, color: Color(0xffbec0ca))),
-          hintText: "Select",
-          labelStyle: TextStyle(
-              fontSize: 14.sp,
-              color: AppColors.blackColor,
-              fontFamily: "Certa Sans"),
-          hintStyle: TextStyle(
-              fontFamily: "Certa Sans",
-              color: AppColors.greyDark,
-              fontSize: 12.sp),
-          errorStyle: TextStyle(fontSize: 12.sp, fontFamily: "Certa Sans"),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          prefixIcon: Icon(
-            CustomIcons.user,
-            color: Color(0xff697480),
-            size: 16.sp,
-          ),
-      ),
-      items: RequestMedicationCubit.get(context)
-          .currentEmployee!
-          .relatives
-          ?.map((Relative value) {
-        return DropdownMenuItem<Relative>(
-          value: value,
-          child: Text("${value.relativeName} (${value.relation})"),
-        );
-      }).toList(),
-      onChanged: (Relative? newValue) {
-        RequestMedicationCubit.get(context).selectRelative(newValue!);
-      },
-      iconSize: 20.r,
-      // alignment:const AlignmentDirectional(-10, 10),
-    ) */

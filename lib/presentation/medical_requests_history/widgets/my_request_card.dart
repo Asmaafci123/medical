@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/constants/constants.dart';
 import 'package:more4u/custom_icons.dart';
 import 'package:more4u/presentation/medical_request_details/medical_request_details_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../domain/entities/response_medical_request.dart';
 
@@ -11,29 +13,28 @@ class MyRequestCard extends StatelessWidget {
   final Request request;
 
   const MyRequestCard({super.key, required this.request});
-  String getDaySuffix(int day) {
-    if (day >= 11 && day <= 13) {
-      return 'th';
-    }
-    switch (day % 10) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
-  }
+  // String getDaySuffix(int day) {
+  //   if (day >= 11 && day <= 13) {
+  //     return 'th';
+  //   }
+  //   switch (day % 10) {
+  //     case 1:
+  //       return 'st';
+  //     case 2:
+  //       return 'nd';
+  //     case 3:
+  //       return 'rd';
+  //     default:
+  //       return 'th';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     // String employeeName = "${request.employeeName.split(' ')[0]} ${request
     //     .employeeName.split(' ')[1]}";
-    final daySuffix = getDaySuffix(request.requestDate.day);
-    var outputFormat = DateFormat('MMMM d').format(request.requestDate) +
-        daySuffix +
+  //  final daySuffix = getDaySuffix(request.requestDate.day);
+    var outputFormat = DateFormat('d MMMM',languageId==1?"en":"ar").format(request.requestDate) +
         DateFormat(', yyyy').format(request.requestDate);
     // var convertedRequestDate=DateTime.parse(request.requestDate??"");
     // var outputDate = outputFormat.format(convertedRequestDate);
@@ -70,7 +71,7 @@ class MyRequestCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "STATUS",
+                          AppStrings. status.tr(),
                           style: TextStyle(
                             color: AppColors.greyColor,
                             fontFamily: "Certa Sans",
@@ -102,7 +103,7 @@ class MyRequestCard extends StatelessWidget {
                           width: 5.w,
                         ),
                         Text(
-                          request.requestStatus ?? "",
+                          "${request.requestStatus}".tr(),
                           style: TextStyle(
                             color: AppColors.mainColor,
                             fontFamily: "Certa Sans",
@@ -206,10 +207,10 @@ class MyRequestCard extends StatelessWidget {
                             ),
                             Text(
                               request.requestTypeID == "1"
-                                  ? "Medication"
+                                  ? AppStrings.medications.tr()
                                   : request.requestTypeID == "2"
-                                  ? "Checkups"
-                                  : "SickLeave",
+                                  ?AppStrings.checkUps.tr()
+                                  : AppStrings.sickLeave.tr(),
                               style: TextStyle(
                                 color: AppColors.greyColor,
                                 fontFamily: "Certa Sans",
@@ -237,7 +238,7 @@ class MyRequestCard extends StatelessWidget {
                               width: 5.w,
                             ),
                             Text(
-                              "Due $outputFormat",
+                              outputFormat,
                               style: TextStyle(
                                 color: AppColors.greyColor,
                                 fontFamily: "Certa Sans",
@@ -262,8 +263,9 @@ class MyRequestCard extends StatelessWidget {
                             ),
                             Text(
                               request.selfRequest
-                                  ? "Self Insurance"
-                                  : "Family Insurance",
+                                  ?AppStrings.selfInsurance.tr()
+                                  :AppStrings.familyInsurance.tr(),
+
                               style: TextStyle(
                                 color: AppColors.greyColor,
                                 fontFamily: "Certa Sans",
