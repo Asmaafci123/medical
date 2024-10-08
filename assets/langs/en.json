@@ -4,7 +4,7 @@
   "required": "required",
   "enter Your Number": "Enter Your Number",
   "enter Your Password": "Enter Your Password",
-  "Chose your benefit card": "Chose your benefit card",
+  "Choose your benefit card": "Choose your benefit card",
   "All":"All",
   "all cards": "All",
   "Available":"Available",
@@ -235,5 +235,14 @@
   "Request Comment": "Request Comment",
   "Response Details":  "Response Details",
   "Response Comment":  "Response Comment",
-  "Medical Items ": "Medical Items "
+  "Medical Items ": "Medical Items ",
+  "Clinics List":"Clinics List",
+  "search Doctor hospital or center ": "search Doctor, hospital or center ",
+  "items":  "items",
+  "Search by name": "Search by name",
+  "Follow Pending Medical Requests": "Follow Pending Medical Requests",
+  "Select Request Purpose": "Select Request Purpose",
+  "Quantity":"Quantity",
+  "Yes": "Yes",
+  "No": "No"
 }

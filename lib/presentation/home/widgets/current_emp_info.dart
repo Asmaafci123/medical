@@ -90,7 +90,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        width: 20.w,
+                        width: 30.w,
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${relativeCount??"0"} Members",
+                            "${relativeCount??"0"} ${AppStrings.members.tr()}",
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 14.sp,
@@ -206,9 +206,9 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         ),
                         width: 140.w,
                       ),
-                      // SizedBox(
-                      //   height: 5.h,
-                      // ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       SizedBox(
                         child: Text(
                           userData?.departmentName ?? "",

@@ -85,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 14.h),
+                      padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0.h),
                       child: HomeAppBar(title: "More4u",),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20.w, 14.h, 20.w, 14.h),
+                      padding: EdgeInsets.fromLTRB(22.w, 14.h, 22.w, 14.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     (userData?.isDoctor == true ||  userData?.isMedicalAdmin== true )?
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w,bottom: 20.h),
+                      padding: EdgeInsets.only(left:22.w,bottom: 20.h,right:22.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }):userData?.isMedicalAdmin== true?MedicalFeature(
                                 imagePath: "assets/images/pending.png",
                                 title:AppStrings.pendingRequests.tr(),
-                                description:"Follow Pending Medical Requests",
+                                description:AppStrings.followPendingMedicalRequests.tr(),
                                 enabled: true,
                                 onTap:() {
                                   Navigator.of(context)
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ):
                     SizedBox(),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w,right: 20.w),
+                      padding: EdgeInsets.only(left: 22.w,right: 22.w),
                       child: Text(
                          AppStrings.features.tr(),
                         style: TextStyle(
@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         : const SizedBox(),
 
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20.w,15.h, 20.w,10.h),
+                      padding: EdgeInsets.fromLTRB(22.w,15.h, 22.w,10.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -109,7 +109,7 @@ class _MyMedicalRequestsScreenState
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                    padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0.h),
                     child: HomeAppBar(
                       title: AppStrings.requestsLog.tr(),
                       onTap: () {
@@ -123,7 +123,7 @@ class _MyMedicalRequestsScreenState
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 20.h),
+                      padding: EdgeInsets.fromLTRB(22.w, 20.h, 22.w, 20.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -526,7 +526,7 @@ class _MyMedicalRequestsScreenState
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                "Employee Number",
+                                                                AppStrings.employeeNumber.tr(),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -558,28 +558,23 @@ class _MyMedicalRequestsScreenState
                                                                 validator:
                                                                     (String?
                                                                         value) {
-                                                                  print(
-                                                                      "1111111111111111111111111111111111111111111111111");
-                                                                  print(_cubit
-                                                                      .requestIdFiltrationController);
-                                                                  print(
-                                                                      "1111111111111111111111111111111111111111111111111");
                                                                   if (value!
                                                                           .isEmpty &&
                                                                       _cubit
                                                                           .requestIdFiltrationController
                                                                           .text
                                                                           .toString()
-                                                                          .isEmpty)
+                                                                          .isEmpty) {
                                                                     return AppStrings
                                                                         .required
                                                                         .tr();
+                                                                  }
                                                                   return null;
                                                                 },
                                                                 decoration:
                                                                     InputDecoration(
                                                                   hintText:
-                                                                      "Employee Number",
+                                                                     AppStrings.employeeNumber.tr(),
                                                                   isDense: true,
                                                                   contentPadding: EdgeInsets.symmetric(
                                                                       vertical:
@@ -919,30 +914,31 @@ class _MyMedicalRequestsScreenState
                                                           child:
                                                               GestureDetector(
                                                             onTap: () {
-                                                              if (_cubit.selectedRequestType <= 0 &&
-                                                                  _cubit.selectedRequestStatus <=
-                                                                      0 &&
-                                                                  _cubit
-                                                                      .requestIdFiltrationController
-                                                                      .text
-                                                                      .isEmpty &&
-                                                                  _cubit
-                                                                      .userNumberSearch
-                                                                      .text
-                                                                      .isEmpty &&
-                                                                  _cubit.selectedRelative ==
-                                                                      null &&
-                                                                  _cubit
-                                                                      .fromText
-                                                                      .text
-                                                                      .isEmpty &&
-                                                                  _cubit
-                                                                      .toText
-                                                                      .text
-                                                                      .isEmpty) {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              } else {
+                                                              // if (_cubit.selectedRequestType <= 0 &&
+                                                              //     _cubit.selectedRequestStatus <=
+                                                              //         0 &&
+                                                              //     _cubit
+                                                              //         .requestIdFiltrationController
+                                                              //         .text
+                                                              //         .isEmpty &&
+                                                              //     _cubit
+                                                              //         .userNumberSearch
+                                                              //         .text
+                                                              //         .isEmpty &&
+                                                              //     _cubit.selectedRelative ==
+                                                              //         null &&
+                                                              //     _cubit
+                                                              //         .fromText
+                                                              //         .text
+                                                              //         .isEmpty &&
+                                                              //     _cubit
+                                                              //         .toText
+                                                              //         .text
+                                                              //         .isEmpty) {
+                                                              //   Navigator.pop(
+                                                              //       context);
+                                                              //
+                                                              // } else {
                                                                 if (_filterKey
                                                                     .currentState!
                                                                     .validate()) {
@@ -951,7 +947,7 @@ class _MyMedicalRequestsScreenState
                                                                   _cubit
                                                                       .filter();
                                                                 }
-                                                              }
+                                                             // }
                                                             },
                                                             child: Container(
                                                               width: 200.w,

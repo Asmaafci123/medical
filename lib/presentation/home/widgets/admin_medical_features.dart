@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/constants.dart';
 import '../../medical_benefits/medical_benefits_screen.dart';
 import '../../medical_requests_history/medical_requests_history_screen.dart';
@@ -20,7 +22,7 @@ class AdminMedicalFeatures extends StatelessWidget {
           MedicalFeature(
               imagePath:"assets/images/surprise.png",
               title:"More4u",
-              description:  "Mange all Medical Requests",
+              description: AppStrings.followOurMore4Benefits.tr(),
               enabled: userData?.hasMore4uService??false,
               onTap:() {
                 userData?.hasMore4uService == true? Navigator.of(context).pushNamed(
@@ -33,9 +35,9 @@ class AdminMedicalFeatures extends StatelessWidget {
               }),
           MedicalFeature(
               imagePath: "assets/images/support.png",
-              title:"PartnerShips",
-              description:  "Mange all Medical Requests",
+              title:AppStrings.partnerShips.tr(),
               enabled: true,
+              description:  AppStrings.followOurPartnerShips.tr(),
               onTap:() {
                 Navigator.of(context).pushNamed(
                     OurPartnersScreen.routeName);
@@ -43,7 +45,7 @@ class AdminMedicalFeatures extends StatelessWidget {
           MedicalFeature(
               imagePath: "assets/images/medical-request.png",
               title:"Medical",
-              description: "Create New Medical Request",
+              description: AppStrings.followOurMedicalServices.tr(),
               enabled: true,
               onTap:() {
                 Navigator.of(context).pushNamed(

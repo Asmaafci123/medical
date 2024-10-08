@@ -226,5 +226,17 @@ class AppStrings {
   static const String responseDetails="Response Details";
   static const String responseComment="Response Comment";
   static const String medicalItems="Medical Items ";
+  static const String clinicsList="Clinics List";
+  static const String clinics="Clinics";
+  static const String searchDoctorOrHospitalOrCenter="search Doctor hospital or center ";
+  static const String items="items";
+  static const String searchByName="Search by name";
+  static const String followPendingMedicalRequests="Follow Pending Medical Requests";
+  static const String hospitals="Hospitals";
+  static const String selectRequestPurpose="Select Request Purpose";
+  static const String quantity="Quantity";
+  static const String yes="Yes";
+  static const String no="No";
+  static const String chooseYourBenefitCard="Choose your benefit card";
 }
 

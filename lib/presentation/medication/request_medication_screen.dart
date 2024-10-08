@@ -182,7 +182,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                 fontSize: 12.sp,
                                                 fontFamily: "Certa Sans"),
                                             controller: _cubit.searchController,
-                                            keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
                                               hintText: AppStrings
                                                   .searchAnyEmployee
@@ -399,7 +399,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                       width: 10.w,
                                                     ),
                                                     Text(
-                                                      DateFormat('MMMM d yyyy')
+                                                      DateFormat('d MMMM yyyy',languageId==1?"en":"ar")
                                                           .format(DateTime.parse(
                                                               RequestMedicationCubit
                                                                           .get(
@@ -432,7 +432,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                       width: 10.w,
                                                     ),
                                                     Text(
-                                                      "${RequestMedicationCubit.get(context).selectedRelative?.medicalCoverage ?? ""} medical coverage",
+                                                      "${RequestMedicationCubit.get(context).selectedRelative?.medicalCoverage ?? ""} ${AppStrings.medicalCoverage.tr()}",
                                                       style: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
@@ -747,11 +747,12 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                             RequestMedicationCubit.get(context)
                                                     .resultOfSelectSubCategory
                                                     .length >
-                                                1 &&
+                                                1
+                                        &&
                                             RequestMedicationCubit.get(context)
                                                     .selectedCategory
-                                                    ?.categoryName ==
-                                                "Hospitals")
+                                                    ?.categoryName ==AppStrings.hospitals.tr()
+                                                )
                                         ? Column(
                                             children: [
                                               SizedBox(
@@ -774,7 +775,7 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                                   .circular(
                                                                       10.r)),
                                                       labelText:
-                                                          "Select Request Purpose",
+                                                          AppStrings.selectRequestPurpose.tr(),
                                                       labelStyle: TextStyle(
                                                           color: AppColors
                                                               .greyDark,
@@ -806,9 +807,9 @@ class _RequestMedicationScreenState extends State<RequestMedicationScreen> {
                                                   dropdownSearchDecoration:
                                                       InputDecoration(
                                                           labelText:
-                                                              "Medical Purpose",
+                                                              AppStrings.medicalPurpose.tr(),
                                                           hintText:
-                                                              "choose your Medical Purpose",
+                                                             AppStrings.selectRequestPurpose.tr(),
                                                           hintStyle: TextStyle(
                                                               color: AppColors
                                                                   .greyDark,

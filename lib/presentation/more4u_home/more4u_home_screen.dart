@@ -131,273 +131,262 @@ class _More4uHomeScreenState extends State<More4uHomeScreen>
         return Scaffold(
           drawer: const DrawerWidget(),
           body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                 // const MyAppBar(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: HomeAppBar(
-                      title: "More4u Benefits",
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                                (route) => false);
-                      },
-                    ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(8.w, 14.h, 8.w, 0.h),
+                  child: HomeAppBar(
+                    title: "More4u Benefits",
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()),
+                              (route) => false);
+                    },
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(right: 50.w),
-                  //   child: AutoSizeText(
-                  //     userData?.userName ?? '',
-                  //     maxLines: 1,
-                  //     style: TextStyle(
-                  //         fontSize: 24.sp,
-                  //         fontFamily: 'Joti',
-                  //         color: AppColors.mainColor,
-                  //         fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(
-                    'Choose your benefit card'.tr(),
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontFamily: "Certa Sans",
-                      fontWeight: FontWeight.w200,
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  Theme(
-                    data: ThemeData(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                    ),
-                    child: TabBar(
-                        controller: _tabController,
-                        isScrollable: true,
-                        unselectedLabelColor: Color(0xFF6D6D6D),
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorPadding: EdgeInsets.symmetric(vertical: 20.h),
-                        indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            color: AppColors.redColor),
-                        padding: EdgeInsets.zero,
-                        labelPadding: EdgeInsets.symmetric(vertical: 0.h),
-                        onTap: (index) {
-                          // if (index == 2) {
-                          //   _cubit.getMedical();
-                          // }
-                        },
-                        tabs: [
-                          Tab(
-                            height: 75.h,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${AppStrings.allCards.tr()} (${_cubit.benefitModels.length})",
-                                  style: TextStyle(fontSize: 16.sp, fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            height: 75.h,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                    style: TextStyle(fontSize: 16.sp, fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
-                                    "${"Available".tr()} (${_cubit.availableBenefitModels?.length ?? '0'})"),
-                              ),
-                            ),
-                          ),
-                          // Tab(
-                          //   height: 75.h,
-                          //   child: Container(
-                          //     padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          //     child: Align(
-                          //       alignment: Alignment.center,
-                          //       child: Text(
-                          //           style: TextStyle(fontSize: 12.sp),
-                          //           "${"Medical".tr()} (${_cubit.cat.length})"),
-                          //     ),
-                          //   ),
-                          // ),
-                        ]),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 0.h, bottom: 16.h, left: 8.w, right: 8.w),
-                    child: Center(
-                      child: state is GetHomeDataLoadingState
-                          ? LinearProgressIndicator(
-                              minHeight: 2.h,
-                              backgroundColor: AppColors.mainColor.withOpacity(0.4),
-                            )
-                          : SizedBox(
-                              height: 2.h,
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
-                        controller: _tabController,
-                        children: [
-                          RefreshIndicator(
-                            triggerMode: RefreshIndicatorTriggerMode.anywhere,
-                            onRefresh: () async {
-                              More4uHomeCubit.get(context).getHomeData();
-                            },
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, index) {
-                                return BenefitCard(
-                                    benefit: _cubit.benefitModels[index]);
-                              },
-                              itemCount: _cubit.benefitModels.length,
-                            ),
-                          ),
-                          _cubit.availableBenefitModels != null &&
-                                  _cubit.availableBenefitModels?.length != 0
-                              ? RefreshIndicator(
-                                  triggerMode:
-                                      RefreshIndicatorTriggerMode.anywhere,
-                                  onRefresh: () async {
-                                    More4uHomeCubit.get(context).getHomeData();
-                                  },
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    itemBuilder: (context, index) =>
-                                        BenefitCard(
-                                            benefit:
-                                                _cubit.availableBenefitModels![
-                                                    index]),
-                                    itemCount:
-                                        _cubit.availableBenefitModels?.length,
-                                  ),
-                                )
-                              : Center(
-                                  child: Text(
-                                  AppStrings.noBenefitAvailable.tr(),
-                                  style: TextStyle(fontSize: 12.sp),
-                                )),
-                          // _cubit.privileges.isNotEmpty
-                          //     ? RefreshIndicator(
-                          //         triggerMode:
-                          //             RefreshIndicatorTriggerMode.anywhere,
-                          //         onRefresh: () async {
-                          //           HomeCubit.get(context).getHomeData();
-                          //         },
-                          //         child: ListView.builder(
-                          //           padding: EdgeInsets.zero,
-                          //           itemBuilder: (context, index) =>
-                          //               PrivilegeCard(
-                          //                   privilege:
-                          //                       _cubit.privileges[index]),
-                          //           itemCount: _cubit.privileges.length,
-                          //         ),
-                          //       )
-                          //     : BlocBuilder<HomeCubit, HomeState>(
-                          //         builder: (context, state) {
-                          //           return Container(
-                          //             child: state is GetPrivilegesLoadingState
-                          //                 ? Center(
-                          //                     child:
-                          //                         CircularProgressIndicator())
-                          //                 : RefreshIndicator(
-                          //                     triggerMode:
-                          //                         RefreshIndicatorTriggerMode
-                          //                             .anywhere,
-                          //                     onRefresh: () async {
-                          //                       HomeCubit.get(context)
-                          //                           .getHomeData();
-                          //                     },
-                          //                     child: LayoutBuilder(builder:
-                          //                         (context, constraints) {
-                          //                       return SingleChildScrollView(
-                          //                         physics:
-                          //                             AlwaysScrollableScrollPhysics(),
-                          //                         child: Container(
-                          //                             alignment:
-                          //                                 Alignment.center,
-                          //                             height:
-                          //                                 constraints.maxHeight,
-                          //                             child: Text(
-                          //                                 style: TextStyle(
-                          //                                     fontSize: 13.sp),
-                          //                                 AppStrings
-                          //                                     .noPrivilegesAvailable
-                          //                                     .tr())),
-                          //                       );
-                          //                     }),
-                          //                   ),
-                          //           );
-                          //         },
-                          //       ),
+                ),
+               Expanded(child:  Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 16.w),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
 
-                          //
-                          // _cubit.cat.isNotEmpty
-                          //     ? RefreshIndicator(
-                          //         triggerMode:
-                          //             RefreshIndicatorTriggerMode.anywhere,
-                          //         onRefresh: () async {
-                          //           More4uHomeCubit.get(context).getMedical();
-                          //         },
-                          //         child: const MedicalWidget(),
-                          //       )
-                          //     : BlocBuilder<More4uHomeCubit, More4uHomeState>(
-                          //         builder: (context, state) {
-                          //           return Container(
-                          //             child: state is GetMedicalLoadingState
-                          //                 ? const Center(
-                          //                     child:
-                          //                         CircularProgressIndicator())
-                          //                 : RefreshIndicator(
-                          //                     triggerMode:
-                          //                         RefreshIndicatorTriggerMode
-                          //                             .anywhere,
-                          //                     onRefresh: () async {
-                          //                       More4uHomeCubit.get(context)
-                          //                           .getMedical();
-                          //                     },
-                          //                     child: LayoutBuilder(builder:
-                          //                         (context, constraints) {
-                          //                       return SingleChildScrollView(
-                          //                         physics:
-                          //                             AlwaysScrollableScrollPhysics(),
-                          //                         child: Container(
-                          //                             alignment:
-                          //                                 Alignment.center,
-                          //                             height:
-                          //                                 constraints.maxHeight,
-                          //                             child: Text(
-                          //                                 style: TextStyle(
-                          //                                     fontSize: 13.sp),
-                          //                                 AppStrings
-                          //                                     .thereIsNoMedicalServices
-                          //                                     .tr())),
-                          //                       );
-                          //                     }),
-                          //                   ),
-                          //           );
-                          //         },
-                          //       ),
-                        ]),
-                  ),
-                ],
-              ),
+                     Text(
+                       AppStrings.chooseYourBenefitCard.tr(),
+                       style: TextStyle(
+                         fontSize: 18.sp,
+                         fontFamily: "Certa Sans",
+                         fontWeight: FontWeight.w200,
+                         color: AppColors.greyColor,
+                       ),
+                     ),
+                     SizedBox(height: 20.h),
+                     Theme(
+                       data: ThemeData(
+                         highlightColor: Colors.transparent,
+                         splashColor: Colors.transparent,
+                       ),
+                       child: TabBar(
+                           controller: _tabController,
+                           isScrollable: true,
+                           unselectedLabelColor: Color(0xFF6D6D6D),
+                           indicatorSize: TabBarIndicatorSize.label,
+                           indicatorPadding: EdgeInsets.symmetric(vertical: 20.h),
+                           indicator: BoxDecoration(
+                               borderRadius: BorderRadius.circular(8.r),
+                               color: AppColors.redColor),
+                           padding: EdgeInsets.zero,
+                           labelPadding: EdgeInsets.symmetric(vertical: 0.h),
+                           onTap: (index) {
+                             // if (index == 2) {
+                             //   _cubit.getMedical();
+                             // }
+                           },
+                           tabs: [
+                             Tab(
+                               height: 75.h,
+                               child: Container(
+                                 padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                 child: Align(
+                                   alignment: Alignment.center,
+                                   child: Text(
+                                     "${AppStrings.allCards.tr()} (${_cubit.benefitModels.length})",
+                                     style: TextStyle(fontSize: 16.sp, fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
+                                   ),
+                                 ),
+                               ),
+                             ),
+                             Tab(
+                               height: 75.h,
+                               child: Container(
+                                 padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                 child: Align(
+                                   alignment: Alignment.center,
+                                   child: Text(
+                                       style: TextStyle(fontSize: 16.sp, fontFamily: "Certa Sans",fontWeight: FontWeight.w200),
+                                       "${"Available".tr()} (${_cubit.availableBenefitModels?.length ?? '0'})"),
+                                 ),
+                               ),
+                             ),
+                             // Tab(
+                             //   height: 75.h,
+                             //   child: Container(
+                             //     padding: EdgeInsets.symmetric(horizontal: 8.w),
+                             //     child: Align(
+                             //       alignment: Alignment.center,
+                             //       child: Text(
+                             //           style: TextStyle(fontSize: 12.sp),
+                             //           "${"Medical".tr()} (${_cubit.cat.length})"),
+                             //     ),
+                             //   ),
+                             // ),
+                           ]),
+                     ),
+                     Padding(
+                       padding: EdgeInsets.only(
+                           top: 0.h, bottom: 16.h, left: 8.w, right: 8.w),
+                       child: Center(
+                         child: state is GetHomeDataLoadingState
+                             ? LinearProgressIndicator(
+                           minHeight: 2.h,
+                           backgroundColor: AppColors.mainColor.withOpacity(0.4),
+                         )
+                             : SizedBox(
+                           height: 2.h,
+                         ),
+                       ),
+                     ),
+                     Expanded(
+                       child: TabBarView(
+                           physics: NeverScrollableScrollPhysics(),
+                           controller: _tabController,
+                           children: [
+                             RefreshIndicator(
+                               triggerMode: RefreshIndicatorTriggerMode.anywhere,
+                               onRefresh: () async {
+                                 More4uHomeCubit.get(context).getHomeData();
+                               },
+                               child: ListView.builder(
+                                 padding: EdgeInsets.zero,
+                                 itemBuilder: (context, index) {
+                                   return BenefitCard(
+                                       benefit: _cubit.benefitModels[index]);
+                                 },
+                                 itemCount: _cubit.benefitModels.length,
+                               ),
+                             ),
+                             _cubit.availableBenefitModels != null &&
+                                 _cubit.availableBenefitModels?.length != 0
+                                 ? RefreshIndicator(
+                               triggerMode:
+                               RefreshIndicatorTriggerMode.anywhere,
+                               onRefresh: () async {
+                                 More4uHomeCubit.get(context).getHomeData();
+                               },
+                               child: ListView.builder(
+                                 padding: EdgeInsets.zero,
+                                 itemBuilder: (context, index) =>
+                                     BenefitCard(
+                                         benefit:
+                                         _cubit.availableBenefitModels![
+                                         index]),
+                                 itemCount:
+                                 _cubit.availableBenefitModels?.length,
+                               ),
+                             )
+                                 : Center(
+                                 child: Text(
+                                   AppStrings.noBenefitAvailable.tr(),
+                                   style: TextStyle(fontSize: 12.sp),
+                                 )),
+                             // _cubit.privileges.isNotEmpty
+                             //     ? RefreshIndicator(
+                             //         triggerMode:
+                             //             RefreshIndicatorTriggerMode.anywhere,
+                             //         onRefresh: () async {
+                             //           HomeCubit.get(context).getHomeData();
+                             //         },
+                             //         child: ListView.builder(
+                             //           padding: EdgeInsets.zero,
+                             //           itemBuilder: (context, index) =>
+                             //               PrivilegeCard(
+                             //                   privilege:
+                             //                       _cubit.privileges[index]),
+                             //           itemCount: _cubit.privileges.length,
+                             //         ),
+                             //       )
+                             //     : BlocBuilder<HomeCubit, HomeState>(
+                             //         builder: (context, state) {
+                             //           return Container(
+                             //             child: state is GetPrivilegesLoadingState
+                             //                 ? Center(
+                             //                     child:
+                             //                         CircularProgressIndicator())
+                             //                 : RefreshIndicator(
+                             //                     triggerMode:
+                             //                         RefreshIndicatorTriggerMode
+                             //                             .anywhere,
+                             //                     onRefresh: () async {
+                             //                       HomeCubit.get(context)
+                             //                           .getHomeData();
+                             //                     },
+                             //                     child: LayoutBuilder(builder:
+                             //                         (context, constraints) {
+                             //                       return SingleChildScrollView(
+                             //                         physics:
+                             //                             AlwaysScrollableScrollPhysics(),
+                             //                         child: Container(
+                             //                             alignment:
+                             //                                 Alignment.center,
+                             //                             height:
+                             //                                 constraints.maxHeight,
+                             //                             child: Text(
+                             //                                 style: TextStyle(
+                             //                                     fontSize: 13.sp),
+                             //                                 AppStrings
+                             //                                     .noPrivilegesAvailable
+                             //                                     .tr())),
+                             //                       );
+                             //                     }),
+                             //                   ),
+                             //           );
+                             //         },
+                             //       ),
+
+                             //
+                             // _cubit.cat.isNotEmpty
+                             //     ? RefreshIndicator(
+                             //         triggerMode:
+                             //             RefreshIndicatorTriggerMode.anywhere,
+                             //         onRefresh: () async {
+                             //           More4uHomeCubit.get(context).getMedical();
+                             //         },
+                             //         child: const MedicalWidget(),
+                             //       )
+                             //     : BlocBuilder<More4uHomeCubit, More4uHomeState>(
+                             //         builder: (context, state) {
+                             //           return Container(
+                             //             child: state is GetMedicalLoadingState
+                             //                 ? const Center(
+                             //                     child:
+                             //                         CircularProgressIndicator())
+                             //                 : RefreshIndicator(
+                             //                     triggerMode:
+                             //                         RefreshIndicatorTriggerMode
+                             //                             .anywhere,
+                             //                     onRefresh: () async {
+                             //                       More4uHomeCubit.get(context)
+                             //                           .getMedical();
+                             //                     },
+                             //                     child: LayoutBuilder(builder:
+                             //                         (context, constraints) {
+                             //                       return SingleChildScrollView(
+                             //                         physics:
+                             //                             AlwaysScrollableScrollPhysics(),
+                             //                         child: Container(
+                             //                             alignment:
+                             //                                 Alignment.center,
+                             //                             height:
+                             //                                 constraints.maxHeight,
+                             //                             child: Text(
+                             //                                 style: TextStyle(
+                             //                                     fontSize: 13.sp),
+                             //                                 AppStrings
+                             //                                     .thereIsNoMedicalServices
+                             //                                     .tr())),
+                             //                       );
+                             //                     }),
+                             //                   ),
+                             //           );
+                             //         },
+                             //       ),
+                           ]),
+                     ),
+                   ],
+                 ),
+               ),)
+              ],
             ),
           ),
         );

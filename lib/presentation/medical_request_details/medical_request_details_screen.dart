@@ -90,7 +90,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                    padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0.h),
                     child: HomeAppBar(
                       title: AppStrings.requestDetails.tr(),
                       onTap: () {
@@ -105,7 +105,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal:22.w),
                     child: Column(
                       children: [
 
@@ -115,7 +115,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 10.h, horizontal: 8.w),
+                                      vertical: 10.h, horizontal: 12.w),
                                   child: Column(
                                     children: [
                                       Image.asset(
@@ -166,7 +166,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         thickness: 0.2.h,
                                       ),
                                       Text(
-                                        "${AppStrings.request.tr()} ${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ?
+                                        "${_cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 1 ?
                                         AppStrings.medications.tr() :
                                         _cubit.details?.medicalRequestDetails?.medicalRequest?.requestType == 2 ? AppStrings.checkUps.tr()  :
                                         AppStrings.sickLeave.tr() } ",
@@ -371,8 +371,8 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                     ?.medicalRequest
                                                     ?.monthlyMedication ==
                                                 true
-                                            ? "Yes"
-                                            : "No",
+                                            ? AppStrings.yes.tr()
+                                            : AppStrings.no.tr(),
                                       ),
                                       SizedBox(
                                         height: 5.h,
@@ -432,7 +432,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                     color: AppColors.mainColor,
                                                     fontFamily: "Certa Sans",
                                                     fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w300,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -495,7 +495,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                           ? Padding(
                                               padding:
                                                   EdgeInsets.only(top: 20.h),
-                                              child: Text("Pending",
+                                              child: Text(AppStrings.pending.tr(),
                                                   style: TextStyle(
                                                     color: Color(0xFF2c93e7),
                                                     fontFamily: "Certa Sans",

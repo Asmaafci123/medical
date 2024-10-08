@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../domain/entities/medical_item.dart';
 class SelectedMedicalItems extends StatelessWidget {
@@ -47,7 +49,7 @@ class SelectedMedicalItems extends StatelessWidget {
                     height: 5.h,
                   ),
                   Text(
-                    "${medicalItems[index].itemQuantity??""} Items",
+                    "${medicalItems[index].itemQuantity??""} ${AppStrings.quantity.tr()}",
                     style: TextStyle(
                       color: AppColors.greyDark,
                       fontFamily: "Certa Sans",
