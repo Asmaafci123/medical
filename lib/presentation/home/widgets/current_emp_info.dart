@@ -52,7 +52,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 60.h, 16.w, 20.h),
                   child: Row(
-                     mainAxisAlignment:languageId==2? MainAxisAlignment.end:MainAxisAlignment.start,
+                    mainAxisAlignment:languageId==2? MainAxisAlignment.end:MainAxisAlignment.start,
                     children: [
                       Image.asset(
                         "assets/images/man.png",
@@ -78,7 +78,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                             height: 2.h,
                           ),
                           Text(
-                           AppStrings.employeeNumber.tr(),
+                            AppStrings.employeeNumber.tr(),
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 12.sp,
@@ -124,7 +124,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                             height: 2.h,
                           ),
                           Text(
-                           AppStrings.medicalCoverage.tr(),
+                            AppStrings.medicalCoverage.tr(),
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 12.sp,
@@ -145,11 +145,11 @@ class CurrentEmployeeInfo extends StatelessWidget {
         Card(
           elevation: 2,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
           child: Container(
             width: 270.w,
             decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
+            BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
               child: Row(
@@ -180,8 +180,8 @@ class CurrentEmployeeInfo extends StatelessWidget {
                           errorBuilder: (context, error, stackTrace) =>
                               Image.asset(
                                 'assets/images/profile_avatar_placeholder.png',
-                            fit: BoxFit.fill,
-                          ),
+                                fit: BoxFit.fill,
+                              ),
                         ),
                       ),
                     ),
@@ -256,7 +256,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                         ),
                       ),
                       Text(
-                       AppStrings.medical.tr(),
+                        AppStrings.medical.tr(),
                         style: TextStyle(
                           color: AppColors.mainColor,
                           fontSize: 10.sp,

@@ -266,6 +266,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "flip_card",
+      "rootUri": "file:///C:/Users/e-asedeek/AppData/Local/Pub/Cache/hosted/pub.dev/flip_card-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/src/flutter_windows_3.10.0-stable/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -914,7 +920,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2024-10-06T16:09:46.903854Z",
+  "generated": "2024-10-09T12:12:22.848740Z",
   "generator": "pub",
   "generatorVersion": "3.0.0"
 }

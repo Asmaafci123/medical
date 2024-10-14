@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carousel_slider/carousel_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/core/constants/constants.dart';
@@ -16,6 +17,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:toast/toast.dart';
 import '../../core/constants/app_strings.dart';
+import '../../core/firebase/push_notification_service.dart';
 import '../../injection_container.dart';
 import '../medical_requests_history/medical_requests_history_screen.dart';
 import '../more4u_home/more4u_home_screen.dart';
@@ -53,6 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _carouselController = CustomCarouselController();
     super.initState();
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    SystemChannels.lifecycle.setMessageHandler((msg) async{
+      if(msg == AppLifecycleState.resumed.toString()) {
+        await HomeCubit.get(context).getCurrentUser();
+      }
+      return Future.delayed(Duration.zero);
+    });
+    PushNotificationService.init(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -110,10 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
-                    CurrentEmployeeInfo(),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                     CurrentEmployeeInfo(),
                     (userData?.isDoctor == true ||  userData?.isMedicalAdmin== true )?
                     Padding(
                       padding: EdgeInsets.only(left:22.w,bottom: 20.h,right:22.w),

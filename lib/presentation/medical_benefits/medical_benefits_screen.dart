@@ -105,7 +105,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0.h),
                   child: HomeAppBar(
                     title: AppStrings. medicalBenefits.tr(),
                     onTap:  () {
@@ -230,7 +230,7 @@ class _MedicalBenefitsScreenState extends State<MedicalBenefitsScreen> {
                             onTap: () {
                               showWarningDialog(
                                 context: context,
-                                message:"You don't have Sick Leave service",
+                                message:AppStrings.notSickLeave.tr(),
                                 isSucceeded: false,
                               );
                             },

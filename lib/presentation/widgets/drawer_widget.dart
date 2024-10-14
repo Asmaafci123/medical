@@ -147,7 +147,7 @@ class DrawerWidget extends StatelessWidget {
                       data: Theme.of(context)
                           .copyWith(dividerColor: Colors.transparent),
                       child: ExpansionTile(
-                        tilePadding: EdgeInsets.only(left: 12.w),
+                        tilePadding: EdgeInsets.only(left: 12.w,right: 12.w),
                         title: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -203,10 +203,10 @@ class DrawerWidget extends StatelessWidget {
                         ),
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 30.w),
+                            padding: EdgeInsets.only(left: 30.w,right: 30.w),
                             child: buildListTile(
                               context,
-                              title: 'My Requests'.tr(),
+                              title: AppStrings.myRequests.tr(),
                               leading: CustomIcons.ticket,
                               isMedical: false,
                               onTap: () async {
@@ -234,7 +234,7 @@ class DrawerWidget extends StatelessWidget {
                                 } else {
                                   showWarningDialog(
                                     context: context,
-                                    message: "You don't have more4u service",
+                                    message: AppStrings.youNotHaveMore4uService.tr(),
                                     isSucceeded: false,
                                   );
                                 }
@@ -242,7 +242,7 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 30.w),
+                            padding: EdgeInsets.only(left: 30.w,right: 30.w),
                             child: buildListTile(
                               context,
                               title: AppStrings.myGifts.tr(),
@@ -270,7 +270,7 @@ class DrawerWidget extends StatelessWidget {
                                 } else {
                                   showWarningDialog(
                                     context: context,
-                                    message: "You don't have more4u service",
+                                    message: AppStrings.youNotHaveMore4uService.tr(),
                                     isSucceeded: false,
                                   );
                                 }
@@ -279,7 +279,7 @@ class DrawerWidget extends StatelessWidget {
                           ),
                           if (userData!.hasRoles! || userData!.hasRequests!)
                             Padding(
-                              padding: EdgeInsets.only(left: 30.w),
+                              padding: EdgeInsets.only(left: 30.w,right: 30.w),
                               child: buildListTile(
                                 context,
                                 title: AppStrings.manageRequests.tr(),
@@ -305,7 +305,7 @@ class DrawerWidget extends StatelessWidget {
                                   } else {
                                     showWarningDialog(
                                       context: context,
-                                      message: "You don't have more4u service",
+                                      message: AppStrings.youNotHaveMore4uService.tr(),
                                       isSucceeded: false,
                                     );
                                   }
@@ -319,7 +319,7 @@ class DrawerWidget extends StatelessWidget {
                       data: Theme.of(context)
                           .copyWith(dividerColor: Colors.transparent),
                       child: ExpansionTile(
-                        tilePadding: EdgeInsets.only(left: 12.w),
+                        tilePadding: EdgeInsets.only(left: 12.w,right: 12.w),
                         title: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -361,12 +361,11 @@ class DrawerWidget extends StatelessWidget {
                                       );
                                     },
                                   ),
-
                             SizedBox(
                               width: 15.w,
                             ),
                             Text(
-                              "Medical",
+                              AppStrings.medical.tr(),
                               style: TextStyle(
                                 fontFamily: "Certa Sans",
                                 color: AppColors.greyColor,
@@ -380,10 +379,10 @@ class DrawerWidget extends StatelessWidget {
                           (userData!.isMedicalAdmin == false &&
                                   userData!.isDoctor == false)
                               ? Padding(
-                                  padding: EdgeInsets.only(left: 30.w),
+                                  padding: EdgeInsets.only(left: 30.w,right: 30.w),
                                   child: buildListTile(
                                     context,
-                                    title: 'My Requests'.tr(),
+                                    title: AppStrings.myRequests.tr(),
                                     leading: CustomIcons.ticket,
                                     isMedical: true,
                                     onTap: () async {
@@ -416,7 +415,7 @@ class DrawerWidget extends StatelessWidget {
                                         showWarningDialog(
                                           context: context,
                                           message:
-                                              "You don't have medical service",
+                                              AppStrings.youNotHaveMedicalService.tr(),
                                           isSucceeded: false,
                                         );
                                       }
@@ -427,10 +426,10 @@ class DrawerWidget extends StatelessWidget {
                           (userData!.isMedicalAdmin == true &&
                                   userData!.isDoctor == false)
                               ? Padding(
-                                  padding: EdgeInsets.only(left: 30.w),
+                                  padding: EdgeInsets.only(left: 30.w,right: 30.w),
                                   child: buildListTile(
                                     context,
-                                    title: "Request",
+                                    title: AppStrings.request.tr(),
                                     leading: CustomIcons.document,
                                     isMedical: true,
                                     onTap: () async {
@@ -464,10 +463,10 @@ class DrawerWidget extends StatelessWidget {
                           (userData!.isMedicalAdmin == true &&
                               userData!.isDoctor == false)
                               ? Padding(
-                            padding: EdgeInsets.only(left: 30.w),
+                            padding: EdgeInsets.only(left: 30.w,right: 30.w),
                             child: buildListTile(
                               context,
-                              title: "Pending Requests",
+                              title: AppStrings.pendingRequests.tr(),
                               leading: CustomIcons.document,
                               isMedical: true,
                               onTap: () async {
@@ -497,13 +496,11 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           )
                               : const SizedBox(),
-
-
                           Padding(
-                            padding: EdgeInsets.only(left: 30.w),
+                            padding: EdgeInsets.only(left: 30.w,right: 30.w),
                             child: buildListTile(
                               context,
-                              title: 'Partnerships'.tr(),
+                              title: AppStrings.partnerShips.tr(),
                               leading: CustomIcons.ticket,
                               isMedical: true,
                               onTap: () async {

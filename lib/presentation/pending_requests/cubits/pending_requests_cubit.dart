@@ -78,6 +78,8 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     emit(ClearSearchResultSuccessState());
   }
 
+
+
   changeRequestTypeID(String requestType) {
     requestTypeID = requestType;
     emit(ChangeRequestTypeSuccessState());
@@ -134,6 +136,17 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     });
   }
 
+
+  clearSearchResultInMedicalItems()
+  {
+    searchInMedicalItemsController.clear();
+    searchedMedicalItems=[];
+    emit(ClearSearchResultMedicalItemsSuccessState ());
+  }
+  List<MedicalItem> selectedMedicalItems=[];
+
+  Map<MedicalItem,int>mp1={};
+  Map<MedicalItem,int>mp2={};
   addMedicalItems(MedicalItem item,int index)
   {
     MedicalItem newItem=MedicalItem(
@@ -146,8 +159,17 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
         itemImage: item.itemImage,
         itemDose: item.itemDose
     );
-    selectedMedicalItems.add(newItem);
-    medicalItemsColor[index]=AppColors.greenColor;
+    if( medicalItemsColor[index]==AppColors.greyWhiteColor)
+      {
+        selectedMedicalItems.add(newItem);
+        medicalItemsColor[index]=AppColors.greenColor;
+        mp1[newItem]=selectedMedicalItems.length-1;
+        mp2[newItem]=index;
+      }
+    else{
+      medicalItemsColor[index]=AppColors.greyWhiteColor;
+      selectedMedicalItems.removeAt(mp1[newItem]!);
+    }
     emit(AddMedicalItemSuccessState());
   }
 
@@ -158,36 +180,36 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     selectedMedicalEntity = selectedMedicalEntityDoctor;
     emit(ChangeMedicalEntitySuccessState());
   }
-  List<MedicalItem> selectedMedicalItems=[];
-  changeMedicalItems(List<MedicalItem> changedMedicalItems) {
-   // selectedMedicalItems = changedMedicalItems;
-    List<MedicalItem> items=[];
-    bool x=false;
-    int index=0;
-    for(int i=0;i<changedMedicalItems.length;i++)
-      {
-        x=false;
-        index=0;
-       for(int j=0;j<selectedMedicalItems.length;j++)
-         {
-           if(changedMedicalItems[i].itemId==selectedMedicalItems[j].itemId)
-             {
-               x=true;
-               index=j;
-             }
-         }
-        if(x)
-        {
-          items.add(selectedMedicalItems[index]);
-        }
-        else
-          {
-            items.add(changedMedicalItems[i]);
-          }
-      }
-    selectedMedicalItems=items;
-    emit(ChangeMedicalItemsSuccessState());
-  }
+
+  // changeMedicalItems(List<MedicalItem> changedMedicalItems) {
+  //  // selectedMedicalItems = changedMedicalItems;
+  //   List<MedicalItem> items=[];
+  //   bool x=false;
+  //   int index=0;
+  //   for(int i=0;i<changedMedicalItems.length;i++)
+  //     {
+  //       x=false;
+  //       index=0;
+  //      for(int j=0;j<selectedMedicalItems.length;j++)
+  //        {
+  //          if(changedMedicalItems[i].itemId==selectedMedicalItems[j].itemId)
+  //            {
+  //              x=true;
+  //              index=j;
+  //            }
+  //        }
+  //       if(x)
+  //       {
+  //         items.add(selectedMedicalItems[index]);
+  //       }
+  //       else
+  //         {
+  //           items.add(changedMedicalItems[i]);
+  //         }
+  //     }
+  //   selectedMedicalItems=items;
+  //   emit(ChangeMedicalItemsSuccessState());
+  // }
 
   addMedicalItemQuantity(int index)
   {

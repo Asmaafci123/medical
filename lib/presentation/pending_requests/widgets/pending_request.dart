@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/constants/constants.dart';
 import 'package:more4u/custom_icons.dart';
 import 'package:more4u/presentation/medical_request_details_and_doctor_response/medical_doctor_response_screen.dart';
 import 'package:more4u/presentation/pending_requests/cubits/pending_requests_cubit.dart';
 import 'package:more4u/presentation/pending_requests/cubits/pending_requests_state.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../domain/entities/response_medical_request.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -21,7 +23,7 @@ class RequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var outputFormat = DateFormat('dd MMM, yyyy hh:mm a');
+    var outputFormat = DateFormat('dd MMM, yyyy hh:mm a',languageId==1?"en":"ar");
     var requestDate = outputFormat.format(request.requestDate);
     return GestureDetector(
       onTap: () {
@@ -75,7 +77,7 @@ class RequestCard extends StatelessWidget {
                                 ),
                               ),
                               Text.rich(
-                                  TextSpan(text: "Employee ID  ",
+                                  TextSpan(text: AppStrings.employeeId.tr(),
                                   style: TextStyle(
                                       color: AppColors.whiteBlueColor,
                                       fontFamily: "Certa Sans",
@@ -113,9 +115,9 @@ class RequestCard extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                          vertical: 12.h, horizontal: 12.w),
+                                          vertical: 12.h, horizontal: 5.w),
                                       child: Text(
-                                        "ID : ${request.requestID}",
+                                        "${AppStrings.id.tr()} ${request.requestID}",
                                         style: TextStyle(
                                           //   color: AppColors.greenColor,
                                           //  color: AppColors.whiteColor,
@@ -195,8 +197,9 @@ class RequestCard extends StatelessWidget {
           //     radius: 30.r,
           //     backgroundImage:
           //     NetworkImage(request.employeeImageUrl)),
-          Positioned(
-            left: 10.w,
+          Positioned.directional(
+            textDirection:Directionality.of(context) ,
+            start: 5.w,
             top: 0,
             child: Card(
                 elevation: 0,

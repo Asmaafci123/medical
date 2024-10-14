@@ -63,3 +63,4 @@ class SearchInMedicalItemsErrorState extends PendingRequestsState {
   SearchInMedicalItemsErrorState(this.message);
 }
 
+class ClearSearchResultMedicalItemsSuccessState extends PendingRequestsState {}

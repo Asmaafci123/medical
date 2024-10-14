@@ -48,7 +48,7 @@ class _DoctorsState extends State<Doctors> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 14.h),
                   child: HomeAppBar(
                     title: widget.title,
                     onTap: () {

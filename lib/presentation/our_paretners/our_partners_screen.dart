@@ -75,7 +75,7 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(4.w, 14.h, 4.w, 0.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0.h),
                   child: HomeAppBar(
                     title:AppStrings.partnerShips.tr(),
                     onTap: () {

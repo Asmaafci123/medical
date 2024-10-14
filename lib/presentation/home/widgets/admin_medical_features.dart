@@ -29,7 +29,7 @@ class AdminMedicalFeatures extends StatelessWidget {
                     More4uHomeScreen.routeName):
                 showWarningDialog(
                   context: context,
-                  message:"You don't have more4u service",
+                  message:AppStrings.youNotHaveMore4uService.tr(),
                   isSucceeded: false,
                 );
               }),
@@ -44,7 +44,7 @@ class AdminMedicalFeatures extends StatelessWidget {
               }),
           MedicalFeature(
               imagePath: "assets/images/medical-request.png",
-              title:"Medical",
+              title:AppStrings.medical.tr(),
               description: AppStrings.followOurMedicalServices.tr(),
               enabled: true,
               onTap:() {

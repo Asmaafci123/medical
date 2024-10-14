@@ -528,8 +528,8 @@ class _BenefitRedeemScreenState extends State<BenefitRedeemScreen> {
                               if ((_formKey.currentState!.validate() &
                                   _cubit.validateParticipants() &
                                   _cubit.validateDocuments())) {
-                                if (_chipKey.currentState!
-                                        .currentTextEditingValue.text.length >
+                                if (_cubit.showParticipantsField &&_chipKey.currentState
+                                        !.currentTextEditingValue.text.length >
                                     _cubit.participantsIds.length) {
                                   _cubit.validateOnChipsKey(_chipKey
                                       .currentState!

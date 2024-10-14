@@ -41,7 +41,7 @@ class EmployeeMedicalFeature extends StatelessWidget {
               }),
           MedicalFeature(
               imagePath: "assets/images/medical-report.png",
-              title:"Medical",
+              title:AppStrings.medical.tr(),
               description: AppStrings.followOurMedicalServices.tr(),
               enabled: userData?.hasMedicalService ??false,
               onTap:() {

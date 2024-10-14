@@ -53,7 +53,8 @@ class HomeAppBar extends StatelessWidget {
               Icons.arrow_back_ios_new_outlined ,
               color: AppColors.blackColor,
               size: 22.sp,
-            )) :
+            ),
+            ) :
         BlocBuilder<HomeCubit,HomeState>(
           builder: (context, state) {
             return bg.Badge(

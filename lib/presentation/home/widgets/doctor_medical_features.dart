@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/presentation/pending_requests/pending_requests_screen.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../medical_benefits/medical_benefits_screen.dart';
@@ -23,21 +25,21 @@ class DoctorMedicalFeatures extends StatelessWidget {
           MedicalFeature(
               imagePath:"assets/images/surprise.png",
               title:"More4u",
-              description:  "Mange all Medical Requests",
+              description: AppStrings.followOurMore4Benefits.tr(),
               enabled: userData?.hasMore4uService??false,
               onTap:() {
                 userData?.hasMore4uService == true? Navigator.of(context).pushNamed(
                     More4uHomeScreen.routeName):
                 showWarningDialog(
                   context: context,
-                  message:"You don't have more4u service",
+                  message:AppStrings.youNotHaveMore4uService.tr(),
                   isSucceeded: false,
                 );
               }),
           MedicalFeature(
               imagePath:"assets/images/paper_15410515.png",
-              title:"History",
-              description:  "Mange all Medical Requests",
+              title:AppStrings.requestsLog.tr(),
+              description:AppStrings.followMedicalRequests.tr(),
               enabled: true,
               onTap:() {
                 Navigator.of(context)
@@ -45,8 +47,8 @@ class DoctorMedicalFeatures extends StatelessWidget {
               }),
           MedicalFeature(
               imagePath: "assets/images/support.png",
-              title:"PartnerShips",
-              description:  "Mange all Medical Requests",
+              title:AppStrings.partnerShips.tr(),
+              description: AppStrings.followOurPartnerShips.tr(),
               enabled: true,
               onTap:() {
                 Navigator.of(context).pushNamed(
@@ -54,8 +56,8 @@ class DoctorMedicalFeatures extends StatelessWidget {
               }),
           MedicalFeature(
               imagePath: "assets/images/medical-request.png",
-              title:"Request",
-              description: "Create New Medical Request",
+              title:AppStrings.medical.tr(),
+              description: AppStrings.followOurMedicalServices.tr(),
               enabled: true,
               onTap:() {
                 Navigator.of(context).pushNamed(

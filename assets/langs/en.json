@@ -244,5 +244,26 @@
   "Select Request Purpose": "Select Request Purpose",
   "Quantity":"Quantity",
   "Yes": "Yes",
-  "No": "No"
+  "No": "No",
+  "Employee ID  ": "Employee ID  ",
+  "ID :": "ID :",
+  "Mange Request": "Mange Request",
+  "Response": "Response",
+  "Relation": "Relation",
+  "Self": "Self",
+  "Relative Name":  "Relative Name",
+  "Search In Medical Items": "Search In Medical Items",
+  "Selected Items ":  "Selected Items ",
+  "Qt : ": "Qt : ",
+  "Type : ": "Type : ",
+  "Please select medical entity": "Please select medical entity",
+  "Please select medical items": "Please select medical items",
+  "Approve": "Approve",
+  "No Data Available": "No Data Available",
+  "We are delighted to inform you that we received your response for request": "We are delighted to inform you that we received your response for request",
+  "Feedback": "Feedback",
+  "Enter Your Feedback": "Enter Your Feedback",
+  "Follow Medical Requests": "Follow Medical Requests",
+  "You don't have Sick Leave service": "You don't have Sick Leave service"
+
 }

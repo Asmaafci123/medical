@@ -17,8 +17,6 @@ import '../home/widgets/app_bar.dart';
 import '../widgets/benifit_card.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/helpers.dart';
-import '../widgets/medical_widget.dart';
-import '../widgets/my_app_bar.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../widgets/utils/loading_dialog.dart';
@@ -134,7 +132,7 @@ class _More4uHomeScreenState extends State<More4uHomeScreen>
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(8.w, 14.h, 8.w, 0.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 14.h),
                   child: HomeAppBar(
                     title: "More4u Benefits",
                     onTap: () {
@@ -151,7 +149,6 @@ class _More4uHomeScreenState extends State<More4uHomeScreen>
                  child: Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-
                      Text(
                        AppStrings.chooseYourBenefitCard.tr(),
                        style: TextStyle(

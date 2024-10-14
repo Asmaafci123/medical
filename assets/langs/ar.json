@@ -245,7 +245,27 @@
  "Select Request Purpose": "اختر غرض الطلب",
  "Quantity":"الوحدات المطلوبة",
  "Yes": "نعم",
- "No": "لا"
+ "No": "لا",
+ "Employee ID  ": "رقم الموظف  ",
+ "ID :": "رقم الطلب : ",
+ "Mange Request": "ادارة الطلب",
+ "Response": "رد الطبيب",
+ "Relation": "صلة القرابة",
+ "Self": "نفسه",
+ "Relative Name": "اسم القريب",
+ "Search In Medical Items": "البحث فى المستلزمات الطبية",
+ "Selected Items ":  "العناصر المحددة",
+ "Qt : ": "الكمية : ",
+ "Type : ": "النوع :",
+ "Please select medical entity": "يرجى اختيار الجهة الطبي",
+ "Please select medical items": "يرجى اختيار المستلزمات الطبية",
+ "Approve": "موافقة",
+ "No Data Available": "لا توجد بيانات متاحة",
+ "We are delighted to inform you that we received your response for request":"يسرنا إبلاغكم بأننا قد تلقينا ردكم على الطلب",
+ "Feedback":  "ملاحظات",
+ "Enter Your Feedback": "أدخل ملاحظاتك",
+ "Follow Medical Requests": "متابعة الطلبات الطبية",
+ "You don't have Sick Leave service": "ليس لديك خدمة الإجازة المرضية"
 }
 
 

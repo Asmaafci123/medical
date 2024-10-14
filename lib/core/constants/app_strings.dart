@@ -238,5 +238,25 @@ class AppStrings {
   static const String yes="Yes";
   static const String no="No";
   static const String chooseYourBenefitCard="Choose your benefit card";
+  static const String employeeId="Employee ID  ";
+  static const String id="ID :";
+  static const String mangeRequest="Mange Request";
+  static const String response="Response";
+  static const String relation="Relation";
+  static const String self="Self";
+  static const String relativeName="Relative Name";
+  static const String searchInMedicalItems="Search In Medical Items";
+  static const String selectedItems="Selected Items ";
+  static const String qt="Qt : ";
+  static const String typeMedicalItem="Type : ";
+  static const String pleaseSelectMedicalEntity="Please select medical entity";
+  static const String pleaseSelectMedicalItems="Please select medical items";
+  static const String approve="Approve";
+  static const String noDataAvailable="No Data Available";
+  static const String receivedYourResponse="We are delighted to inform you that we received your response for request";
+  static const String feedback="Feedback";
+  static const String enterYourFeedback="Enter Your Feedback";
+  static const String followMedicalRequests="Follow Medical Requests";
+  static const String notSickLeave="You don't have Sick Leave service";
 }
 

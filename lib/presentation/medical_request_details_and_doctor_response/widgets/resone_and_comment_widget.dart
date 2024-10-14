@@ -37,8 +37,8 @@ class _ReasonAndCommentState extends State<ReasonAndComment> {
                   size: 20.r,
                 ),
                 maxLines: 5,
-                labelText: "Feedback",
-                hintText: "Enter Your Feedback",
+                labelText: AppStrings.feedback.tr(),
+                hintText: AppStrings.enterYourFeedback.tr(),
                 keyboardType: TextInputType.text,
                 controller: PendingRequestsCubit.get(context).responseCommentController,
                 suffixIconConstraints:
@@ -78,7 +78,7 @@ class _ReasonAndCommentState extends State<ReasonAndComment> {
                       borderRadius: BorderRadius.circular(15.r)),
                   child: Center(
                     child: Text(
-                      "Send",
+                      AppStrings.submit.tr(),
                       style: TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18.sp,

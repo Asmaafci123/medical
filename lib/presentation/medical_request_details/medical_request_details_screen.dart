@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:more4u/core/constants/constants.dart';
 import 'package:more4u/presentation/medical_request_details/widgets/info_field.dart';
 import 'package:more4u/presentation/pending_requests/cubits/pending_requests_cubit.dart';
 import 'package:progress_indicators/progress_indicators.dart';
@@ -67,7 +68,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
       },
       builder: (context, state) {
         var _cubit = PendingRequestsCubit.get(context);
-        var outputFormat = DateFormat('dd MMM, yyyy hh:mm a');
+        var outputFormat = DateFormat('dd MMM, yyyy hh:mm a',languageId==2?"ar":"en");
         var convertedRequestDate = DateTime.parse(_cubit
                 .details?.medicalRequestDetails?.medicalRequest?.requestDate ??
             DateTime.now().toString());
@@ -343,7 +344,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                       _cubit
                                           .details
                                           ?.medicalRequestDetails
-                                          ?.medicalRequest?.relation!="Self"?
+                                          ?.medicalRequest?.relation!="Self".tr()?
                                           Column(
                                             children: [
                                               SizedBox(
@@ -396,14 +397,17 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                       SizedBox(
                                         height: 5.h,
                                       ),
-                                      InfoField(
+                                      _cubit
+                                          .details
+                                          ?.medicalRequestDetails
+                                          ?.medicalRequest?.requestType!=1?InfoField(
                                           title: AppStrings.medicalPurpose.tr(),
                                           value: _cubit
                                                   .details
                                                   ?.medicalRequestDetails
                                                   ?.medicalRequest
                                                   ?.medicalPurpose ??
-                                              "_"),
+                                              "_"):SizedBox( ),
                                       SizedBox(
                                         height: 5.h,
                                       ),

@@ -123,7 +123,7 @@ class _MyMedicalRequestsScreenState
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(22.w, 20.h, 22.w, 20.h),
+                      padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 20.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

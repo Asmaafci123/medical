@@ -37,7 +37,7 @@ showWarningDialog({
                           Color(0xFFfef6ee),
                         ])
                 ),
-                height: 100.h,
+                height: 120.h,
                 width: 372.w,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 20.h),
@@ -69,7 +69,7 @@ showWarningDialog({
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Warning !",
+                              AppStrings.warning.tr(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25.sp,
