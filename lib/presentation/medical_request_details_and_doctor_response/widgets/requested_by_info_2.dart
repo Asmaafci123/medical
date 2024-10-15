@@ -27,7 +27,7 @@ class RequestedByInfo1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var outputFormat = DateFormat('dd MMM, yyyy , hh a',languageId==2?"ar":"en");
+    var outputFormat = DateFormat('dd MMM, yyyy hh:mm a',languageId==2?"ar":"en");
     var convertedRequestDate=DateTime.parse(requestDate??"");
     var outputDate = outputFormat.format(convertedRequestDate);
     return Stack(

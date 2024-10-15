@@ -106,7 +106,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal:22.w),
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal:22.w),
                     child: Column(
                       children: [
 
@@ -180,7 +180,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       SizedBox(
-                                        height: 20.h,
+                                        height: 10.h,
                                       ),
                                       Row(
                                         children: [
@@ -477,7 +477,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                         thickness: 0.2.h,
                                       ),
                                       SizedBox(
-                                        height: 20.h,
+                                        height: 10.h,
                                       ),
                                       Row(
                                         children: [
@@ -522,18 +522,15 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                           ?.createdBy ??
                                                       "",
                                                 ),
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
                                                 InfoField(
                                                     title:AppStrings.time.tr(),
                                                     value: responseDate ?? ""),
-                                                // InfoField(
-                                                //   title: "Feedback",
-                                                //   value: _cubit
-                                                //           .details
-                                                //           ?.medicalRequestDetails
-                                                //           ?.medicalResponse
-                                                //           ?.feedback ??
-                                                //       "",
-                                                // ),
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
                                                 InfoField(
                                                   title: AppStrings.responseComment.tr(),
                                                   value: _cubit
@@ -549,50 +546,60 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                             ?.medicalResponse
                                                             ?.attachment !=
                                                         null
-                                                    ? Row(
-                                                        children: [
-                                                          Text(
-                                                            AppStrings.documents.tr(),
-                                                            style: TextStyle(
-                                                              color: AppColors
-                                                                  .mainColor,
-                                                              fontFamily:
-                                                                  "Certa Sans",
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                    ? Column(
+                                                      children: [
+                                                        Row(
+                                                            children: [
+                                                              Text(
+                                                                AppStrings.documents.tr(),
+                                                                style: TextStyle(
+                                                                  color: AppColors
+                                                                      .mainColor,
+                                                                  fontFamily:
+                                                                      "Certa Sans",
+                                                                  fontSize: 14.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                              const Spacer(),
+                                                              IconButton(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  constraints:
+                                                                      const BoxConstraints(),
+                                                                  onPressed: () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(MaterialPageRoute(
+                                                                            builder: (_) => GalleryScreen(
+                                                                                  images: _cubit.details?.medicalRequestDetails?.medicalRequest?.attachment ?? [],
+                                                                                  index: 0,
+                                                                                  numberColor: AppColors.blackColor,
+                                                                                )));
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .attachment,
+                                                                    color: Color(
+                                                                        0xFFdddddd),
+                                                                  ))
+                                                            ],
                                                           ),
-                                                          const Spacer(),
-                                                          IconButton(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              constraints:
-                                                                  const BoxConstraints(),
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .push(MaterialPageRoute(
-                                                                        builder: (_) => GalleryScreen(
-                                                                              images: _cubit.details?.medicalRequestDetails?.medicalRequest?.attachment ?? [],
-                                                                              index: 0,
-                                                                              numberColor: AppColors.blackColor,
-                                                                            )));
-                                                              },
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .attachment,
-                                                                color: Color(
-                                                                    0xFFdddddd),
-                                                              ))
-                                                        ],
-                                                      )
+                                                        SizedBox(
+                                                          height: 5.h,
+                                                        ),
+                                                      ],
+                                                    )
                                                     : SizedBox(),
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
                                                 InfoField(
                                                   title: AppStrings.medicalEntity.tr(),
                                                   value: _cubit
@@ -601,6 +608,9 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                           ?.medicalResponse
                                                           ?.medicalEntity ??
                                                       "",
+                                                ),
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
                                                 Row(
                                                   children: [

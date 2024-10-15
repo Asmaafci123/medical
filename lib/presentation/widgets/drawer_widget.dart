@@ -529,7 +529,7 @@ class DrawerWidget extends StatelessWidget {
                           ),
                           userData!.isDoctor == true
                               ? Padding(
-                                  padding: EdgeInsets.only(left: 30.w),
+                                  padding: EdgeInsets.only(left: 30.w,right: 30.w),
                                   child: buildListTile(
                                     context,
                                     title: AppStrings.manageRequests.tr(),
