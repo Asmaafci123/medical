@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +27,14 @@ class RequestedByInfo1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var outputFormat = DateFormat('dd MMM, yyyy',languageId==2?"ar":"en");
+    var outputFormat = DateFormat('dd MMM, yyyy , hh a',languageId==2?"ar":"en");
     var convertedRequestDate=DateTime.parse(requestDate??"");
     var outputDate = outputFormat.format(convertedRequestDate);
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
         Transform.flip(
-         flipX: true,
+         flipX:languageId==2? true:false,
           child: ClipPath(
             clipper: SideCutClipper(),
             child: Card(
