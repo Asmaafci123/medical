@@ -383,9 +383,6 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                       SizedBox(
                                         height: 5.h,
                                       ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
                                       InfoField(
                                           title: AppStrings.medicalEntity.tr(),
                                           value: _cubit
@@ -538,7 +535,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                           ?.medicalRequestDetails
                                                           ?.medicalResponse
                                                           ?.responseComment ??
-                                                      "",
+                                                      "_",
                                                 ),
                                                 _cubit
                                                             .details
@@ -607,7 +604,7 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                           ?.medicalRequestDetails
                                                           ?.medicalResponse
                                                           ?.medicalEntity ??
-                                                      "",
+                                                      "_",
                                                 ),
                                                 SizedBox(
                                                   height: 5.h,

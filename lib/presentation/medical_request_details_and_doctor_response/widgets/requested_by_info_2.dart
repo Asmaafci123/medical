@@ -81,7 +81,7 @@ class RequestedByInfo1 extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 90.h,
+                height: 110.h,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -233,6 +233,7 @@ class RequestedByInfo1 extends StatelessWidget {
         Positioned.directional(
           textDirection:Directionality.of(context) ,
           end: 10.w,
+          bottom:6.h,
           child:CallIcon(phoneNumber: phoneNumber,),
         )
       ],

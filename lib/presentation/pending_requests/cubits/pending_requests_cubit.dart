@@ -302,6 +302,9 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     searchInMedicalItemsController.clear();
     searchedMedicalItems=[];
     medicalItemsColor=[];
+    responseCommentController.clear();
+    mp1.clear();
+    mp2.clear();
   }
 
 
