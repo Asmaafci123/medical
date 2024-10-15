@@ -258,5 +258,6 @@ class AppStrings {
   static const String enterYourFeedback="Enter Your Feedback";
   static const String followMedicalRequests="Follow Medical Requests";
   static const String notSickLeave="You don't have Sick Leave service";
+  static const String example="Example";
 }
 

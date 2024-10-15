@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/core/constants/constants.dart';
@@ -44,7 +45,7 @@ class MedicalFeature extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      title == "Pending Requests"
+                      title == "Pending Requests".tr()
                           ? CircularPercentIndicator(
                         radius: 30.0.r,
                         lineWidth: 8.0.w,

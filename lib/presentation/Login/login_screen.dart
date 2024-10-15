@@ -114,7 +114,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ),
                         labelText: AppStrings.userNumber.tr(),
                         hintText:
-                            "${AppStrings.enterYourNumber.tr()} Example 45629438",
+                            "${AppStrings.enterYourNumber.tr()} ${AppStrings.example.tr()} 45629438",
                         keyboardType: TextInputType.number,
                         controller: _cubit.userNumberController,
                         suffixIconConstraints:
