@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/themes/app_colors.dart';
-import '../../profile/profile_screen.dart';
 import '../cubits/request_medication_cubit.dart';
 
 class EmployeeInfo2 extends StatelessWidget {
@@ -34,8 +33,9 @@ class EmployeeInfo2 extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-            left: 110.w,
+        Positioned.directional(
+            textDirection:Directionality.of(context) ,
+            start: 105.w,
             top: 40.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,7 @@ class EmployeeInfo2 extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      width: 20.w,
+                      width: 10.w,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,8 +143,9 @@ class EmployeeInfo2 extends StatelessWidget {
                 )
               ],
             )),
-        Positioned(
-          left: 15.w,
+        Positioned.directional(
+          textDirection:Directionality.of(context) ,
+          start: 10.w,
           child: Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
