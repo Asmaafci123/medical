@@ -193,6 +193,7 @@ class CurrentEmployeeInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
+                        width: 140.w,
                         child: Text(
                           userData?.userName ?? "",
                           style: TextStyle(
@@ -204,12 +205,12 @@ class CurrentEmployeeInfo extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        width: 140.w,
                       ),
                       SizedBox(
                         height: 5.h,
                       ),
                       SizedBox(
+                        width: 130.w,
                         child: Text(
                           userData?.departmentName ?? "",
                           style: TextStyle(
@@ -221,7 +222,6 @@ class CurrentEmployeeInfo extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        width: 130.w,
                       ),
                     ],
                   )

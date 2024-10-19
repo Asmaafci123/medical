@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,8 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:more4u/core/constants/app_strings.dart';
 import 'package:more4u/presentation/home/home_screen.dart';
 import 'package:timeago/timeago.dart';
-
-import '../../core/constants/constants.dart';
 import '../../core/firebase/push_notification_service.dart';
 import '../../core/themes/app_colors.dart';
 import '../home/widgets/app_bar.dart';

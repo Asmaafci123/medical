@@ -42,7 +42,7 @@ class EmployeeInfo2 extends StatelessWidget {
               children: [
                 FittedBox(
                   child: SizedBox(
-                    width:200.w,
+                    width:210.w,
                     child: Text(
                       _cubit.currentEmployee?.employeeName ?? "",
                       style: TextStyle(

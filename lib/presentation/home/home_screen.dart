@@ -13,14 +13,10 @@ import 'package:more4u/presentation/home/widgets/current_emp_info.dart';
 import 'package:more4u/presentation/home/widgets/doctor_medical_features.dart';
 import 'package:more4u/presentation/home/widgets/employee_medical_feature.dart';
 import 'package:more4u/presentation/home/widgets/medical_feature.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:toast/toast.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/firebase/push_notification_service.dart';
 import '../../injection_container.dart';
 import '../medical_requests_history/medical_requests_history_screen.dart';
-import '../more4u_home/more4u_home_screen.dart';
 import '../pending_requests/pending_requests_screen.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/helpers.dart';
@@ -79,15 +75,28 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is GetCurrentUserLoadingState) {
             loadingAlertDialog(context);
           }
+          if (state is GetCurrentUserSuccessState) {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+          }
           if (state is GetCurrentUserErrorState) {
-            //  Navigator.pop(context);
-            showMessageDialog(
+            if (state.message == AppStrings.sessionHasBeenExpired.tr()) {
+              showMessageDialog(
+                  context: context,
+                  isSucceeded: false,
+                  message: state.message,
+                  onPressedOk: () {
+                    logOut(context);
+                  });
+            } else {
+              showMessageDialog(
                 context: context,
-                message: state.message,
                 isSucceeded: false,
-                onPressedOk: () {
-                  logOut(context);
-                });
+                message: state.message,
+                onPressedOk: () => Navigator.pop(context),
+              );
+            }
           }
         },
         builder: (context, state) {
@@ -231,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             {
                               showWarningDialog(
                                   context: context,
-                                  message: "Warning",
+                                  message: AppStrings.comingSoon.tr(),
                                   isSucceeded: false,
                               );
                             },

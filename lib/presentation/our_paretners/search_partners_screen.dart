@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:more4u/core/constants/app_strings.dart';
 import 'package:more4u/presentation/more4u_home/cubits/more4u_home_cubit.dart';
 
 import '../../core/constants/constants.dart';
@@ -50,7 +52,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
                           icon: Icon(
-                            Icons.arrow_back_ios_new_outlined,
+                          Icons.arrow_back_ios_new_outlined,
                             color: AppColors.mainColor,
                             size: 20.sp,
                           )),
@@ -66,7 +68,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                               .searchMedicalController1,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            hintText: "search Doctor, hospital or center ",
+                            hintText: AppStrings.searchDoctorOrHospitalOrCenter.tr(),
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 12.h, horizontal: 11.w),
@@ -160,7 +162,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Recently Searched",
+                          AppStrings.recentlySearched.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18.sp,
@@ -216,7 +218,7 @@ class _SearchPartnersScreenState extends State<SearchPartnersScreen> {
                         More4uHomeCubit.get(context)
                             .resultList.isNotEmpty?
                         Text(
-                          "Search Result (${More4uHomeCubit.get(context)
+                          "${AppStrings.searchResult.tr()} (${More4uHomeCubit.get(context)
                               .resultList.length})",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,

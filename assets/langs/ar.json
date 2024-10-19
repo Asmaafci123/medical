@@ -141,10 +141,10 @@
   "please, update app to new version": "رجاء, قم بتحديث البرنامج",
   "Update": "تحديث",
   "Medical": "الخدمات الطبية",
-  "Clinics": "العيادات",
+  "Clinics":"العيادات ",
   "Doctors": "الاطباء",
   "Hospitals":"المستشفيات",
-  "Pharmacies": "الصيدليات",
+  "Pharmacies": "الصيدليات ",
   "Radiology centers": "مراكز الاشعة",
   "Eye": "عيون",
   "Bones": "عظام",
@@ -152,7 +152,7 @@
   "Surgery":"جراحة",
   "Telephone/Mobile": "تليفون / موبيل",
   "WorkingHours": "مواعيد العمل",
-  "Optometry centers": "مراكز بصريات",
+  "Optometry centers": "مراكز البصريات ",
   "Laboratories": "معامل",
   "There is no data": "لا يوجد تعاقدات",
   "There Is No Medical Services":"لا يوجد خدمات طبية متاحة",
@@ -266,7 +266,9 @@
  "Enter Your Feedback": "أدخل ملاحظاتك",
  "Follow Medical Requests": "متابعة الطلبات الطبية",
  "You don't have Sick Leave service": "ليس لديك خدمة الإجازة المرضية",
- "Example": "مثال"
+ "Example": "مثال",
+ "Recently Searched": "تم البحث عنه مؤخرًا",
+ "Search Result": "نتيجة البحث"
 }
 
 

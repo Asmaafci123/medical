@@ -76,6 +76,9 @@ class RequestMedicationCubit extends Cubit<RequestMedicationState> {
              }
          }
        }
+     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+     print( medicalDetails);
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       emit(GetEmployeeRelativesSuccessState(medicalType));
     });
   }

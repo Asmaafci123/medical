@@ -50,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
         Spacer(),
         title!="More4u"?
             IconButton(onPressed:onTap, icon: Icon(
-              Icons.arrow_back_ios_new_outlined ,
+              languageId==1?  Icons.arrow_back_ios_new_outlined:Icons.arrow_forward_ios,
               color: AppColors.blackColor,
               size: 22.sp,
             ),

@@ -9,6 +9,7 @@ import 'package:more4u/presentation/pending_requests/cubits/pending_requests_cub
 import 'package:more4u/presentation/pending_requests/cubits/pending_requests_state.dart';
 import 'package:more4u/presentation/pending_requests/widgets/pending_request.dart';
 import 'package:more4u/presentation/widgets/utils/loading_dialog.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../core/themes/app_colors.dart';
@@ -31,6 +32,7 @@ class PendingRequestsScreen extends StatefulWidget {
 class _PendingRequestsScreenState extends State<PendingRequestsScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  bool loadingSkeletonizer=true;
   @override
   void initState()
   {
@@ -58,10 +60,12 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
   }
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<PendingRequestsCubit, PendingRequestsState>(
       listener: (context, state) {
         if(state is ChangeRequestTypeSuccessState)
           {
+            loadingSkeletonizer=true;
             PendingRequestsCubit.get(context).getPendingRequests();
           }
         if(state is GetPendingRequestsLoadingState)
@@ -70,7 +74,10 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
         }
         if(state is GetPendingRequestsSuccessState)
         {
-          Navigator.of(context).pop();
+          loadingSkeletonizer=false;
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
         }
         if(state is GetPendingRequestsErrorState)
           {
@@ -120,6 +127,22 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                 });
           }
         }
+        if(state is SearchInPendingRequestsLoadingState)
+          {
+            loadingAlertDialog(context);
+          }
+        if(state is SearchInPendingRequestsSuccessState)
+        {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        }
+        if(state is SearchInPendingRequestsErrorState)
+          {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+          }
       },
       builder:(context,state)
       {
@@ -181,10 +204,9 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                         fontFamily: "Certa Sans",
                                         fontWeight: FontWeight.w500),
                                     suffixIcon: IconButton(
-
                                       icon: Icon(Icons.clear,size: 17.r,),
                                       onPressed: () {
-                                        _cubit.clearSearchResult();
+                                        _cubit.getPendingRequests();
                                       },
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -250,10 +272,6 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                         ),
                         DecoratedBox(
                           decoration: BoxDecoration(
-                            //This is for background color
-                            //  color: Colors.white.withOpacity(0.0),
-                          //  color: Color(0xFFe8f2ff),
-                              //This is for bottom border that is needed
                               borderRadius: BorderRadius.circular(10.r)),
                           child: Container(
                             decoration: BoxDecoration(
@@ -417,7 +435,29 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                               physics: ScrollPhysics(),
                               controller: _tabController,
                               children: [
-                               state is ClearSearchResultSuccessState?
+                               state is SearchInPendingRequestsErrorState?
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/couldnot_find.jpg"),
+                                ):
+                               state is SearchInPendingRequestsSuccessState?
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 10.h),
+                                  child: ListView.separated(
+                                      itemCount:_cubit.searchedResult.isNotEmpty?
+                                      _cubit.searchedResult.length
+                                          :_cubit.medicationPendingRequests.length,
+                                      separatorBuilder: (context, index) => SizedBox(
+                                        height: 0.h,
+                                      ),
+                                      itemBuilder: (context, index) =>
+                                          Skeletonizer(
+                                            enabled: loadingSkeletonizer,
+                                            child: RequestCard(request: _cubit.searchedResult.isNotEmpty?
+                                            _cubit.searchedResult[index]:_cubit.medicationPendingRequests[index],),
+                                          )),
+                                ):
+                               _cubit.medicationPendingRequests.isNotEmpty?
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 10.h),
                                   child: ListView.separated(
@@ -426,32 +466,21 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                         height: 10.h,
                                       ),
                                       itemBuilder: (context, index) =>
-                                          RequestCard(request:_cubit.medicationPendingRequests[index],)),
+                                          Skeletonizer(
+                                              enabled: loadingSkeletonizer,
+                                              child: RequestCard(request:_cubit.medicationPendingRequests[index],))),
                                 ):
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 10.h),
-                                  child: ListView.separated(
-                                      itemCount:_cubit.searchedResult.isNotEmpty?
-                                      _cubit.searchedResult.length
-                                      :_cubit.medicationPendingRequests.length,
-                                      separatorBuilder: (context, index) => SizedBox(
-                                        height: 0.h,
-                                      ),
-                                      itemBuilder: (context, index) =>
-                                          RequestCard(request: _cubit.searchedResult.isNotEmpty?
-                                          _cubit.searchedResult[index]:_cubit.medicationPendingRequests[index],)),
-                                ),
-                                state is ClearSearchResultSuccessState?
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 0),
-                                  child: ListView.separated(
-                                      itemCount: _cubit.checkUpsPendingRequests.length,
-                                      separatorBuilder: (context, index) => SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      itemBuilder: (context, index) =>
-                                          RequestCard(request: _cubit.checkUpsPendingRequests[index],)),
+                               Expanded(
+                                 child: Image.asset(
+                                     "assets/images/couldnot_find.jpg"),
+                               ),
+
+                                state is SearchInPendingRequestsErrorState?
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/couldnot_find.jpg"),
                                 ):
+                                state is SearchInPendingRequestsSuccessState?
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 0),
                                   child: ListView.separated(
@@ -461,20 +490,36 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                         height: 10.h,
                                       ),
                                       itemBuilder: (context, index) =>
-                                          RequestCard(request:_cubit.searchedResult.isNotEmpty?
-                                          _cubit.searchedResult[index]: _cubit.checkUpsPendingRequests[index],)),
-                                ),
-                                state is ClearSearchResultSuccessState?
+                                          Skeletonizer(
+                                            enabled: loadingSkeletonizer,
+                                            child: RequestCard(request:_cubit.searchedResult.isNotEmpty?
+                                            _cubit.searchedResult[index]: _cubit.checkUpsPendingRequests[index],),
+                                          )),
+                                ):
+                                _cubit.checkUpsPendingRequests.isNotEmpty?
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 0),
                                   child: ListView.separated(
-                                      itemCount: _cubit.sickLeavePendingRequests.length,
+                                      itemCount: _cubit.checkUpsPendingRequests.length,
                                       separatorBuilder: (context, index) => SizedBox(
                                         height: 10.h,
                                       ),
                                       itemBuilder: (context, index) =>
-                                          RequestCard(request: _cubit.sickLeavePendingRequests[index],)),
+                                          Skeletonizer(
+                                              enabled: loadingSkeletonizer,
+                                              child: RequestCard(request: _cubit.checkUpsPendingRequests[index],))),
                                 ):
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/couldnot_find.jpg"),
+                                ),
+
+                                state is SearchInPendingRequestsErrorState?
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/couldnot_find.jpg"),
+                                ):
+                                state is SearchInPendingRequestsSuccessState?
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 0),
                                   child: ListView.separated(
@@ -484,9 +529,29 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                         height: 10.h,
                                       ),
                                       itemBuilder: (context, index) =>
-                                          RequestCard(request:_cubit.searchedResult.isNotEmpty?
-                                          _cubit.searchedResult[index]: _cubit.sickLeavePendingRequests[index],)),
-                                ),
+                                          Skeletonizer(
+                                            enabled: loadingSkeletonizer,
+                                            child: RequestCard(request:_cubit.searchedResult.isNotEmpty?
+                                            _cubit.searchedResult[index]: _cubit.sickLeavePendingRequests[index],),
+                                          )),
+                                ):
+                                _cubit.sickLeavePendingRequests.isNotEmpty?
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10.w, 20.h, 10.w, 0),
+                                  child: ListView.separated(
+                                      itemCount: _cubit.sickLeavePendingRequests.length,
+                                      separatorBuilder: (context, index) => SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      itemBuilder: (context, index) =>
+                                          Skeletonizer(
+                                              enabled: loadingSkeletonizer,
+                                              child: RequestCard(request: _cubit.sickLeavePendingRequests[index],))),
+                                ):
+                                Expanded(
+                                  child: Image.asset(
+                                      "assets/images/couldnot_find.jpg"),
+                                )
                               ]),
                         ),
                       ],

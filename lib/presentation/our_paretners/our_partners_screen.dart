@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:badges/badges.dart' as bg;
 import 'package:more4u/presentation/our_paretners/search_partners_screen.dart';
 import 'package:more4u/presentation/widgets/utils/loading_dialog.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/themes/app_colors.dart';
 import '../../data/models/category-model.dart';
@@ -25,6 +26,7 @@ class OurPartnersScreen extends StatefulWidget {
 }
 
 class _OurPartnersScreenState extends State<OurPartnersScreen> {
+  bool loadingSkeletonizer=true;
   @override
   void initState()
   {
@@ -36,13 +38,14 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
     return BlocConsumer<More4uHomeCubit, More4uHomeState>(
       listener: (context, state)
       {
-        if(state is GetMedicalLoadingState)
-          {
-            loadingAlertDialog(context);
-          }
+        // if(state is GetMedicalLoadingState)
+        //   {
+        //     loadingAlertDialog(context);
+        //   }
         if(state is GetMedicalSuccessState)
-          {
-            Navigator.pop(context);
+          {loadingSkeletonizer=false;
+           // Navigator.pop(context);
+
           }
           if (state is GetMedicalErrorState) {
           {
@@ -144,44 +147,47 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                           padding: EdgeInsets.symmetric(vertical: 20.h,horizontal: 10.w),
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                              itemBuilder: (context,index)=>GestureDetector(
-                                onTap: ()
-                                {
-                                  List<DetailsOfMedicalModel>result=More4uHomeCubit.get(context).getDetailsOfMedical(More4uHomeCubit.get(context).cat[index].categoryName!,More4uHomeCubit.get(context).cat[index].categoryName!);
-                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>Doctors(details: result,title:More4uHomeCubit.get(context).cat[index].categoryName!)));
-                                },
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor:Color(0xfff2f3f8),
-                                      radius: 35.r,
-                                      child: Image.network(
-                                        More4uHomeCubit.get(context).cat[index].categoryImage??"",
-                                        fit: BoxFit.cover,
-                                        width: 35.w,
-                                      )
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text("${ More4uHomeCubit.get(context).getDetailsOfMedical(More4uHomeCubit.get(context).cat[index].categoryName!,More4uHomeCubit.get(context).cat[index].categoryName!).length} ${AppStrings.items.tr()}",
-                                      style: TextStyle(
-                                          color: AppColors.greyDark,
-                                          fontSize: 12.sp,
-                                          fontFamily: "Certa Sans",
-                                          fontWeight: FontWeight.w500
-                                      ),),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(More4uHomeCubit.get(context).cat[index].categoryName??"",
-                                      style: TextStyle(
-                                        color: AppColors.mainColor,
-                                        fontSize: 16.sp,
-                                          fontFamily: "Certa Sans",
-                                        fontWeight: FontWeight.w600
-                                      ),)
-                                  ],
+                              itemBuilder: (context,index)=>Skeletonizer(
+                                enabled: loadingSkeletonizer,
+                                child: GestureDetector(
+                                  onTap: ()
+                                  {
+                                    List<DetailsOfMedicalModel>result=More4uHomeCubit.get(context).getDetailsOfMedical(More4uHomeCubit.get(context).cat[index].categoryName!,More4uHomeCubit.get(context).cat[index].categoryName!);
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>Doctors(details: result,title:More4uHomeCubit.get(context).cat[index].categoryName!)));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:Color(0xfff2f3f8),
+                                        radius: 35.r,
+                                        child: Image.network(
+                                          More4uHomeCubit.get(context).cat[index].categoryImage??"",
+                                          fit: BoxFit.cover,
+                                          width: 35.w,
+                                        )
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text("${ More4uHomeCubit.get(context).getDetailsOfMedical(More4uHomeCubit.get(context).cat[index].categoryName!,More4uHomeCubit.get(context).cat[index].categoryName!).length} ${AppStrings.items.tr()}",
+                                        style: TextStyle(
+                                            color: AppColors.greyDark,
+                                            fontSize: 12.sp,
+                                            fontFamily: "Certa Sans",
+                                            fontWeight: FontWeight.w500
+                                        ),),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(More4uHomeCubit.get(context).cat[index].categoryName??"",
+                                        style: TextStyle(
+                                          color: AppColors.mainColor,
+                                          fontSize: 16.sp,
+                                            fontFamily: "Certa Sans",
+                                          fontWeight: FontWeight.w600
+                                        ),)
+                                    ],
+                                  ),
                                 ),
                               ),
                             itemCount:More4uHomeCubit.get(context).cat.length,
@@ -218,65 +224,68 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 20.h,horizontal:30.w),
                             child:
-                            ListView.builder(itemBuilder:(context,index)=>InkWell(
-                              onTap: ()
-                              {
-                                 List<DetailsOfMedicalModel>clinicsResult=More4uHomeCubit.get(context).getDetailsOfMedical(AppStrings.clinics.tr(),result[index].subCategoryName!);
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=>Doctors(details: clinicsResult,title:result[index].subCategoryName!)));
-                              },
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(result[index].subCategoryName??"",
-                                            style: TextStyle(
-                                                color: AppColors.mainColor,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18.sp,
-                                              fontFamily: "Certa Sans",
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          Text(
-                                            "${More4uHomeCubit.get(context).getDetailsOfMedical(result[index].categoryName!,result[index].subCategoryName!).length.toString()} ${AppStrings.items.tr()}",
-                                            style: TextStyle(
-                                                color: AppColors.greyDark,
-                                                fontWeight: FontWeight.w500,
+                            ListView.builder(itemBuilder:(context,index)=>Skeletonizer(
+                              enabled: loadingSkeletonizer,
+                              child: InkWell(
+                                onTap: ()
+                                {
+                                   List<DetailsOfMedicalModel>clinicsResult=More4uHomeCubit.get(context).getDetailsOfMedical(AppStrings.clinics.tr(),result[index].subCategoryName!);
+                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>Doctors(details: clinicsResult,title:result[index].subCategoryName!)));
+                                },
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(result[index].subCategoryName??"",
+                                              style: TextStyle(
+                                                  color: AppColors.mainColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18.sp,
                                                 fontFamily: "Certa Sans",
-                                                fontSize: 16.sp
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                     Spacer(),
-                                      Image.network(
-                                        result[index].subCategoryImage??"",
-                                        fit: BoxFit.cover,
-                                        width: 35.w,
-                                      )
-                                    ],
-                                  ),
-                                  index!=result.length-1?
-                                  SizedBox(
-                                    height: 10.h,
-                                  ):SizedBox(
-                                  ),
-                                  index!=result.length-1?  Divider(
-                                    indent: 5.w,
-                                    endIndent: 5.w,
-                                    color: AppColors.greyText,
-                                    thickness: 0.2,
-                                  ):SizedBox(),
-                                  index!=result.length-1?
-                                  SizedBox(
-                                    height: 10.h,
-                                  ):SizedBox(),
-                                ],
+                                            SizedBox(
+                                              height: 10.h,
+                                            ),
+                                            Text(
+                                              "${More4uHomeCubit.get(context).getDetailsOfMedical(result[index].categoryName!,result[index].subCategoryName!).length.toString()} ${AppStrings.items.tr()}",
+                                              style: TextStyle(
+                                                  color: AppColors.greyDark,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: "Certa Sans",
+                                                  fontSize: 16.sp
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                       Spacer(),
+                                        Image.network(
+                                          result[index].subCategoryImage??"",
+                                          fit: BoxFit.cover,
+                                          width: 35.w,
+                                        )
+                                      ],
+                                    ),
+                                    index!=result.length-1?
+                                    SizedBox(
+                                      height: 10.h,
+                                    ):SizedBox(
+                                    ),
+                                    index!=result.length-1?  Divider(
+                                      indent: 5.w,
+                                      endIndent: 5.w,
+                                      color: AppColors.greyText,
+                                      thickness: 0.2,
+                                    ):SizedBox(),
+                                    index!=result.length-1?
+                                    SizedBox(
+                                      height: 10.h,
+                                    ):SizedBox(),
+                                  ],
+                                ),
                               ),
                             ),
                               itemCount: result.length,

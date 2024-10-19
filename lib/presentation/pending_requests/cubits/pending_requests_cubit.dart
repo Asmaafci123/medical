@@ -71,12 +71,12 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     });
   }
 
-
-  clearSearchResult()
-  {
-    searchInPendingRequestsController.clear();
-    emit(ClearSearchResultSuccessState());
-  }
+  //
+  // clearSearchResult()
+  // {
+  //   searchInPendingRequestsController.clear();
+  //   emit(ClearSearchResultSuccessState());
+  // }
 
 
 
@@ -339,7 +339,13 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
           }
         }
       }
-    emit(SearchInPendingRequestsSuccessState());
+    if(searchedResult.isNotEmpty) {
+      emit(SearchInPendingRequestsSuccessState());
+    }
+    else
+      {
+        emit(SearchInPendingRequestsErrorState());
+      }
   }
 
 
