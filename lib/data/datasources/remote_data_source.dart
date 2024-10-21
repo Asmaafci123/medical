@@ -642,6 +642,10 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     String? userToken,
     required int languageCode,
   }) async {
+    print("1111111");
+    print(token);
+    print("1111111");
+    print(userToken);
     final response = await client.post(
       Uri.parse(mobileTokenAPI).replace(queryParameters: {
         "userNumber": userNumber.toString(),
@@ -653,6 +657,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         'Authorization': 'Bearer $userToken',
       },
     );
+    print(response.statusCode );
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
       return result['message'];
@@ -925,6 +930,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         'Content-Type': 'application/json',
       },
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
       final secureStorage = SecureStorageImpl();
@@ -935,6 +941,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       refreshToken = await secureStorage.readSecureData('user refreshToken');
     } else if (response.statusCode == 401) {
       Map<String, dynamic> result = jsonDecode(response.body);
+      print(result['message']);
       if (result.isNotEmpty && result['message'] != null) {
         throw ServerException(result['message']);
       } else {

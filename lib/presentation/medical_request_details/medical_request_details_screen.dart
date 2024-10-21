@@ -405,9 +405,12 @@ class _MedicalDetailsScreenState extends State<MedicalDetailsScreen> {
                                                   ?.medicalRequest
                                                   ?.medicalPurpose ??
                                               "_"):SizedBox( ),
-                                      SizedBox(
+                                      _cubit
+                                          .details
+                                          ?.medicalRequestDetails
+                                          ?.medicalRequest?.requestType!=1?SizedBox(
                                         height: 5.h,
-                                      ),
+                                      ):SizedBox( ),
                                       InfoField(
                                           title: AppStrings.requestComment.tr(),
                                           value: _cubit

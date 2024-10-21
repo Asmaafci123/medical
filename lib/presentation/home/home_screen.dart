@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: HomeAppBar(title: "More4u",),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(22.w, 14.h, 22.w, 14.h),
+                      padding: EdgeInsets.fromLTRB(22.w, 10.h, 22.w, 10.h),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

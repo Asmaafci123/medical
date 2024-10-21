@@ -71,4 +71,5 @@ class CustomIcons {
   static const IconData individual = IconData(0xe845, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_info = IconData(0xe846, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData lock2 = IconData(0xe847, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData language = IconData(0xe900, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

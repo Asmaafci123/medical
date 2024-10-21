@@ -295,6 +295,7 @@ class DrawerWidget extends StatelessWidget {
                                           .whenComplete(
                                               () => _cubit.getCurrentUser());
                                     } else {
+
                                       final result =
                                           await Navigator.pushReplacementNamed(
                                               context,
@@ -437,7 +438,7 @@ class DrawerWidget extends StatelessWidget {
                                       if (ModalRoute.of(context)
                                               ?.settings
                                               .name ==
-                                          More4uHomeScreen.routeName) {
+                                          HomeScreen.routeName) {
                                         final completer = Completer();
                                         final result =
                                             await Navigator.pushNamed(
@@ -509,7 +510,7 @@ class DrawerWidget extends StatelessWidget {
                                             .of(context)
                                         ?.settings
                                         .name ==
-                                    More4uHomeScreen.routeName) {
+                                    HomeScreen.routeName) {
                                   final completer = Completer();
                                   final result = await Navigator.pushNamed(
                                           context, OurPartnersScreen.routeName)
@@ -540,7 +541,7 @@ class DrawerWidget extends StatelessWidget {
                                       if (ModalRoute.of(context)
                                               ?.settings
                                               .name ==
-                                          More4uHomeScreen.routeName) {
+                                          HomeScreen.routeName) {
                                         final completer = Completer();
                                         final result =
                                             await Navigator.pushNamed(
@@ -552,11 +553,14 @@ class DrawerWidget extends StatelessWidget {
                                         });
                                         completer.complete(result);
                                       } else {
-                                        final result = await Navigator
-                                            .pushReplacementNamed(context,
-                                                PendingRequestsScreen.routeName,
-                                                result: completer.future);
-                                        completer.complete(result);
+                                        // final result = await Navigator
+                                        //     .pushReplacementNamed(context,
+                                        //         PendingRequestsScreen.routeName,
+                                        //         result: completer.future);
+                                        // completer.complete(result);
+                                      //  Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context, PendingRequestsScreen.routeName, (route) => false);
                                       }
                                     },
                                   ),
@@ -575,7 +579,7 @@ class DrawerWidget extends StatelessWidget {
                         Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 NotificationScreen.routeName,
-                                ModalRoute.withName(More4uHomeScreen.routeName))
+                                ModalRoute.withName(HomeScreen.routeName))
                             .whenComplete(() => _cubit.getCurrentUser());
                       },
                     ),
@@ -611,7 +615,7 @@ class DrawerWidget extends StatelessWidget {
                         leading: CustomIcons.document, onTap: () async {
                       Navigator.pop(context);
                       if (ModalRoute.of(context)?.settings.name ==
-                          More4uHomeScreen.routeName) {
+                          HomeScreen.routeName) {
                         final completer = Completer();
                         final result = await Navigator.pushNamed(
                                 context, TermsAndConditions.routeName,
@@ -628,6 +632,7 @@ class DrawerWidget extends StatelessWidget {
                       }
                     }),
                     Divider(),
+
                     buildListTile(
                       context,
                       title: 'Logout'.tr(),
@@ -669,7 +674,7 @@ class DrawerWidget extends StatelessWidget {
           minLeadingWidth: 0,
           minVerticalPadding: 0,
           contentPadding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 12.w),
-          leading: (title == AppStrings.manageRequests.tr() || title=='My Requests'.tr() || title=="Pending Requests")
+          leading: (title == AppStrings.manageRequests.tr() || title=='My Requests'.tr() || title==AppStrings.pendingRequests.tr())
               ? BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     return bg.Badge(
