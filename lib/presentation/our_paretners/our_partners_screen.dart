@@ -30,8 +30,10 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
   @override
   void initState()
   {
+
     More4uHomeCubit.get(context).getMedical();
     super.initState();
+    loadingSkeletonizer=true;
   }
   @override
   Widget build(BuildContext context) {
@@ -139,6 +141,54 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
+                      state is GetMedicalLoadingState?
+                      Container(
+                        height: 160.h,
+                        width: double.infinity,
+                        color: AppColors.whiteColor,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.h,horizontal: 10.w),
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context,index)=>Skeletonizer(
+                              enabled: loadingSkeletonizer,
+                              child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                        backgroundColor:Color(0xfff2f3f8),
+                                        radius: 35.r,
+                                    ),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Text(
+                                      "medical details count",
+                                      style: TextStyle(
+                                          color: AppColors.greyDark,
+                                          fontSize: 12.sp,
+                                          fontFamily: "Certa Sans",
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Text(
+                                      "sub category name",
+                                      style: TextStyle(
+                                          color: AppColors.mainColor,
+                                          fontSize: 16.sp,
+                                          fontFamily: "Certa Sans",
+                                          fontWeight: FontWeight.w600
+                                      ),)
+                                  ],
+                                ),
+                              ),
+                            itemCount:5,
+                            separatorBuilder: (BuildContext context, int index)=>SizedBox(
+                              width: 15.w,
+                            ),)
+                        ),
+                      ):
                       Container(
                         height: 160.h,
                         width: double.infinity,
@@ -211,6 +261,84 @@ class _OurPartnersScreenState extends State<OurPartnersScreen> {
                           ),
                         ),
                       ),
+
+                      state is GetMedicalLoadingState?
+                      Flexible(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40.r),
+                                topRight: Radius.circular(40.r)
+                            ),
+                            color: AppColors.whiteColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20.h,horizontal:30.w),
+                            child:
+                            ListView.builder(itemBuilder:(context,index)=>Skeletonizer(
+                              enabled: loadingSkeletonizer,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "sub Category name",
+                                            style: TextStyle(
+                                              color: AppColors.mainColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18.sp,
+                                              fontFamily: "Certa Sans",
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Text(
+                                            "medical details count",
+                                            style: TextStyle(
+                                                color: AppColors.greyDark,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: "Certa Sans",
+                                                fontSize: 16.sp
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Image.network(
+                                        "https://more4u.cemex.com.eg/more4u/images/MedicalCategory/hospital.png",
+                                        fit: BoxFit.cover,
+                                        width: 35.w,
+                                      )
+                                    ],
+                                  ),
+                                  index!=result.length-1?
+                                  SizedBox(
+                                    height: 10.h,
+                                  ):SizedBox(
+                                  ),
+                                  index!=result.length-1?  Divider(
+                                    indent: 5.w,
+                                    endIndent: 5.w,
+                                    color: AppColors.greyText,
+                                    thickness: 0.2,
+                                  ):SizedBox(),
+                                  index!=result.length-1?
+                                  SizedBox(
+                                    height: 10.h,
+                                  ):SizedBox(),
+                                ],
+                              ),
+                            ),
+                              itemCount:5,
+                            ),
+                          ),
+                        ),
+                      ):
                       Flexible(
                         child: Container(
                           width: double.infinity,

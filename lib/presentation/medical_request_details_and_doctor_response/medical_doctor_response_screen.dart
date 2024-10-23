@@ -1075,40 +1075,56 @@ class _MedicalDoctorResponseScreenState
                                                                             ),
                                                                           ),
                                                                           _cubit.searchedMedicalItems.isNotEmpty
-                                                                              ? SizedBox(
-                                                                                  height: 300.h,
-                                                                                  width: 300.w,
-                                                                                  child: ListView.separated(
-                                                                                      itemBuilder: (context, index) => InkWell(
-                                                                                            onTap: () {
-                                                                                              _cubit.addMedicalItems(_cubit.searchedMedicalItems[index], index);
-                                                                                            },
-                                                                                            child: SizedBox(
-                                                                                              width: 270.w,
-                                                                                              child: Card(
-                                                                                                elevation: 5,
-                                                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r), side: BorderSide(color: _cubit.medicalItemsColor[index], width: 0.5.w)),
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                                                                                  child: Column(
-                                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                    children: [
-                                                                                                      Text(_cubit.searchedMedicalItems[index].itemName ?? "", style: TextStyle(color: AppColors.blackColor, fontWeight: FontWeight.w600, fontSize: 18.sp, fontFamily: "Certa Sans")),
-                                                                                                      SizedBox(
-                                                                                                        height: 5.h,
+                                                                              ? Column(
+                                                                                children: [
+                                                                                  // SizedBox(
+                                                                                  //   height: 10.h,
+                                                                                  // ),
+                                                                                  // Divider(
+                                                                                  //   indent: 50,
+                                                                                  //   endIndent: 50,
+                                                                                  //   color: AppColors.greyColor,
+                                                                                  //   height: 2,
+                                                                                  // ),
+                                                                                  SizedBox(
+                                                                                      height: 300.h,
+                                                                                      width: 300.w,
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.only(top: 10.h),
+                                                                                        child: ListView.separated(
+                                                                                            itemBuilder: (context, index) => InkWell(
+                                                                                                  onTap: () {
+                                                                                                    _cubit.addMedicalItems(_cubit.searchedMedicalItems[index], index);
+                                                                                                  },
+                                                                                                  child: SizedBox(
+                                                                                                    width: 270.w,
+                                                                                                    child: Card(
+                                                                                                      elevation: 5,
+                                                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r), side: BorderSide(color: _cubit.medicalItemsColor[index], width: 1.5.w)),
+                                                                                                      child: Padding(
+                                                                                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                                                                                        child: Column(
+                                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                          children: [
+                                                                                                            Text(_cubit.searchedMedicalItems[index].itemName ?? "", style: TextStyle(color: AppColors.blackColor, fontWeight: FontWeight.w600, fontSize: 18.sp, fontFamily: "Certa Sans")),
+                                                                                                            SizedBox(
+                                                                                                              height: 5.h,
+                                                                                                            ),
+                                                                                                            Text(_cubit.searchedMedicalItems[index].itemType ?? "", style: TextStyle(color: AppColors.greyDark, fontWeight: FontWeight.w200, fontSize: 16.sp, fontFamily: "Certa Sans")),
+                                                                                                          ],
+                                                                                                        ),
                                                                                                       ),
-                                                                                                      Text(_cubit.searchedMedicalItems[index].itemType ?? "", style: TextStyle(color: AppColors.greyDark, fontWeight: FontWeight.w200, fontSize: 16.sp, fontFamily: "Certa Sans")),
-                                                                                                    ],
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                      separatorBuilder: (context, index) => SizedBox(
-                                                                                            height: 5.h,
-                                                                                          ),
-                                                                                      itemCount: _cubit.searchedMedicalItems.length),
-                                                                                )
+                                                                                            separatorBuilder: (context, index) => SizedBox(
+                                                                                                  height: 5.h,
+                                                                                                ),
+                                                                                            itemCount: _cubit.searchedMedicalItems.length),
+                                                                                      ),
+                                                                                    ),
+                                                                                ],
+                                                                              )
                                                                               : Column(
                                                                                   children: [
                                                                                     SizedBox(

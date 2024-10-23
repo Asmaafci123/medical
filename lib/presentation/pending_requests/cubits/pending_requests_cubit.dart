@@ -162,7 +162,7 @@ class PendingRequestsCubit extends Cubit<PendingRequestsState> {
     if( medicalItemsColor[index]==AppColors.greyWhiteColor)
       {
         selectedMedicalItems.add(newItem);
-        medicalItemsColor[index]=AppColors.greenColor;
+        medicalItemsColor[index]=Color(0xFF2c93e7);
         mp1[newItem]=selectedMedicalItems.length-1;
         mp2[newItem]=index;
       }

@@ -55,6 +55,9 @@ class _MyMedicalRequestsScreenState
       create: (context) => sl<MyMedicalRequestsCubit>()..getMyMedicalRequests(),
       child: BlocConsumer<MyMedicalRequestsCubit, MyMedicalRequestsState>(
         listener: (context, state) {
+          print("2222222222222222222222222222");
+          print(state);
+          print("2222222222222222222222222222");
           if (state is GetFilteredMedicalRequestsLoadingState) {
             loadingAlertDialog(context);
           }

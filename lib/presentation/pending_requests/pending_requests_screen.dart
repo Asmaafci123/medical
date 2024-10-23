@@ -14,6 +14,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/themes/app_colors.dart';
 import '../../custom_icons.dart';
+import '../../domain/entities/response_medical_request.dart';
 import '../../injection_container.dart';
 import '../home/widgets/app_bar.dart';
 import '../medical_request_details_and_doctor_response/medical_doctor_response_screen.dart';
@@ -481,15 +482,13 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                                       ),
                                                     )),
                                           )
-                                        : _cubit.medicationPendingRequests
-                                                .isNotEmpty
+                                        : state
+                                                is GetPendingRequestsLoadingState
                                             ? Padding(
                                                 padding: EdgeInsets.fromLTRB(
                                                     10.w, 20.h, 10.w, 10.h),
                                                 child: ListView.separated(
-                                                    itemCount: _cubit
-                                                        .medicationPendingRequests
-                                                        .length,
+                                                    itemCount: 2,
                                                     separatorBuilder:
                                                         (context, index) =>
                                                             SizedBox(
@@ -501,13 +500,58 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                                             enabled:
                                                                 loadingSkeletonizer,
                                                             child: RequestCard(
-                                                              request: _cubit
-                                                                      .medicationPendingRequests[
-                                                                  index],
+                                                              request: Request(
+                                                                  requestID: '',
+                                                                  employeeName:
+                                                                      '',
+                                                                  employeeNumber:
+                                                                      '',
+                                                                  employeeImageUrl:
+                                                                      '',
+                                                                  requestDate:
+                                                                      DateTime
+                                                                          .now(),
+                                                                  createdBy: '',
+                                                                  requestTypeID:
+                                                                      '',
+                                                                  selfRequest:
+                                                                      false,
+                                                                  requestStatus:
+                                                                      ''),
                                                             ))),
                                               )
-                                            : Image.asset(
-                                                "assets/images/couldnot_find.jpg"),
+                                            : (state
+                                                    is GetPendingRequestsSuccessState && _cubit.medicationPendingRequests.isNotEmpty)
+                                                ? Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10.w,
+                                                            20.h,
+                                                            10.w,
+                                                            10.h),
+                                                    child: ListView.separated(
+                                                        itemCount: _cubit
+                                                            .medicationPendingRequests
+                                                            .length,
+                                                        separatorBuilder:
+                                                            (context, index) =>
+                                                                SizedBox(
+                                                                  height: 10.h,
+                                                                ),
+                                                        itemBuilder: (context,
+                                                                index) =>
+                                                            Skeletonizer(
+                                                                enabled:
+                                                                    loadingSkeletonizer,
+                                                                child:
+                                                                    RequestCard(
+                                                                  request: _cubit
+                                                                          .medicationPendingRequests[
+                                                                      index],
+                                                                ))),
+                                                  )
+                                                : Image.asset(
+                                                    "assets/images/couldnot_find.jpg"),
                                 state is SearchInPendingRequestsErrorState
                                     ? Image.asset(
                                         "assets/images/couldnot_find.jpg")
@@ -544,15 +588,13 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                                       ),
                                                     )),
                                           )
-                                        : _cubit.checkUpsPendingRequests
-                                                .isNotEmpty
+                                        : state
+                                                is GetPendingRequestsLoadingState
                                             ? Padding(
                                                 padding: EdgeInsets.fromLTRB(
-                                                    10.w, 20.h, 10.w, 0),
+                                                    10.w, 20.h, 10.w, 10.h),
                                                 child: ListView.separated(
-                                                    itemCount: _cubit
-                                                        .checkUpsPendingRequests
-                                                        .length,
+                                                    itemCount: 2,
                                                     separatorBuilder:
                                                         (context, index) =>
                                                             SizedBox(
@@ -564,13 +606,60 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                                             enabled:
                                                                 loadingSkeletonizer,
                                                             child: RequestCard(
-                                                              request: _cubit
-                                                                      .checkUpsPendingRequests[
-                                                                  index],
+                                                              request: Request(
+                                                                  requestID: '',
+                                                                  employeeName:
+                                                                      '',
+                                                                  employeeNumber:
+                                                                      '',
+                                                                  employeeImageUrl:
+                                                                      '',
+                                                                  requestDate:
+                                                                      DateTime
+                                                                          .now(),
+                                                                  createdBy: '',
+                                                                  requestTypeID:
+                                                                      '',
+                                                                  selfRequest:
+                                                                      false,
+                                                                  requestStatus:
+                                                                      ''),
                                                             ))),
                                               )
-                                            : Image.asset(
-                                                "assets/images/couldnot_find.jpg"),
+                                            : (state
+                                                    is GetPendingRequestsSuccessState && _cubit.checkUpsPendingRequests.isNotEmpty)
+                                                ? Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10.w,
+                                                            20.h,
+                                                            10.w,
+                                                            0),
+                                                    child: ListView.separated(
+                                                        itemCount: _cubit
+                                                            .checkUpsPendingRequests
+                                                            .length,
+                                                        separatorBuilder:
+                                                            (context, index) =>
+                                                                SizedBox(
+                                                                  height: 10.h,
+                                                                ),
+                                                        itemBuilder: (context,
+                                                                index) =>
+                                                            Skeletonizer(
+                                                                enabled:
+                                                                    loadingSkeletonizer,
+                                                                child:
+                                                                    RequestCard(
+                                                                  request: _cubit
+                                                                          .checkUpsPendingRequests[
+                                                                      index],
+                                                                ))),
+                                                  )
+                                                : Image.asset(
+                                                    "assets/images/couldnot_find.jpg"),
+
+
                                 state is SearchInPendingRequestsErrorState
                                     ? Image.asset(
                                         "assets/images/couldnot_find.jpg")
@@ -606,9 +695,48 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen>
                                                                 index],
                                                       ),
                                                     )),
-                                          )
-                                        : _cubit.sickLeavePendingRequests
-                                                .isNotEmpty
+                                          ):
+                                state
+                                is GetPendingRequestsLoadingState
+                                    ? Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.w, 20.h, 10.w, 10.h),
+                                  child: ListView.separated(
+                                      itemCount: 2,
+                                      separatorBuilder:
+                                          (context, index) =>
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                      itemBuilder: (context,
+                                          index) =>
+                                          Skeletonizer(
+                                              enabled:
+                                              loadingSkeletonizer,
+                                              child: RequestCard(
+                                                request: Request(
+                                                    requestID: '',
+                                                    employeeName:
+                                                    '',
+                                                    employeeNumber:
+                                                    '',
+                                                    employeeImageUrl:
+                                                    '',
+                                                    requestDate:
+                                                    DateTime
+                                                        .now(),
+                                                    createdBy: '',
+                                                    requestTypeID:
+                                                    '',
+                                                    selfRequest:
+                                                    false,
+                                                    requestStatus:
+                                                    ''),
+                                              ))),
+                                )
+
+                                        :( state
+                                is GetPendingRequestsSuccessState && _cubit.sickLeavePendingRequests.isNotEmpty)
                                             ? Padding(
                                                 padding: EdgeInsets.fromLTRB(
                                                     10.w, 20.h, 10.w, 0),
